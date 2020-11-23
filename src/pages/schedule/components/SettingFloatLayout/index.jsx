@@ -9,7 +9,7 @@ import * as scheduleActions_ from '../../../../actions/schedule'
 import * as loginActions_ from '../../../../actions/login'
 import IconFont from '../../../../components/iconfont'
 import CustomButton from '../../../../components/CustomButton'
-import './index.scss'
+
 
 function SettingFloatLayout(props) {
   const { userConfig, userType, scheduleActions, loginActions, isOpened, onClose } = props

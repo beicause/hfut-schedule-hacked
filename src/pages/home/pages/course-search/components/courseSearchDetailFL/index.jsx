@@ -8,11 +8,12 @@ import IconFont from '../../../../../../components/iconfont'
 import CustomButton from '../../../../../../components/CustomButton'
 import { UPDATE_BIZDATA } from '../../../../../../constants/schedule/singleCourseSchedule'
 import dataToMatrix from '../../../../../../utils/scheduleDataTranslator'
+import makeDayLineMatrix from '../../../../../../utils/dayLineMatrixMaker'
 import './index.scss'
 
 export default (props) => {
   const { courseSearchDetailFLData, onClose } = props
-  const { isOpened, courseData, nameZh, teachers } = courseSearchDetailFLData
+  const { isOpened, courseData, nameZh, teachers, semesterId } = courseSearchDetailFLData
   const timeTable = useSelector(state => state.event.bizData.timeTable)
   const dispatch = useDispatch()
 
@@ -76,15 +77,18 @@ export default (props) => {
     ]
   }
 
-  // 点击一个教室
+  // 点击查看课程安排
   const handleClickSchedule = () => {
 
+    // 生成所需基础信息
     const scheduleMatrix = dataToMatrix([courseData], [lessonId], timeTable).scheduleMatrix
+    const { dayLineMatrix } = makeDayLineMatrix(semesterId)
     
     dispatch({
       type: UPDATE_BIZDATA,
       payload: {
         scheduleMatrix,
+        dayLineMatrix,
       },
     })
     Taro.navigateTo({ url: '/pages/home/pages/course-search/pages/single-course-schedule/index' })

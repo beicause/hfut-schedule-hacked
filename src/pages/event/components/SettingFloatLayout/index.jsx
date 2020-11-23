@@ -8,7 +8,7 @@ import { AtFloatLayout } from 'taro-ui'
 import * as scheduleActions_ from '../../../../actions/schedule'
 import * as eventActions_ from '../../../../actions/event'
 import IconFont from '../../../../components/iconfont'
-import './index.scss'
+
 
 function SettingFloatLayout(props) {
   const { userConfig, scheduleActions, eventActions, isOpened, onClose } = props
@@ -88,12 +88,12 @@ function SettingFloatLayout(props) {
           <Switch checked={showBoxMask} onChange={e => updateUserConfig({ showBoxMask: e.detail.value })} color='#29a2ff' />
         </View>
 
+        <View className='settingFloatLayout-line'></View>
+
         <View className='settingFloatLayout-content-item'>
           <Text>精确天气（需开启位置信息）</Text>
           <Switch checked={exactWeather} onChange={handleChangeExactWeather} color='#29a2ff' />
         </View>
-
-        {/* <View className='settingFloatLayout-line'></View> */}
 
         <View  className='settingFloatLayout-footer'></View>
 

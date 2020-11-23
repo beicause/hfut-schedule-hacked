@@ -56,6 +56,7 @@ function Event(props) {
         <EventHeaderTitle />
         <EventTimePicker />
       </View>
+      
       <View className='event-content'>
         <EventTimeList />
         <EventTable />

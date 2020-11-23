@@ -15,7 +15,7 @@ import './index.scss'
 
 export default (props) => {
   const { courseDetailFLData, source, onClose, updateColorPicker, openCustomScheduleFL } = props
-  const { isOpened, showMemo, type, name, credits, clazzRoom, teacher, timeRange, lessonCode, lessonType, timeIndexes, dayIndex, studentClazzes, studentNumber, weekIndexes = [], weekIndexesZh, semestercode, color, memo: memo_ } = courseDetailFLData
+  const { isOpened, showMemo, type, name, campus, credits, clazzRoom, teacher, timeRange, lessonCode, lessonType, timeIndexes, dayIndex, studentClazzes, studentNumber, weekIndexes = [], weekIndexesZh, semestercode, color, memo: memo_ } = courseDetailFLData
   const userType = useSelector(state => state.login.bizData.userType)
   const theme = useSelector(state => state.schedule.bizData.userConfig.theme)
   const [memo, setMemo] = useState('')
@@ -138,6 +138,7 @@ export default (props) => {
         clazzName: name,
         lessonCode,
         semestercode,
+        campusId: campus === '宣城校区' ? 2 : 1,
       },
     })
     Taro.navigateTo({ url: '/pages/schedule/pages/class-list/index' })

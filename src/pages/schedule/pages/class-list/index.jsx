@@ -14,7 +14,7 @@ let reloginTime = 0
 
 
 function Classlist(props) {
-  const { clazzName, semestercode, lessonCode } = props
+  const { clazzName, semestercode, lessonCode, campusId } = props
   const [matelist, setMatelist] = useState([])
   const dispatch = useDispatch()
 
@@ -62,7 +62,7 @@ function Classlist(props) {
       })
     }
 
-    const classlistRes = await GET('/classlist', { key: appKey, semestercode, lessonCode, vpnTicket: key, target: 'app' })
+    const classlistRes = await GET('/classlist', { key: appKey, campus: campusId, semestercode, lessonCode, vpnTicket: key, target: 'app' })
     // 请求失败，可能是key过期了
     if (!classlistRes.success) {
       reloginTime++

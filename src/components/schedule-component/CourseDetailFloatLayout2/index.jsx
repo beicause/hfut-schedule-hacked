@@ -75,6 +75,7 @@ export default (props) => {
         clazzName: name,
         lessonCode,
         semestercode,
+        campusId: campus === '宣城校区' ? 2 : 1,
       },
     })
     Taro.navigateTo({ url: '/pages/schedule/pages/class-list/index' })

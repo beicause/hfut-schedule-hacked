@@ -5,6 +5,7 @@ const INITIAL_STATE = {
     clazzName: '',
     semestercode: '037',
     lessonCode: '',
+    campusId: 1,
   }
 }
 

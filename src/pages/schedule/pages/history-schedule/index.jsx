@@ -23,7 +23,7 @@ let reloginTime = 0
 
 
 function HistorySchedule(props) {
-  const { bizData, uiData } = props
+  const { bizData, uiData, userType } = props
   const { weekIndex, scheduleMatrix, dayLineMatrix, semester } = bizData
   const { courseDetailFLData } = uiData
   const dispatch = useDispatch()
@@ -36,7 +36,7 @@ function HistorySchedule(props) {
     if (!semester.id) {
       return
     }
-    const userData = Taro.getStorageSync('me')
+    const userData = Taro.getStorageSync(userType)
     const { userInfo } = userData
     const { key, campus } = userInfo
     Taro.showLoading({
@@ -147,6 +147,7 @@ function HistorySchedule(props) {
 function mapStateToProps(state) {
   return {
     ...state.historySchedule,
+    userType: state.login.bizData.userType,
   };
 }
 

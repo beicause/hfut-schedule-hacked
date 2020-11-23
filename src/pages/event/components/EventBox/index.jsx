@@ -8,7 +8,8 @@ import { updateUiData } from '../../../../actions/event'
 import IconFont from '../../../../components/iconfont'
 import diffTime from '../../../../utils/diffTime'
 import './index.scss'
-import '../../../../style/courseBox.scss'
+import '../../../../style/components/courseBox.scss'
+
 
 export default ({ boxType, courseBoxList, dayIndex, startTime, timeTable }) => {
   const courseBoxData = courseBoxList[0] ? courseBoxList[0] : {}

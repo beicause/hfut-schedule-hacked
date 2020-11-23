@@ -61,7 +61,7 @@ export default () => {
 
       {
         (dayIndex === currentDayIndex && weekIndex === currentWeekIndex) &&
-        <View className='eventTimeList-pTimeLine' style={{ marginTop: pTimeLine * eventBoxHeight - (15 / eventBoxHeight) + 'rpx' }}>
+        <View className='eventTimeList-pTimeLine' style={{ marginTop: pTimeLine * eventBoxHeight - (15 / eventBoxHeight) + 16 + 'rpx' }}>
           <View className='eventTimeList-pTimeLine-dot'></View>
           <View className='eventTimeList-pTimeLine-line'></View>
         </View>

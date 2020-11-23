@@ -16,12 +16,19 @@ export const enter = () => async (dispatch, getState) => {
     return Taro.redirectTo({ url: '/pages/login/index' })
   }
 
-  // 0.先渲染一个天气
+  // 读取本地的课表数据
+  // const userData = Taro.getStorageSync('me')
+  // const { scheduleMatrix, timeTable = [] } = userData
+  // // 二话不说先渲染
+  // dispatch(updateBizData({ scheduleMatrix, timeTable }))
+
+  // 1.先渲染一个天气
   dispatch(updateWeatherByLocation({ exact: false }))
 
-  // 1.渲染日程数据
+  // 2.渲染日程数据
   await dispatch(scheduleActions.enter({ userType: 'me', isEvent: true }))
-  const { schedule: { bizData: { scheduleMatrix, dayLineMatrix, currentWeekIndex, timeTable } } } = getState()
+  
+  const { schedule: { bizData: { scheduleMatrix: scheduleMatrix_, dayLineMatrix, currentWeekIndex, timeTable: timeTable_ } } } = getState()
   let dayIndex = 0
   dayLineMatrix.map((weekData) => {
     weekData.map((dayData, dayIndex_) => {
@@ -33,11 +40,11 @@ export const enter = () => async (dispatch, getState) => {
   })
 
   dispatch(updateBizData({
-    scheduleMatrix,
+    scheduleMatrix: scheduleMatrix_,
     dayLineMatrix,
     currentWeekIndex,
     weekIndex: currentWeekIndex,
-    timeTable,
+    timeTable: timeTable_,
     dayIndex,
     currentDayIndex: dayIndex,
   }))

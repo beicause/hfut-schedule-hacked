@@ -10,7 +10,7 @@ export const currentSemester = {
 }
 
 export const config = {
-  version: '4.6.0',
+  version: '4.6.5',
   autoConfig: {
     showDiffHelp: true,
     showAllSHelp: true,
@@ -42,23 +42,23 @@ export const updateInfo = {
   ],
   features: [
     {
-      info: '1. 教学班同学列表查询',
-      comment: '同学们期待的功能终于来了！不仅能看自己班级的，全校课表、课程检索中的班级也可以查看哦~',
+      info: '1. 全校课表支持历史学期',
+      comment: '很多同学提议想要这个功能，这次终于来啦~',
     },
     {
-      info: '2. 查看历史学期课表',
-      comment: '位于课表页 - 右上角加号中~',
+      info: '2. 日程页面顶部的日期选择器支持左右滑动',
+      comment: '操作没那么蛋疼了。。',
     },
   ],
   bugs: [
-    // {
-    //   info: '修复部分已知问题，优化体验',
-    //   // comment: '很多人都被提示',
-    // },
-    // {
-    //   info: '修复多处已知问题',
-    //   // comment: '很多人都被提示',
-    // },
+    {
+      info: '修复宣区同学查看班级学生列表出错的问题',
+      // comment: '很多人都被提示',
+    },
+    {
+      info: '修复情侣课表下的历史课表',
+      // comment: '很多人都被提示',
+    },
   ]
 }
 

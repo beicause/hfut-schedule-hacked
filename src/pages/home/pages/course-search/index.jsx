@@ -46,6 +46,7 @@ function CourseSearch() {
     courseData: null,
     nameZh: '',
     teachers: '',
+    semesterId: '',
   })
 
   const typeRange = [
@@ -148,7 +149,6 @@ function CourseSearch() {
   }
 
   const handleSemesterChange = (e) => {
-    console.log(e)
     setSearchData({
       ...searchData,
       selectedSemester: semesterData[e.detail.value]
@@ -175,7 +175,7 @@ function CourseSearch() {
               let teachers = ''
               teacherList.map((teacherData, ti) => teachers += (teacherData.person.nameZh + (ti + 1 === teacherList.length ? '' : '、')))
               return (
-                <View className='courseSearch-content-item' key={index} onClick={() => setCourseSearchDetailFLData({ isOpened: true, courseData: courseData.lesson, nameZh, teachers })}>
+                <View className='courseSearch-content-item' key={index} onClick={() => setCourseSearchDetailFLData({ isOpened: true, courseData: courseData.lesson, nameZh, teachers, semesterId: searchData.selectedSemester.id })}>
                   <View className='courseSearch-content-item-numberBox'>
                     <View className='courseSearch-content-item-numberBox-number'>{(submitData.pageCount - 1) * 20 + index + 1}</View>
                   </View>

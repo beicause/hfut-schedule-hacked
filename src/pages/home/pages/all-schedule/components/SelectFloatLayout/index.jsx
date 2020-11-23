@@ -6,6 +6,7 @@ import { AtFloatLayout, AtList, AtListItem } from 'taro-ui'
 import CustomButton from '../../../../../../components/CustomButton'
 import { updateScheduleData, updateBizData } from '../../../../../../actions/allSchedule'
 import IconFont from '../../../../../../components/iconfont'
+import semesterData from '../../../../../../assets/data/semesterData'
 import './index.scss'
 
 export default (props) => {
@@ -20,6 +21,8 @@ export default (props) => {
   const [selectedLevel, setSelectedLevel] = useState('')
   const [clazzList, setClazzList] = useState([])
   const [selectedClazz, setSelectedClazz] = useState('')
+
+  const [selectedSemester, setSelectedSemester] = useState(semesterData[0])
 
   const handleAcademyChange = (e) => {
     const academy = Object.keys(selectInfo)[e.detail.value]
@@ -66,8 +69,10 @@ export default (props) => {
   const handleQuery = async () => {
     if (!selectedClazz) { return }
     await dispatch(updateBizData({ level: selectedLevel }))
-    dispatch(updateScheduleData({ clazz: selectedClazz, level: selectedLevel }))
-    onClose()
+    const queryStatus = await dispatch(updateScheduleData({ clazz: selectedClazz, level: selectedLevel, semesterId: selectedSemester.id }))
+    if (queryStatus) {
+      onClose()
+    }
   }
 
   const selectsData = [
@@ -97,6 +102,10 @@ export default (props) => {
     },
   ]
 
+  const handleSemesterChange = e => {
+    setSelectedSemester(semesterData[e.detail.value])
+  }
+
   return (
     <AtFloatLayout
       isOpened={isOpened}
@@ -111,6 +120,24 @@ export default (props) => {
       </View>
 
       <View className='selectFloatLayout-content'>
+
+        <View className='selectFloatLayout-content-item' >
+          <Picker
+            mode='selector'
+            range={semesterData}
+            value={semesterData.indexOf(selectedSemester)}
+            rangeKey='nameZh'
+            onChange={handleSemesterChange}
+            className='courseSearch-drawer-type'
+          >
+            <AtList className='selectFloatLayout-content-item' hasBorder={false}>
+              <AtListItem
+                title={selectedSemester.nameZh}
+                hasBorder={false}
+              />
+            </AtList>
+          </Picker>
+        </View>
 
         {
           selectsData.map((selectData) => {

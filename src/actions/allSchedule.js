@@ -11,7 +11,7 @@ import makeDayLineMatrix from '../utils/dayLineMatrixMaker'
 import scheduleDiffTool from '../utils/scheduleDiffTool'
 
 export const updateScheduleData = (payload) => async (dispatch) => {
-  const { clazz, level } = payload
+  const { clazz, level, semesterId } = payload
 
   Taro.showLoading({
     title: '正在查询...',
@@ -20,8 +20,19 @@ export const updateScheduleData = (payload) => async (dispatch) => {
   // 确保diff按钮是关闭的
   await dispatch(updateUiData({ diff: false }))
 
-  const res = await GET('/schedule/schedule', { clazz })
+  const res = await GET('/schedule/schedule', { clazz, semesterId })
   const { scheduleData, lessonIds, timeTable: { courseUnitList: timeTable } } = res
+  // 如果lessonIds为空，说明没有数据
+  if (lessonIds.length === 0) {
+    Taro.hideLoading()
+    Taro.showToast({
+      title: '检索结果为空',
+      icon: 'none',
+      duration: 1000
+    })
+    dispatch(updateBizData({ scheduleMatrix: [] }))
+    return false
+  }
   const { scheduleMatrix } = dataToMatrix(scheduleData, lessonIds, timeTable)
   scheduleMatrix.map((weekData) => {
     weekData.map((dayData) => {
@@ -34,7 +45,6 @@ export const updateScheduleData = (payload) => async (dispatch) => {
           }
           if (studentClazzes[0].indexOf(level) === -1 || lessonType.indexOf('公选') !== -1) {
             courseBoxList[timeIndex] = {}
-            console.log(courseBoxData)
           }
         })
       })
@@ -42,6 +52,7 @@ export const updateScheduleData = (payload) => async (dispatch) => {
   })
   await dispatch(updateBizData({ scheduleMatrix, backupScheduleM: _.cloneDeep(scheduleMatrix) }))
   Taro.hideLoading()
+  return true
 }
 
 // 首次进入，检查本地存储有没有selectInfo和scheduleData。
@@ -104,7 +115,7 @@ export const diffSchedule = ({ targetScheduleM }) => async (dispatch) => {
       }
     })
   }
-  
+
   Taro.showLoading({
     title: '正在对比...',
     mask: true,

@@ -17,8 +17,8 @@ const MemoBackgroundImg = memo(BackgroundImg)
 
 
 function SingleCourseSchedule(props) {
-  const { bizData, uiData, dayLineMatrix, currentWeekIndex } = props
-  const { weekIndex, scheduleMatrix } = bizData
+  const { bizData, uiData, currentWeekIndex } = props
+  const { weekIndex, scheduleMatrix, dayLineMatrix } = bizData
   const { courseDetailFLData } = uiData
   const dispatch = useDispatch()
 
@@ -91,7 +91,6 @@ function SingleCourseSchedule(props) {
 function mapStateToProps(state) {
   return {
     ...state.singleCourseSchedule,
-    dayLineMatrix: state.event.bizData.dayLineMatrix,
     currentWeekIndex: state.event.bizData.currentWeekIndex,
   };
 }

@@ -1,6 +1,9 @@
 @import './theme.scss';
-@import './courseBox.scss';
-@import './generalSchedule.scss';
+
+// 部分可以公用样式的组件
+@import './components/courseBox.scss';
+@import './components/generalSchedule.scss';
+@import './components/settingFloatLayout.scss';
 
 // 把一部分公用组件的scss放在这里，避免编译警告
 @import '../components/CustomButton/index.scss';

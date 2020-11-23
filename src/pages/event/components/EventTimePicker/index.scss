@@ -41,11 +41,13 @@
 }
 
 .eventTimePicker {
-  padding: 0 36px;
+  // padding: 0 36px;
+  // background-color: red;
 
   &-dayLine {
     display: flex;
     justify-content: space-between;
+    padding: 0 36px;
 
     &-item {
       display: flex;
@@ -92,6 +94,7 @@
     position: relative;
     animation: calendar-in .5s forwards;
     margin-bottom: 16px;
+    padding: 0 36px;
 
     &-back {
       z-index: 4;
