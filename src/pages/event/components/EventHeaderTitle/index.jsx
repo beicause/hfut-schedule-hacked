@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import IconFont from '../../../../components/iconfont'
 import SettingFloatLayout from '../SettingFloatLayout'
 import { updateBizData, updateUiData } from '../../../../actions/event'
+import themeC from '../../../../style/theme'
 import './index.scss';
 
 export default () => {
@@ -15,6 +16,7 @@ export default () => {
   const currentWeekIndex = useSelector(state => state.event.bizData.currentWeekIndex)
   const currentDayIndex = useSelector(state => state.event.bizData.currentDayIndex)
   const showCalendar = useSelector(state => state.event.uiData.showCalendar)
+  const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
   const dispatch = useDispatch()
 
   const [dailyEventNumber, setDailyEventNumber] = useState(0)
@@ -64,7 +66,7 @@ export default () => {
         </View>
         <View className='eventHeaderTitle-comment'>
           <Text>今日有</Text>
-          <Text className='eventHeaderTitle-comment-number'>{dailyEventNumber}项</Text>
+          <Text style={{ color: themeC[`color-brand-${globalTheme}`] }}>{dailyEventNumber}项</Text>
           <Text>日程</Text>
         </View>
       </View>

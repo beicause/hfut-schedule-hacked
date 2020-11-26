@@ -22,9 +22,13 @@ const INITIAL_STATE = {
       showBoxMask: true,
       showEventMemo: true, // event上显示memo
       exactWeather: true,
+      // 全局的
+      globalTheme: 99,
     },
     backgroundPath: '',
     moocData: [],
+    meAutoUpdated: false,
+    herAutoUpdated: false,
   },
   uiData: {
     diff: false,

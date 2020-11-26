@@ -8,11 +8,12 @@ import { AtFloatLayout } from 'taro-ui'
 import * as scheduleActions_ from '../../../../actions/schedule'
 import * as eventActions_ from '../../../../actions/event'
 import IconFont from '../../../../components/iconfont'
+import themeC from '../../../../style/theme'
 
 
 function SettingFloatLayout(props) {
   const { userConfig, scheduleActions, eventActions, isOpened, onClose } = props
-  const { eventBoxHeight, showBoxMask, showEventMemo, exactWeather } = userConfig
+  const { eventBoxHeight, showBoxMask, showEventMemo, exactWeather, globalTheme } = userConfig
 
   const eventHeightRange = [
     { name: '1倍', value: 1 },
@@ -80,19 +81,19 @@ function SettingFloatLayout(props) {
 
         <View className='settingFloatLayout-content-item'>
           <Text>日程上显示备忘录</Text>
-          <Switch checked={showEventMemo} onChange={e => updateUserConfig({ showEventMemo: e.detail.value })} color='#29a2ff' />
+          <Switch checked={showEventMemo} onChange={e => updateUserConfig({ showEventMemo: e.detail.value })} color={themeC[`color-brand-${globalTheme}`]} />
         </View>
 
         <View className='settingFloatLayout-content-item'>
           <Text>当前时间前的日程阴影</Text>
-          <Switch checked={showBoxMask} onChange={e => updateUserConfig({ showBoxMask: e.detail.value })} color='#29a2ff' />
+          <Switch checked={showBoxMask} onChange={e => updateUserConfig({ showBoxMask: e.detail.value })} color={themeC[`color-brand-${globalTheme}`]} />
         </View>
 
         <View className='settingFloatLayout-line'></View>
 
         <View className='settingFloatLayout-content-item'>
           <Text>精确天气（需开启位置信息）</Text>
-          <Switch checked={exactWeather} onChange={handleChangeExactWeather} color='#29a2ff' />
+          <Switch checked={exactWeather} onChange={handleChangeExactWeather} color={themeC[`color-brand-${globalTheme}`]} />
         </View>
 
         <View  className='settingFloatLayout-footer'></View>

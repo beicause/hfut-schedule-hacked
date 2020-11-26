@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import Taro from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { View, Input, Image, Text } from '@tarojs/components'
+import { useSelector } from 'react-redux'
 import { AtPagination, AtDrawer, AtLoadMore } from 'taro-ui'
 
 import bookSearchNone from '../../../../assets/img/book-search-none.svg'
@@ -9,9 +10,11 @@ import BookStatusFL from './components/BookStatusFL'
 import BookInfoFL from './components/BookInfoFL'
 import CustomButton from '../../../../components/CustomButton'
 import IconFont from '../../../../components/iconfont'
+import themeC from '../../../../style/theme'
 import './index.scss'
 
 function CourseSearch() {
+  const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
   const [ticket, setTicket] = useState('')
   const [searchText, setSearchText] = useState('')
   const [searchData, setSearchData] = useState({
@@ -37,6 +40,9 @@ function CourseSearch() {
     show: false,
     bookList: [],
   })
+
+  // 适配全局主题
+  useDidShow(() => Taro.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: themeC[`color-brand-dark-${globalTheme}`] }))
 
   useEffect(() => {
     getNewTicket()
@@ -89,13 +95,13 @@ function CourseSearch() {
       bno: info.marcRecNo
     })
       .then(res => {
-        if (!res.bookStatus || res.bookStatus.length === 0) {
+        if (!res.success || !res.bookStatus) {
           getNewTicket()
             .then(ticket_ => {
               setTicket(ticket_)
             })
         }
-        setBookStatusFLData({ ...bookStatusFLData, isOpened: true, title: info.title, statusList: res.bookStatus })
+        setBookStatusFLData({ ...bookStatusFLData, isOpened: true, title: info.title, statusList: res.bookStatus.length === 0 ? [{status: '没有查询到'}] : res.bookStatus })
       })
   }
 
@@ -219,7 +225,7 @@ function CourseSearch() {
               />
               :
               bookRankingData.bookList.map((bookName, bIndex) => (
-                <View className='bookSearch-bookRanking-item' key={bIndex} onClick={() => handleClickRankingBook(bookName)}>{bookName}</View>
+                <View className='bookSearch-bookRanking-item' style={{ backgroundColor: themeC[`color-brand-light-${globalTheme}`] }} key={bIndex} onClick={() => handleClickRankingBook(bookName)}>{bookName}</View>
               ))
           }
         </View>

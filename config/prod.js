@@ -1,3 +1,5 @@
+import TerserPlugin from "terser-webpack-plugin";
+
 /* eslint-disable import/no-commonjs */
 module.exports = {
   env: {
@@ -20,6 +22,21 @@ module.exports = {
       ], // `pages/any/way/index` 也会参与 prerender
       console: true,
       // exclude: ['pages/shop/index/index'] // `pages/shop/index/index` 不用参与 prerender
+    },
+    webpackChain(chain) {
+      chain.mode("production");
+      chain.optimization.minimize(true);
+      chain.plugin("terser").use(TerserPlugin, [
+        {
+          cache: true,
+          extractComments: false,
+          terserOptions: {
+            output: {
+              comments: false
+            }
+          }
+        }
+      ]);
     }
   },
   h5: {

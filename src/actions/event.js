@@ -16,12 +16,6 @@ export const enter = () => async (dispatch, getState) => {
     return Taro.redirectTo({ url: '/pages/login/index' })
   }
 
-  // 读取本地的课表数据
-  // const userData = Taro.getStorageSync('me')
-  // const { scheduleMatrix, timeTable = [] } = userData
-  // // 二话不说先渲染
-  // dispatch(updateBizData({ scheduleMatrix, timeTable }))
-
   // 1.先渲染一个天气
   dispatch(updateWeatherByLocation({ exact: false }))
 

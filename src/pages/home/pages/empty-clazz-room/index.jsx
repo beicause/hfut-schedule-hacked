@@ -3,7 +3,7 @@
 // 单纯从实现业务出发
 
 import React, { useState, useEffect } from 'react'
-import Taro from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { useSelector, useDispatch } from 'react-redux'
 import { View, Text, Picker } from '@tarojs/components'
 import _ from 'lodash'
@@ -14,6 +14,7 @@ import { dayIndexToZh } from '../../../../utils/scheduleDataTranslator'
 import DatePlckerFL from './components/DatePlckerFL'
 import WeekPicker from '../../../../components/schedule-component/WeekPicker'
 import { UPDATE_BIZDATA } from '../../../../constants/schedule/roomDetailSchedule'
+import themeC from '../../../../style/theme'
 import './index.scss'
 
 const buildingRange_2 = [
@@ -62,6 +63,7 @@ function EmptyClazzRoom() {
   const timeTable = useSelector(state => state.event.bizData.timeTable)
   const currentWeekIndex = useSelector(state => state.event.bizData.currentWeekIndex)
   const currentDayIndex = useSelector(state => state.event.bizData.currentDayIndex)
+  const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
   const [allData, setAllData] = useState({})
   const [campus, setCampus] = useState(0)
   const [date, setDate] = useState('2020-10-10')
@@ -76,6 +78,9 @@ function EmptyClazzRoom() {
   const [showWeekPicker, setShowWeekPicker] = useState(false)
   const [uiData, setUiData] = useState([])
   const dispatch = useDispatch()
+
+  // 适配全局主题
+  useDidShow(() => Taro.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: themeC[`color-brand-dark-${globalTheme}`] }))
 
   // 刚进入页面时的初始化effect
   useEffect(() => {
@@ -133,8 +138,8 @@ function EmptyClazzRoom() {
     if (JSON.stringify(allData) === '{}') {
       return
     }
-    console.log('------------')
-    console.log('执行ui更新')
+    // console.log('------------')
+    // console.log('执行ui更新')
     const buildingZh = buildingRange[building].buildingZh
     const existedFloor = []
     let maxNumber = 1
@@ -358,7 +363,7 @@ function EmptyClazzRoom() {
 
         <View className='emptyClazzRoom-header-item'>
           <Picker mode='selector' range={campusRange} value={campus} rangeKey='campusZh' onChange={e => setCampus(e.detail.value)}>
-            <View className='emptyClazzRoom-header-item-box'>
+            <View className='emptyClazzRoom-header-item-box' style={{ backgroundColor: themeC[`color-brand-${globalTheme}`] }}>
               <View style={{ position: 'relative', top: '2rpx', left: '-8rpx', marginRight: '5rpx' }}>
                 <IconFont name='map-filling' size={30} color='#ffffff' />
               </View>
@@ -366,18 +371,18 @@ function EmptyClazzRoom() {
             </View>
           </Picker>
 
-          <View className='emptyClazzRoom-header-item-box' onClick={() => setShowDatePicker(true)}>
+          <View className='emptyClazzRoom-header-item-box' style={{ backgroundColor: themeC[`color-brand-${globalTheme}`] }} onClick={() => setShowDatePicker(true)}>
             <IconFont />
             <Text>{date}</Text>
           </View>
 
-          <View className='emptyClazzRoom-header-item-box' onClick={() => setShowWeekPicker(true)}>
+          <View className='emptyClazzRoom-header-item-box' style={{ backgroundColor: themeC[`color-brand-${globalTheme}`] }} onClick={() => setShowWeekPicker(true)}>
             <IconFont />
             <Text>{`第${weekIndex + 1}周`}</Text>
           </View>
 
           <Picker mode='selector' range={dayRange} value={dayIndex} rangeKey='dayZh' onChange={e => weekAndDayToDate(weekIndex, parseInt(e.detail.value))}>
-            <View className='emptyClazzRoom-header-item-box'>
+            <View className='emptyClazzRoom-header-item-box' style={{ backgroundColor: themeC[`color-brand-${globalTheme}`] }}>
               <IconFont />
               <Text>{`${dayIndexToZh(dayIndex)}`}</Text>
             </View>
@@ -385,18 +390,18 @@ function EmptyClazzRoom() {
 
         </View>
 
-        <View className='emptyClazzRoom-header-item'>
+        <View className='emptyClazzRoom-header-item' style={{ color: themeC[`color-brand-${globalTheme}`] }}>
           <Picker mode='selector' range={buildingRange} value={building} rangeKey='buildingZh' onChange={e => setBuilding(e.detail.value)}>
-            <View className='emptyClazzRoom-header-item-box emptyClazzRoom-header-item-box_white'>
+            <View className='emptyClazzRoom-header-item-box emptyClazzRoom-header-item-box_white' style={{ color: themeC[`color-brand-${globalTheme}`], borderColor: themeC[`color-brand-${globalTheme}`] }}>
               <View style={{ position: 'relative', top: '2rpx', left: '-8rpx', marginRight: '5rpx' }}>
-                <IconFont name='task-filling' size={30} color='#0089ff' />
+                <IconFont name='task-filling' size={30} color={themeC[`color-brand-${globalTheme}`]} />
               </View>
               <Text>{buildingRange[building].buildingZh}</Text>
             </View>
           </Picker>
 
           <Picker mode='selector' range={timeIndexRange} value={startTime - 1} rangeKey='timeZh' onChange={e => setStartTime(parseInt(e.detail.value) + 1)}>
-            <View className='emptyClazzRoom-header-item-box emptyClazzRoom-header-item-box_white'>
+            <View className='emptyClazzRoom-header-item-box emptyClazzRoom-header-item-box_white' style={{ color: themeC[`color-brand-${globalTheme}`], borderColor: themeC[`color-brand-${globalTheme}`] }}>
               <IconFont />
               <Text>{`第${startTime}节`}</Text>
             </View>
@@ -407,7 +412,7 @@ function EmptyClazzRoom() {
           </View>
 
           <Picker mode='selector' range={timeIndexRange} value={endTime - 1} rangeKey='timeZh' onChange={e => setEndTime(parseInt(e.detail.value) + 1)}>
-            <View className='emptyClazzRoom-header-item-box emptyClazzRoom-header-item-box_white'>
+            <View className='emptyClazzRoom-header-item-box emptyClazzRoom-header-item-box_white' style={{ color: themeC[`color-brand-${globalTheme}`], borderColor: themeC[`color-brand-${globalTheme}`] }}>
               <IconFont />
               <Text>{`第${endTime}节`}</Text>
             </View>
@@ -415,9 +420,9 @@ function EmptyClazzRoom() {
 
           {
             isLocateBtnShow() &&
-            <View className='emptyClazzRoom-header-item-box emptyClazzRoom-header-item-box_locate' onClick={locateAll}>
+            <View className='emptyClazzRoom-header-item-box emptyClazzRoom-header-item-box_locate' style={{ color: themeC[`color-brand-${globalTheme}`], borderColor: themeC[`color-brand-${globalTheme}`] }} onClick={locateAll}>
               <View style={{ position: 'relative', top: '2rpx', left: '-8rpx', marginRight: '5rpx' }}>
-                <IconFont name='map-filling' size={30} color='#0089ff' />
+                <IconFont name='map-filling' size={30} color={themeC[`color-brand-${globalTheme}`]} />
               </View>
             </View>
           }

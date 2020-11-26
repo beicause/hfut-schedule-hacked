@@ -16,6 +16,7 @@ import { GET } from '../../../../utils/request'
 import { relogin } from '../../../../actions/login'
 import dataToMatrix from '../../../../utils/scheduleDataTranslator'
 import makeDayLineMatrix from '../../../../utils/dayLineMatrixMaker'
+import themeC from '../../../../style/theme'
 
 const MemoBackgroundImg = memo(BackgroundImg)
 // key过期后，尝试重新登陆的次数
@@ -23,14 +24,13 @@ let reloginTime = 0
 
 
 function HistorySchedule(props) {
-  const { bizData, uiData, userType } = props
+  const { bizData, uiData, userType, globalTheme } = props
   const { weekIndex, scheduleMatrix, dayLineMatrix, semester } = bizData
   const { courseDetailFLData } = uiData
   const dispatch = useDispatch()
 
-  useDidShow(() => {
-    Taro.hideHomeButton()
-  })
+  // 适配全局主题
+  useDidShow(() => Taro.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: themeC[`color-brand-dark-${globalTheme}`] }))
 
   const getSchedule = useCallback(() => {
     if (!semester.id) {
@@ -148,6 +148,7 @@ function mapStateToProps(state) {
   return {
     ...state.historySchedule,
     userType: state.login.bizData.userType,
+    globalTheme: state.schedule.bizData.userConfig.globalTheme,
   };
 }
 

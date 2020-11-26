@@ -1,5 +1,5 @@
 import React from 'react'
-import { AtButton } from 'taro-ui'
+import { Button } from '@tarojs/components'
 
 import './index.scss'
 
@@ -9,7 +9,7 @@ function CustomButton(props) {
   const className = `custom-color-button courseBox-boxColor-${backgroundColor}_${theme} courseBox-fontColor-${backgroundColor}_${theme}`
 
   return (
-    <AtButton
+    <Button
       className={className}
       disabled={disabled}
       loading={loading}
@@ -18,7 +18,7 @@ function CustomButton(props) {
       onGetUserInfo={onSubmit}
     >
       {value}
-    </AtButton>
+    </Button>
   )
 
 }

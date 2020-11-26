@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Taro from '@tarojs/taro'
+import { useSelector } from 'react-redux'
 import { View } from '@tarojs/components'
 import moment from 'moment'
 
@@ -7,7 +8,8 @@ import StandardFloatLayout from '../../../../../../components/StandardFloatLayou
 import SelectFloatLayout from '../SelectFloatLayout'
 import IconFont from '../../../../../../components/iconfont'
 import WeekPicker from '../../../../../../components/schedule-component/WeekPicker'
-import './index.scss'
+import themeC from '../../../../../../style/theme'
+
 
 export default (props) => {
   const { weekIndex, currentWeekIndex, changeWeekIndex } = props
@@ -15,6 +17,7 @@ export default (props) => {
   const [showSelect, setShowSelect] = useState(false)
   const [showWeekPicker, setShowWeekPicker] = useState(false)
   const [supportNum, setSupportNum] = useState({ academyNum: 0, majorNum: 0, clazzNum: 0 })
+  const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
 
   useEffect(() => {
     setTimeout(() => {
@@ -45,7 +48,7 @@ export default (props) => {
   const daysZh = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
 
   return (
-    <View className='scheduleTop'>
+    <View className='scheduleTop' style={{ backgroundColor: themeC[`color-brand-dark-${globalTheme}`] }}>
 
       <View className='scheduleTop-aixin' onClick={() => setShowAbout(true)}>
         <IconFont name='info-circle-fill' size={42} color='#ffffff' />

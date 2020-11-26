@@ -1,13 +1,17 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { View, Text } from '@tarojs/components'
 import { AtFloatLayout } from 'taro-ui'
 
 import IconFont from '../../../../../../components/iconfont'
+import themeC from '../../../../../../style/theme'
 import './index.scss'
 
 export default (props) => {
   const { scoreDetailFLData, onClose } = props
   const { isOpened, info } = scoreDetailFLData
+
+  const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
 
   let items = []
   if (info) {
@@ -39,7 +43,7 @@ export default (props) => {
             item.text &&
             <View className='scoreDetailFL-content-item' key={`thisis${index}`}>
               <IconFont name={item.icon} />
-              <Text>{item.value}</Text>
+              <Text style={{ color: themeC[`color-brand-${globalTheme}`] }}>{item.value}</Text>
             </View>
           ))
         }

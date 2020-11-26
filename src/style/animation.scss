@@ -1,0 +1,569 @@
+@import './theme.scss';
+
+@keyframes none-shadow {
+  0% {
+    box-shadow: 0px 0px 0px $color-light;
+  }
+
+  100% {
+    box-shadow: 16px 16px 16px $color-light;
+  }
+}
+
+@keyframes shadow-none {
+  0% {
+    box-shadow: 16px 16px 16px $color-light;
+  }
+
+  100% {
+    box-shadow: 0px 0px 0px $color-light;
+  }
+}
+
+// 各主体对应动画
+
+// 主题0
+@keyframes grey-color-shadow-0 {
+  0% {
+    background-color: #ebeef3;
+    color: #acafbe;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+
+  100% {
+    background-color: $color-brand-0;
+    color: #ffffff;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+}
+
+@keyframes color-grey-shadow-0 {
+  0% {
+    background-color: $color-brand-0;
+    color: #ffffff;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+
+  100% {
+    background-color: #ebeef3;
+    color: #acafbe;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+}
+
+@keyframes grey-color-0 {
+  0% {
+    background: $color-background;
+  }
+
+  100% {
+    background: $color-brand-0;
+  }
+}
+
+@keyframes color-grey-0 {
+  0% {
+    background: $color-brand-0;
+  }
+
+  100% {
+    background: $color-background;
+  }
+}
+
+
+
+// 主题1
+@keyframes grey-color-shadow-1 {
+  0% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+
+  100% {
+    background-color: $color-brand-1;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+}
+
+@keyframes color-grey-shadow-1 {
+  0% {
+    background-color: $color-brand-1;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+
+  100% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+}
+
+@keyframes grey-color-1 {
+  0% {
+    background: $color-background;
+  }
+
+  100% {
+    background: $color-brand-1;
+  }
+}
+
+@keyframes color-grey-1 {
+  0% {
+    background: $color-brand-1;
+  }
+
+  100% {
+    background: $color-background;
+  }
+}
+
+// 主题2
+@keyframes grey-color-shadow-2 {
+  0% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+
+  100% {
+    background-color: $color-brand-2;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+}
+
+@keyframes color-grey-shadow-2 {
+  0% {
+    background-color: $color-brand-2;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+
+  100% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+}
+
+@keyframes grey-color-2 {
+  0% {
+    background: $color-background;
+  }
+
+  100% {
+    background: $color-brand-2;
+  }
+}
+
+@keyframes color-grey-2 {
+  0% {
+    background: $color-brand-2;
+  }
+
+  100% {
+    background: $color-background;
+  }
+}
+
+// 主题3
+@keyframes grey-color-shadow-3 {
+  0% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+
+  100% {
+    background-color: $color-brand-3;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+}
+
+@keyframes color-grey-shadow-3 {
+  0% {
+    background-color: $color-brand-3;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+
+  100% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+}
+
+@keyframes grey-color-3 {
+  0% {
+    background: $color-background;
+  }
+
+  100% {
+    background: $color-brand-3;
+  }
+}
+
+@keyframes color-grey-3 {
+  0% {
+    background: $color-brand-3;
+  }
+
+  100% {
+    background: $color-background;
+  }
+}
+
+// 主题4
+@keyframes grey-color-shadow-4 {
+  0% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+
+  100% {
+    background-color: $color-brand-4;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+}
+
+@keyframes color-grey-shadow-4 {
+  0% {
+    background-color: $color-brand-4;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+
+  100% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+}
+
+@keyframes grey-color-4 {
+  0% {
+    background: $color-background;
+  }
+
+  100% {
+    background: $color-brand-4;
+  }
+}
+
+@keyframes color-grey-4 {
+  0% {
+    background: $color-brand-4;
+  }
+
+  100% {
+    background: $color-background;
+  }
+}
+
+// 主题5
+@keyframes grey-color-shadow-5 {
+  0% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+
+  100% {
+    background-color: $color-brand-5;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+}
+
+@keyframes color-grey-shadow-5 {
+  0% {
+    background-color: $color-brand-5;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+
+  100% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+}
+
+@keyframes grey-color-5 {
+  0% {
+    background: $color-background;
+  }
+
+  100% {
+    background: $color-brand-5;
+  }
+}
+
+@keyframes color-grey-5 {
+  0% {
+    background: $color-brand-5;
+  }
+
+  100% {
+    background: $color-background;
+  }
+}
+
+// 主题6
+@keyframes grey-color-shadow-6 {
+  0% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+
+  100% {
+    background-color: $color-brand-6;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+}
+
+@keyframes color-grey-shadow-6 {
+  0% {
+    background-color: $color-brand-6;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+
+  100% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+}
+
+@keyframes grey-color-6 {
+  0% {
+    background: $color-background;
+  }
+
+  100% {
+    background: $color-brand-6;
+  }
+}
+
+@keyframes color-grey-6 {
+  0% {
+    background: $color-brand-6;
+  }
+
+  100% {
+    background: $color-background;
+  }
+}
+
+// 主题7
+@keyframes grey-color-shadow-7 {
+  0% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+
+  100% {
+    background-color: $color-brand-7;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+}
+
+@keyframes color-grey-shadow-7 {
+  0% {
+    background-color: $color-brand-7;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+
+  100% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+}
+
+@keyframes grey-color-7 {
+  0% {
+    background: $color-background;
+  }
+
+  100% {
+    background: $color-brand-7;
+  }
+}
+
+@keyframes color-grey-7 {
+  0% {
+    background: $color-brand-7;
+  }
+
+  100% {
+    background: $color-background;
+  }
+}
+
+// 主题8
+@keyframes grey-color-shadow-8 {
+  0% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+
+  100% {
+    background-color: $color-brand-8;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+}
+
+@keyframes color-grey-shadow-8 {
+  0% {
+    background-color: $color-brand-8;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+
+  100% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+}
+
+@keyframes grey-color-8 {
+  0% {
+    background: $color-background;
+  }
+
+  100% {
+    background: $color-brand-8;
+  }
+}
+
+@keyframes color-grey-8 {
+  0% {
+    background: $color-brand-8;
+  }
+
+  100% {
+    background: $color-background;
+  }
+}
+
+// 主题9
+@keyframes grey-color-shadow-9 {
+  0% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+
+  100% {
+    background-color: $color-brand-9;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+}
+
+@keyframes color-grey-shadow-9 {
+  0% {
+    background-color: $color-brand-9;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+
+  100% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+}
+
+@keyframes grey-color-9 {
+  0% {
+    background: $color-background;
+  }
+
+  100% {
+    background: $color-brand-9;
+  }
+}
+
+@keyframes color-grey-9 {
+  0% {
+    background: $color-brand-9;
+  }
+
+  100% {
+    background: $color-background;
+  }
+}
+
+// 主题10
+@keyframes grey-color-shadow-10 {
+  0% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+
+  100% {
+    background-color: $color-brand-10;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+}
+
+@keyframes color-grey-shadow-10 {
+  0% {
+    background-color: $color-brand-10;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+
+  100% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+}
+
+@keyframes grey-color-10 {
+  0% {
+    background: $color-background;
+  }
+
+  100% {
+    background: $color-brand-10;
+  }
+}
+
+@keyframes color-grey-10 {
+  0% {
+    background: $color-brand-10;
+  }
+
+  100% {
+    background: $color-background;
+  }
+}
+
+// 主题11
+@keyframes grey-color-shadow-11 {
+  0% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+
+  100% {
+    background-color: $color-brand-11;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+}
+
+@keyframes color-grey-shadow-11 {
+  0% {
+    background-color: $color-brand-11;
+    box-shadow: 6px 8px 15px #aaa;
+  }
+
+  100% {
+    background-color: #ebeef3;
+    box-shadow: 0px 0px 0px #aaa;
+  }
+}
+
+@keyframes grey-color-11 {
+  0% {
+    background: $color-background;
+  }
+
+  100% {
+    background: $color-brand-11;
+  }
+}
+
+@keyframes color-grey-11 {
+  0% {
+    background: $color-brand-11;
+  }
+
+  100% {
+    background: $color-background;
+  }
+}

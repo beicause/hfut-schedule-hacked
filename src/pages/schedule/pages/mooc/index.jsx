@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import Taro from '@tarojs/taro'
+import React, { useState } from 'react'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { connect } from 'react-redux'
-import { View, Image, Text, Ad } from '@tarojs/components'
+import { View, Image, Text } from '@tarojs/components'
 import { AtAccordion } from 'taro-ui'
 
 import IconFont from '../../../../components/iconfont'
@@ -10,19 +10,11 @@ import themeC from '../../../../style/theme'
 import './index.scss'
 
 function Mooc(props) {
-  const { moocData, showAd } = props
+  const { moocData, globalTheme } = props
   const [showLessonCode, setShowLessonCode] = useState('')
 
-  // useEffect(() => {
-  //   if (showAd) {
-  //     const interstitialAd = Taro.createInterstitialAd({
-  //       adUnitId: 'adunit-e8c3c88c149f8a07'
-  //     })
-  //     interstitialAd.show().catch((err) => {
-  //       console.error(err)
-  //     })
-  //   }
-  // }, [showAd])
+  // 适配全局主题
+  useDidShow(() => Taro.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: themeC[`color-brand-dark-${globalTheme}`] }))
 
   const copy = (data) => {
     Taro.setClipboardData({
@@ -49,10 +41,6 @@ function Mooc(props) {
           />
           <Text className='mooc-none-noneText'>没有查询到慕课~</Text>
           <View className='mooc-none-ad'>
-            {/* {
-              showAd &&
-              <Ad unit-id='adunit-209201f9afd060be' ad-type='video' ad-theme='white'></Ad>
-            } */}
           </View>
         </View>
       </View>
@@ -63,7 +51,7 @@ function Mooc(props) {
     <View className='mooc'>
 
       <View className='mooc-subTitle'>
-        <IconFont name='tanhao' size={36} color={themeC['color-font-brand']} />
+        <IconFont name='tanhao' size={36} color={themeC[`color-brand-${globalTheme}`]} />
         <Text className='mooc-subTitle_text'>慕课通知</Text>
       </View>
 
@@ -79,23 +67,23 @@ function Mooc(props) {
       </View>
 
       <View className='mooc-subTitle'>
-        <IconFont name='tanhao' size={36} color={themeC['color-font-brand']} />
+        <IconFont name='tanhao' size={36} color={themeC[`color-brand-${globalTheme}`]} />
         <Text className='mooc-subTitle_text'>平台网址</Text>
       </View>
 
       <View className='mooc-notice'>
         <View className='mooc-notice-item' onClick={() => copy('hfgydx.fy.chaoxing.com')}>
           <Text className='mooc-notice-title'>超星尔雅：</Text>
-          <Text className='mooc-notice-url'>hfgydx.fy.chaoxing.com</Text>
+          <Text style={{ color: themeC[`color-brand-${globalTheme}`] }}>hfgydx.fy.chaoxing.com</Text>
         </View>
         <View className='mooc-notice-item' onClick={() => copy('hfut.amoocs.com.cn')}>
           <Text className='mooc-notice-title'>中博财商慕课：</Text>
-          <Text className='mooc-notice-url'>hfut.amoocs.com.cn</Text>
+          <Text style={{ color: themeC[`color-brand-${globalTheme}`] }}>hfut.amoocs.com.cn</Text>
         </View>
       </View>
 
       <View className='mooc-subTitle'>
-        <IconFont name='tanhao' size={36} color={themeC['color-font-brand']} />
+        <IconFont name='tanhao' size={36} color={themeC[`color-brand-${globalTheme}`]} />
         <Text className='mooc-subTitle_text'>我的慕课</Text>
       </View>
 
@@ -150,7 +138,7 @@ function Mooc(props) {
 function mapStateToProps(state) {
   return {
     moocData: state.schedule.bizData.moocData,
-    showAd: state.schedule.bizData.userConfig.showAd,
+    globalTheme: state.schedule.bizData.userConfig.globalTheme,
   };
 }
 

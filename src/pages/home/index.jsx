@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import Taro from '@tarojs/taro'
-import { useSelector, useDispatch } from 'react-redux'
+import Taro, { useDidShow } from '@tarojs/taro'
+import { useSelector } from 'react-redux'
 import { View, Text, OpenData } from '@tarojs/components'
 import { AtBadge } from 'taro-ui'
 import * as moment from 'moment';
@@ -9,17 +9,26 @@ import IconFont from '../../components/iconfont'
 import StandardFloatLayout from '../../components/StandardFloatLayout'
 import HelpNotice from '../../components/HelpNotice'
 import UpdateNotice from '../../components/UpdateNotice'
-import { logout } from '../../actions/login'
+import SettingFloatLayout from './components/SettingFloatLayout'
+import GlobalThemePicker from './components/GlobalThemePicker'
+import themeC from '../../style/theme'
 import './index.scss'
 
 function Home() {
   const examData = useSelector(state => state.event.bizData.examData)
+  const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
+  const showDonate = useSelector(state => state.schedule.bizData.userConfig.showDonate)
   const [sno, setSno] = useState('')
   const [showAbout, setShowAbout] = useState(false)
   const [showUpdateNotice, setShowUpdateNotice] = useState(false)
   const [showHelpNotice, setShowHelpNotice] = useState(false)
   const [showHomeRedPoint, setShowHomeRedPoint] = useState(false)
-  const dispatch = useDispatch()
+  const [statusBarHeight, setStatusBarHeight] = useState(28)
+  const [showSetting, setShowSetting] = useState(false)
+  const [showGlobalThemePicker, setShowGlobalThemePicker] = useState(false)
+
+  // 适配全局主题
+  useDidShow(() => Taro.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: themeC[`color-brand-dark-${globalTheme}`] }))
 
   useEffect(() => {
     const localUserData = Taro.getStorageSync('me')
@@ -43,6 +52,13 @@ function Home() {
       }, 10000);
     }
     setSno(username)
+
+    // 获取系统状态栏高度
+    Taro.getSystemInfo({
+      success: function (res) {
+        setStatusBarHeight(res.statusBarHeight)
+      }
+    })
   }, [])
 
   let examCount = 0
@@ -108,50 +124,27 @@ function Home() {
     Taro.navigateTo({ url: '/pages/home/pages/donate/index' })
   }
 
-  const handleLogoutClick = () => {
-    Taro.showModal({
-      title: '确定要登出吗',
-      confirmText: '登出',
-      confirmColor: '#f33f3f',
-      cancelColor: '#60646b',
-      success: function (res) {
-        if (res.confirm) {
-          // 点击确定
-          Taro.showModal({
-            title: '是否要清空本地数据',
-            content: '包括自定义事件/备忘录、个人设置、情侣信息等',
-            confirmText: '不清空',
-            confirmColor: '#60646b',
-            cancelText: '清空',
-            cancelColor: '#f33f3f',
-            success: function (res2) {
-              if (res2.confirm) {
-                dispatch(logout({ localSave: true }))
-              } else {
-                dispatch(logout({ localSave: false }))
-              }
-            }
-          })
-        }
-      }
-    })
-  }
-
   return (
     <View className='home'>
-      <View className='home-header'>
-        {/* <View className='home-header-donate'></View> */}
+      <View className='home-nav' style={{ top: statusBarHeight + 10 }} onClick={() => setShowSetting(true)} >
+        <IconFont name='shezhi' size={54} color='#ffffff' />
+      </View>
+
+      <View className='home-header' style={{ paddingTop: statusBarHeight + 58, backgroundImage: `linear-gradient(180deg, ${themeC[`color-brand-dark-${globalTheme}`]} 76%, ${themeC['color-background']} 100%)` }}>
 
         <View className='home-header-avatar'>
           <View className='home-header-avatar-img'>
             <OpenData type='userAvatarUrl'></OpenData>
           </View>
-          <View class='home-header-coin' onClick={handleClickCoin}>
-            <View class='home-header-coin-front'></View>
-            <View class='home-header-coin-front_b'></View>
-            <View class='home-header-coin-back'></View>
-            <View class='home-header-coin-back_b'></View>
-          </View>
+          {
+            showDonate &&
+            <View class='home-header-coin' onClick={handleClickCoin}>
+              <View class='home-header-coin-front'></View>
+              <View class='home-header-coin-front_b'></View>
+              <View class='home-header-coin-back'></View>
+              <View class='home-header-coin-back_b'></View>
+            </View>
+          }
         </View>
         <View className='home-header-nickName'>
           <Text>{sno ? sno : '0000000000'}</Text>
@@ -216,13 +209,6 @@ function Home() {
 
         </View>
 
-        <View className='home-content-group home-content-group_2'>
-
-          <View className='home-content-group-item home-content-group-item_logout' onClick={handleLogoutClick}>
-            <Text>退出登录</Text>
-          </View>
-
-        </View>
       </View>
 
       <StandardFloatLayout
@@ -245,6 +231,15 @@ function Home() {
 
       { showUpdateNotice && <UpdateNotice onClose={() => setShowUpdateNotice(false)} />}
       { showHelpNotice && <HelpNotice onClose={() => setShowHelpNotice(false)} />}
+
+      <SettingFloatLayout
+        isOpened={showSetting}
+        onClose={() => setShowSetting(false)}
+        openGlobalTheme={() => setShowGlobalThemePicker(true)}
+        closeGlobalTheme={() => setShowGlobalThemePicker(false)}
+      />
+
+      <GlobalThemePicker isOpened={showGlobalThemePicker} onClose={() => setShowGlobalThemePicker(false)} />
 
     </View>
   )

@@ -11,17 +11,18 @@ import ScheduleTop from './components/ScheduleTop'
 import ScheduleFooter from './components/ScheduleFooter'
 import BackgroundImg from '../../../../../../components/schedule-component/BackgroundImg'
 import { UPDATE_BIZDATA } from '../../../../../../constants/schedule/roomDetailSchedule'
+import themeC from '../../../../../../style/theme'
 
 const MemoBackgroundImg = memo(BackgroundImg)
 
 
 function RoomDetailSchedule(props) {
-  const { dayLineMatrix, currentWeekIndex, bizData } = props
+  const { dayLineMatrix, currentWeekIndex, bizData, globalTheme } = props
   const { weekIndex, scheduleMatrix, roomZh } = bizData
   const dispatch = useDispatch()
 
   useDidShow(() => {
-    Taro.hideHomeButton()
+    Taro.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: themeC[`color-brand-dark-${globalTheme}`] })
     Taro.setNavigationBarTitle({
       title: roomZh
     })
@@ -86,6 +87,7 @@ function mapStateToProps(state) {
     ...state.roomDetailSchedule,
     dayLineMatrix: state.event.bizData.dayLineMatrix,
     currentWeekIndex: state.event.bizData.currentWeekIndex,
+    globalTheme: state.schedule.bizData.userConfig.globalTheme,
   };
 }
 

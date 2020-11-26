@@ -26,17 +26,18 @@ let reloginTime = 0
 // 刚进入小程序时，判断是否有本地缓存，有的话就不用登录
 // enterState = 0或unfinded => 刚进入小程序
 // enterState = 1 => 切换情侣课表
-export const enter = ({ userType, isEvent }) => async (dispatch) => {
+export const enter = ({ userType, isEvent }) => async (dispatch, getState) => {
 
   return Taro.getStorage({ key: userType })
     .then(async (userData) => {
       const { scheduleMatrix, scheduleData, lessonIds, timeTable = [], examData = [] } = userData.data  // 读取本地的课表数据
       const { moocData } = dataToMatrix(scheduleData, lessonIds, timeTable)
+      const { dayLineMatrix, currentWeekIndex } = makeDayLineMatrix()  // 生成一个时间线矩阵
       // 二话不说先渲染
-      dispatch(updateBizData({ scheduleMatrix, timeTable, moocData }))
+      dispatch(updateBizData({ scheduleMatrix, timeTable, moocData, dayLineMatrix, currentWeekIndex, weekIndex: currentWeekIndex }))
       // 是自己，再渲染event，情侣与event页面无关
       if (userType === 'me') {
-        dispatch(eventActions.updateBizData({ scheduleMatrix, timeTable, examData }))
+        dispatch(eventActions.updateBizData({ scheduleMatrix, timeTable, examData, dayLineMatrix, currentWeekIndex, weekIndex: currentWeekIndex }))
       }
 
       //读取本地设置
@@ -48,35 +49,54 @@ export const enter = ({ userType, isEvent }) => async (dispatch) => {
           key: 'config',
           data: config
         })
-      } else {
-        for (const configKey in config.userConfig) {
-          if (userConfig[configKey] === undefined) {
-            userConfig[configKey] = config.userConfig[configKey]
-            Taro.setStorage({
-              key: 'config',
-              data: {
-                ...localConfig,
-                userConfig,
-              }
-            })
-          }
-        }
       }
+
+      // for (const configKey in config.userConfig) {
+      //   if (userConfig[configKey] === undefined) {
+      //     userConfig[configKey] = config.userConfig[configKey]
+      //     Taro.setStorage({
+      //       key: 'config',
+      //       data: {
+      //         ...localConfig,
+      //         userConfig,
+      //       }
+      //     })
+      //   }
+      // }
+
+      const updatedConfig = {
+        autoConfig: {
+          ...config.autoConfig,
+          ...localConfig.autoConfig,
+        },
+        userConfig: {
+          ...config.userConfig,
+          ...localConfig.userConfig,
+        },
+        version,
+      }
+
       // 判断版本更新：
-      const isUpdateOk = await dispatch(handleCheckUpdate())
+      const isUpdateOk = await dispatch(handleCheckUpdate(updatedConfig))
+      // updateState=1 需要重新登陆
       if (!isUpdateOk && updateState === 1) {
         return {}
       }
 
       // 确保diff按钮是关闭的
       dispatch(updateUiData({ diff: false }))
+      // 更新用户设置
+      dispatch(updateBizData({ userConfig: updatedConfig.userConfig }))
 
-      // 格式化timeTable
-      for (let i = 0; i < 4; i++) {
-        timeTable.push({ endTimeText: 'sleep' })
-      }
 
-      // 写入自定义事件
+      // 这里为什么要多此一举 呢？
+
+      // // 格式化timeTable
+      // for (let i = 0; i < 4; i++) {
+      //   timeTable.push({ endTimeText: 'sleep' })
+      // }
+
+      // 如果本地存储没有存放自定义事件的custom，就生成一个
       let customSchedule = Taro.getStorageSync('custom')
       customSchedule = customSchedule ? customSchedule : {}
       const userCustomScheduleM = customSchedule[userType]
@@ -87,33 +107,40 @@ export const enter = ({ userType, isEvent }) => async (dispatch) => {
           key: 'custom',
           data: customSchedule
         })
-        // 不是第一次登入
-      } else if (scheduleMatrix.length !== 0) {
-        // 本地有，那就写入
-        userCustomScheduleM.map((weekData, weekIndex) => {
-          weekData.map((dayData, dayIndex) => {
-            dayData.map((courseBoxList, timeIndex) => {
-              const courseBoxData = courseBoxList[0]
-              const { name } = courseBoxData
-              if (name) {
-                const rawData = scheduleMatrix[weekIndex][dayIndex][timeIndex][0]
-                // 规则：只有没课的地方才可以添加自定义事件
-                if (!rawData.name) {
-                  scheduleMatrix[weekIndex][dayIndex][timeIndex][0] = courseBoxData
-                }
-              }
-            })
-          })
-        })
       }
-
+      // // 不是第一次登入
+      // else if (scheduleMatrix.length !== 0) {
+      //   // 本地有，那就写入
+      //   userCustomScheduleM.map((weekData, weekIndex) => {
+      //     weekData.map((dayData, dayIndex) => {
+      //       dayData.map((courseBoxList, timeIndex) => {
+      //         const courseBoxData = courseBoxList[0]
+      //         const { name } = courseBoxData
+      //         if (name) {
+      //           const rawData = scheduleMatrix[weekIndex][dayIndex][timeIndex][0]
+      //           // 规则：只有没课的地方才可以添加自定义事件
+      //           if (!rawData.name) {
+      //             scheduleMatrix[weekIndex][dayIndex][timeIndex][0] = courseBoxData
+      //           }
+      //         }
+      //       })
+      //     })
+      //   })
+      // }
 
       // 版本正常，且本地缓存正常
-      const { dayLineMatrix, currentWeekIndex } = makeDayLineMatrix()  // 生成一个时间线矩阵
-      await dispatch(updateBizData({ scheduleMatrix, timeTable, dayLineMatrix, currentWeekIndex, weekIndex: currentWeekIndex, userConfig }))
-      // 每次进入的自动更新
+
+      // await dispatch(updateBizData({ scheduleMatrix, timeTable, dayLineMatrix, currentWeekIndex, weekIndex: currentWeekIndex, userConfig }))
+
+
+      // 自动更新
+      // userType + AutoUpdated 解决历史难题：反复切换情侣课表时不会再更新数据
+      // 可以保证每次进入小程序只更新一次数据
       try {
-        dispatch(updateScheduleData({ userType, isEvent }))
+        const autoUpdated = getState().schedule.bizData[userType + 'AutoUpdated']
+        if (!autoUpdated) {
+          dispatch(updateScheduleData({ userType, isEvent }))
+        }
       } catch (error) {
         console.error(error);
         Taro.hideNavigationBarLoading()
@@ -132,7 +159,7 @@ export const enter = ({ userType, isEvent }) => async (dispatch) => {
 }
 
 // 检测到版本更新后的自动数据更新
-const handleCheckUpdate = () => async (dispatch) => {
+const handleCheckUpdate = (updatedConfig) => async (dispatch) => {
   const localConfig = Taro.getStorageSync('config')
   const { version: localVersion } = localConfig
   if (localVersion !== version) {
@@ -151,22 +178,10 @@ const handleCheckUpdate = () => async (dispatch) => {
     // 显示更新公告
     dispatch(eventActions.updateUiData({ showUpdateNotice: true }))
     // 更新本地config缓存
+    updatedConfig.autoConfig.showRedPoint = true
     Taro.setStorage({
       key: 'config',
-      data: {
-        autoConfig: {
-          ...config.autoConfig,
-          autoConfig: {
-            ...localConfig.autoConfig,
-            showRedPoint: true,
-          }
-        },
-        userConfig: {
-          ...config.userConfig,
-          ...localConfig.userConfig,
-        },
-        version,
-      }
+      data: updatedConfig
     })
     return false
   } else if (localVersion !== version && updateState === 1) {
@@ -177,17 +192,7 @@ const handleCheckUpdate = () => async (dispatch) => {
     })
     Taro.setStorage({
       key: 'config',
-      data: {
-        autoConfig: {
-          ...config.autoConfig,
-          ...localConfig.autoConfig,
-        },
-        userConfig: {
-          ...config.userConfig,
-          ...localConfig.userConfig,
-        },
-        version,
-      }
+      data: updatedConfig
     })
     setTimeout(() => {
       dispatch(loginActions.logout())
@@ -217,7 +222,7 @@ export const updateScheduleData = ({ userType, isEvent }) => async (dispatch, ge
 
   // 课表请求出错。执行key过期之后的逻辑
   // 注：这里也不一定是key过期导致的，有可能是因为教务爆炸
-  if (!res || !res.body.currentWeek) {
+  if (!res || !res.success || !res.body.currentWeek) {
     reloginTime++
     if (reloginTime === 6) {
       setTimeout(() => {
@@ -324,13 +329,15 @@ export const updateScheduleData = ({ userType, isEvent }) => async (dispatch, ge
 
   // 适应场景：刚打开课表就点情侣课表
   const { login: { bizData: { userType: userType_ } } } = getState()
+  const refreshedData = { scheduleMatrix, timeTable }
   if (userType === userType_) {
-    dispatch(updateBizData({ scheduleMatrix, timeTable }))
+    refreshedData[userType + 'AutoUpdated'] = true
+    dispatch(updateBizData(refreshedData))
   }
 
   // 更新event
   if (userType === 'me') {
-    dispatch(eventActions.updateBizData({ scheduleMatrix, timeTable }))
+    dispatch(eventActions.updateBizData(refreshedData))
   }
 
   // 将数据存在本地

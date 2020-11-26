@@ -13,7 +13,7 @@ export default () => {
   const eventBoxHeight = useSelector(state => state.schedule.bizData.userConfig.eventBoxHeight)
 
   if (scheduleMatrix.length === 0 || timeTable.length < 5) {
-    return ''
+    return <View></View>
   }
 
   const dayScheduleData = scheduleMatrix[weekIndex][dayIndex]
@@ -40,7 +40,7 @@ export default () => {
 
   const { startTime: startTime_ } = timeTable[0]
   // let paddingTop = 97 + 48 + (startTime_ - 800) * 1.5
-  let paddingTop = 62 * eventBoxHeight + 48 + (startTime_ - 800) * eventBoxHeight
+  let paddingTop = 62 * eventBoxHeight + 32 + (startTime_ - 800) * eventBoxHeight
 
   return (
     <View className='eventTable' style={{ top: paddingTop + 'rpx' }}>

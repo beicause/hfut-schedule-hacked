@@ -1,0 +1,7 @@
+
+// 引入taro-ui，并覆盖taro-ui默认颜色
+$color-brand: #424143;
+$color-brand-light: #717172;
+$color-brand-dark: #353436;
+@import '~taro-ui/dist/style/index.scss';
+

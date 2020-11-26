@@ -12,7 +12,7 @@ import {
   LOGOUT,
 } from '../constants/schedule/schedule'
 
-export const addCustomSchedule = (payload) => async (dispatch, getState) => {
+export const updateCustomSchedule = (payload) => async (dispatch, getState) => {
   let {
     source,
     name,
@@ -25,10 +25,21 @@ export const addCustomSchedule = (payload) => async (dispatch, getState) => {
     timeRange,
     weekIndexes,
     memo,
-    scheduleMatrix
   } = payload
 
+  // 拿到scheduleMatrix和本地数据
   const { login: { bizData: { userType: userType } } } = getState()
+  let userData, scheduleMatrix
+  if (source === 'event') {
+    // 在event页面进行的操作
+    scheduleMatrix = getState().event.bizData.scheduleMatrix
+    userData = Taro.getStorageSync('me')
+  } else {
+    // 在scheudle页面进行的操作
+    scheduleMatrix = getState().schedule.bizData.scheduleMatrix
+    userData = Taro.getStorageSync(userType)
+  }
+
   const customSchedule = Taro.getStorageSync('custom')
   let userCustomSchedule = customSchedule[userType]
   if (source === 'event') {
@@ -83,11 +94,6 @@ export const addCustomSchedule = (payload) => async (dispatch, getState) => {
     }
   })
 
-  Taro.setStorage({
-    key: 'custom',
-    data: customSchedule
-  })
-
   // 更新state
   if (!(source === 'event' && userType === 'her')) {
     dispatch(updateBizData({ scheduleMatrix }))
@@ -97,6 +103,30 @@ export const addCustomSchedule = (payload) => async (dispatch, getState) => {
   if (userType === 'me' || source === 'event') {
     dispatch(eventActions.updateBizData({ scheduleMatrix }))
   }
+  
+  // 更新本地存储，包括scheduleMatrix和custom
+  Taro.setStorage({
+    key: 'custom',
+    data: customSchedule
+  })
+  if (source === 'event') {
+    Taro.setStorage({
+      key: 'me',
+      data: {
+        ...userData,
+        scheduleMatrix,
+      }
+    })
+  } else {
+    Taro.setStorage({
+      key: userType,
+      data: {
+        ...userData,
+        scheduleMatrix,
+      }
+    })
+  }
+  
 }
 
 // 改变单个自定义事件的颜色

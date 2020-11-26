@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { useDispatch } from 'react-redux'
-import Taro from '@tarojs/taro'
+import { useDispatch, useSelector } from 'react-redux'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { View, Swiper, SwiperItem, Image, Text } from '@tarojs/components'
 
 import ScoreDetailFL from './components/scoreDetailFL'
 import { GET } from '../../../../utils/request'
 import { relogin } from '../../../../actions/login'
 import EmptyImg from '../../../../assets/img/empty.svg'
+import themeC from '../../../../style/theme'
 import './index.scss'
 
 // key过期后，尝试重新登陆的次数
@@ -14,12 +15,16 @@ let reloginTime = 0
 
 
 function Grade() {
+  const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
   const [scorelist, setScorelist] = useState([])
   const [scoreDetailFLData, setScoreDetailFLData] = useState({
     isOpened: false,
     info: null,
   })
   const dispatch = useDispatch()
+
+  // 适配全局主题
+  useDidShow(() => Taro.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: themeC[`color-brand-dark-${globalTheme}`] }))
 
   // 通过本地key请求成绩
   const getScorelist = useCallback(() => {

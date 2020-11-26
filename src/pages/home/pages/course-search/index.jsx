@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { useDispatch } from 'react-redux'
-import Taro from '@tarojs/taro'
+import { useDispatch, useSelector } from 'react-redux'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { View, Input, Button, Picker, Image } from '@tarojs/components'
 import { AtPagination, AtDrawer } from 'taro-ui'
 
@@ -10,6 +10,7 @@ import { relogin } from '../../../../actions/login'
 import IconFont from '../../../../components/iconfont'
 import CourseSearchDetailFL from './components/courseSearchDetailFL'
 import semesterData from '../../../../assets/data/semesterData'
+import themeC from '../../../../style/theme'
 import './index.scss'
 
 // key过期后，尝试重新登陆的次数
@@ -17,6 +18,7 @@ let reloginTime = 0
 
 
 function CourseSearch() {
+  const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
   const dispatch = useDispatch()
   const [showDrawer, setShowDrawer] = useState(false)
   const [searchData, setSearchData] = useState({
@@ -77,6 +79,9 @@ function CourseSearch() {
     { typeZh: '慕课-社会、交往与礼仪', typeId: 43, index: 23 },
     { typeZh: '慕课-人生规划、品德与修养', typeId: 44, index: 24 },
   ]
+
+  // 适配全局主题
+  useDidShow(() => Taro.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: themeC[`color-brand-dark-${globalTheme}`] }))
 
   const handleSearch = useCallback(() => {
     // 首次进入的时候
@@ -208,7 +213,7 @@ function CourseSearch() {
         }
       </View>
 
-      <View className='courseSearch-btn' onClick={() => setShowDrawer(true)}>
+      <View className='courseSearch-btn' style={{ backgroundColor: themeC[`color-brand-light-${globalTheme}`] }} onClick={() => setShowDrawer(true)}>
         <IconFont name='sousuo' size={60} color='#ffffff' />
       </View>
 
@@ -287,7 +292,7 @@ function CourseSearch() {
               }
             </View>
           </Picker>
-          <Button className='courseSearch-drawer-btn' onClick={() => setSubmitData({ ...searchData, pageCount: 1 })}>检索</Button>
+          <Button className='courseSearch-drawer-btn' style={{ backgroundColor: themeC[`color-brand-dark-${globalTheme}`] }} onClick={() => setSubmitData({ ...searchData, pageCount: 1 })}>检索</Button>
         </View>
 
       </AtDrawer>

@@ -9,12 +9,14 @@ import IconFont from '../../../components/iconfont'
 import CustomButton from '../../../components/CustomButton'
 import ColorButton from '../../../components/ColorButton'
 import validWeekChecker from '../../../utils/validWeekChecker'
+import themeC from '../../../style/theme'
 import './index.scss'
 
 export default (props) => {
   const { isOpened, source, onClose, customScheduleFLData, updateData, scheduleMatrix, timeTable, updateColorPicker, updateCourseDetailFL } = props
   const { type = 'add', name, clazzRoom, chosenWeeks = [], currentWeekIndex, courseType = 1, dayIndex = 0, startTime = 0, lessonId, memo, color = 'blue' } = customScheduleFLData
   const theme = useSelector(state => state.schedule.bizData.userConfig.theme)
+  const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
   const [validWeeks, setValidWeeks] = useState(scheduleMatrix.map(() => 1))
   const [multChosen, setMultChosen] = useState('')
   const dispatch = useDispatch()
@@ -139,10 +141,9 @@ export default (props) => {
       timeRange,
       weekIndexes: finalWeeks,
       memo,
-      scheduleMatrix
     }
 
-    dispatch(customScheduleActions.addCustomSchedule(newData))
+    dispatch(customScheduleActions.updateCustomSchedule(newData))
 
     if (type === 'change') {
       updateCourseDetailFL(newData)
@@ -215,23 +216,32 @@ export default (props) => {
         <View className='customScheduleFL-content-item'>
           <View className='customScheduleFL-content-item-weekIndexHeader'>
             <Text>选择周数</Text>
-            <View className='customScheduleFL-content-item-weekIndexHeader-popGroup'>
+            <View className='customScheduleFL-content-item-weekIndexHeader-popGroup' style={{ color: themeC[`color-brand-${globalTheme}`] }}>
               <View className='customScheduleFL-content-item-weekIndexHeader-popGroup-item'
                 onClick={() => handleMultChosen('单周')}
               >
-                <View className={`customScheduleFL-content-item-weekIndexHeader-pop customScheduleFL-content-item-weekIndexHeader-pop_${multChosen === '单周' && 'active'}`}></View>
+                <View
+                  className={`customScheduleFL-content-item-weekIndexHeader-pop customScheduleFL-content-item-weekIndexHeader-pop_${multChosen === '单周' && 'active'}`}
+                  style={{ borderColor: multChosen && themeC[`color-brand-${globalTheme}`] }}
+                ></View>
                 <Text>单周</Text>
               </View>
               <View className='customScheduleFL-content-item-weekIndexHeader-popGroup-item'
                 onClick={() => handleMultChosen('双周')}
               >
-                <View className={`customScheduleFL-content-item-weekIndexHeader-pop customScheduleFL-content-item-weekIndexHeader-pop_${multChosen === '双周' && 'active'}`}></View>
+                <View
+                  className={`customScheduleFL-content-item-weekIndexHeader-pop customScheduleFL-content-item-weekIndexHeader-pop_${multChosen === '双周' && 'active'}`}
+                  style={{ borderColor: multChosen && themeC[`color-brand-${globalTheme}`] }}
+                ></View>
                 <Text>双周</Text>
               </View>
               <View className='customScheduleFL-content-item-weekIndexHeader-popGroup-item'
                 onClick={() => handleMultChosen('全选')}
               >
-                <View className={`customScheduleFL-content-item-weekIndexHeader-pop customScheduleFL-content-item-weekIndexHeader-pop_${multChosen === '全选' && 'active'}`}></View>
+                <View
+                  className={`customScheduleFL-content-item-weekIndexHeader-pop customScheduleFL-content-item-weekIndexHeader-pop_${multChosen === '全选' && 'active'}`}
+                  style={{ borderColor: multChosen && themeC[`color-brand-${globalTheme}`] }}
+                ></View>
                 <Text>全选</Text>
               </View>
             </View>
@@ -247,7 +257,11 @@ export default (props) => {
                   return (
                     <View key={`key${weekIndex}`}
                       className={`customScheduleFL-content-item-weekIndexContent-week customScheduleFL-content-item-weekIndexContent-week_${isChosen ? 'chosen' : ''}`}
-                      style={`opacity: ${weekIndex > 20 ? 0 : 1}`}
+                      style={{
+                        opacity: weekIndex >= 20 ? 0 : 1,
+                        animationName: isChosen ? `grey-color-${globalTheme}` : `color-grey-${globalTheme}`,
+                        backgroundColor: isChosen && themeC[`color-brand-${globalTheme}`]
+                      }}
                       onClick={() => handleClickWeekBox(weekIndex)}
                     >
                       {weekIndex === currentWeekIndex ? '本周' : weekIndex}

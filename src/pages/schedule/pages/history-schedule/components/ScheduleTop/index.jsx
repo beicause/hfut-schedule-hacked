@@ -8,15 +8,15 @@ import themeC from '../../../../../../style/theme'
 import semesterData from '../../../../../../assets/data/semesterData'
 import { currentSemester } from '../../../../../../config/config.default'
 import { UPDATE_BIZDATA } from '../../../../../../constants/schedule/historySchedule'
-import './index.scss'
+
 
 export default (props) => {
   const { changeWeekIndex } = props
   const [showWeekPicker, setShowWeekPicker] = useState(false)
-  // const [selectedSemester, setSelectedSemester] = useState({})
   const weekIndex = useSelector(state => state.historySchedule.bizData.weekIndex)
   const semester = useSelector(state => state.historySchedule.bizData.semester)
   const scheduleMatrix = useSelector(state => state.historySchedule.bizData.scheduleMatrix)
+  const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -41,10 +41,10 @@ export default (props) => {
   }
 
   return (
-    <View className='scheduleTop'>
+    <View className='scheduleTop' style={{ backgroundColor: themeC[`color-brand-dark-${globalTheme}`] }}>
 
       <View className='scheduleTop-aixin'>
-        <IconFont name='info-circle-fill' size={42} color={themeC['color-brand']} />
+        <IconFont name='info-circle-fill' size={42} color='#ffffff' />
       </View>
 
       <View className='scheduleTop-title' onClick={() => setShowWeekPicker(true)}>

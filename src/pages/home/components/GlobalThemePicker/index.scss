@@ -1,0 +1,28 @@
+@import "../../../../style/theme.scss";
+
+
+.globalThemePicker {
+  color: $color-semi;
+
+  &-content {
+    padding: 0 32px;
+    padding-bottom: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    &-box {
+      height: 100px;
+      width: 204px;
+      margin-top: 24px;
+      margin-bottom: 12px;
+      animation: shadow-none 0.2s linear;
+
+      &-current {
+        box-shadow: 16px 16px 16px $color-light;
+        animation: none-shadow 0.2s linear;
+      }
+    }
+  }
+}

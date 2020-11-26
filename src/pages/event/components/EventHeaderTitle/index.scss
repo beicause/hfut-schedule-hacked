@@ -4,7 +4,7 @@
   margin: 0 36px;
   display: flex;
   justify-content: space-between;
-  
+
   &-title {
     color: #666;
     font-size: 42px;
@@ -19,10 +19,6 @@
     margin-bottom: 42px;
     color: #888;
     font-size: 28px;
-
-    &-number {
-      color: $color-font-brand;
-    }
   }
 
   &-right {
@@ -32,13 +28,11 @@
     align-items: center;
 
     &-operation {
-      border-radius: 50%;
       padding: 8px;
+
       &:active {
-        background-color: $color-font-brand;
-        opacity: 0.6;
+        opacity: 0.5;
       }
     }
   }
 }
-

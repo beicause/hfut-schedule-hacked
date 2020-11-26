@@ -9,6 +9,9 @@
   font-size: 34px;
   line-height: 100px;
   text-align: center;
-  // color: #ffffff;
 
+}
+
+.custom-color-button::after {
+  border: none;
 }

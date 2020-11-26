@@ -18,14 +18,20 @@ import checkUpdate from '../../utils/checkUpdate'
 import UpdateNotice from '../../components/UpdateNotice'
 import './index.scss'
 
+// let t = 0
+
 function Event(props) {
   const { bizData, uiData, enter } = props
   const { weekIndex, currentWeekIndex, scheduleMatrix, timeTable } = bizData
   const { showUpdateNotice, courseDetailFLData, customScheduleFLData, colorPickerData } = uiData
   const [statusBarHeight, setStatusBarHeight] = useState(28)
 
+  // 改明儿接着优化
+  // console.log('------------------')
+  // console.log(++t)
+
   useEffect(() => {
-    enter({ userType: 'me' })
+    enter({ userType: 'me', isEvent: true })
     Taro.getSystemInfo({
       success: function (res) {
         setStatusBarHeight(res.statusBarHeight)

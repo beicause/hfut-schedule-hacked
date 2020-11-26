@@ -1,19 +1,20 @@
 import React, { useState } from 'react'
-// import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { useSelector } from 'react-redux'
 
 import IconFont from '../../../../../../../../components/iconfont'
 import WeekPicker from '../../../../../../../../components/schedule-component/WeekPicker'
-import './index.scss'
+import themeC from '../../../../../../../../style/theme'
+
 
 export default (props) => {
   const { changeWeekIndex } = props
   const [showWeekPicker, setShowWeekPicker] = useState(false)
   const weekIndex = useSelector(state => state.singleCourseSchedule.bizData.weekIndex)
+  const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
 
   return (
-    <View className='scheduleTop'>
+    <View className='scheduleTop' style={{ backgroundColor: themeC[`color-brand-dark-${globalTheme}`] }}>
 
       <View className='scheduleTop-aixin'>
         {/* {roomZh} */}

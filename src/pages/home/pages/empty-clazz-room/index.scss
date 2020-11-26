@@ -16,13 +16,11 @@
       height: 88px;
       align-items: center;
       padding-left: 32px;
-      color: $color-font-brand;
       font-size: 30px;
 
       &-box {
         height: 68px;
         border-radius: 50px;
-        background-color: $color-font-brand;
         padding: 0 26px;
         display: flex;
         align-items: center;
@@ -37,14 +35,12 @@
 
         &_white {
           background-color: #ffffff;
-          color: $color-font-brand;
-          border: 2px solid $color-font-brand;
+          border: 2px solid;
         }
 
         &_locate {
           background-color: #ffffff;
-          color: $color-font-brand;
-          border: 2px solid $color-font-brand;
+          border: 2px solid;
           padding-right: 8px;
         }
 

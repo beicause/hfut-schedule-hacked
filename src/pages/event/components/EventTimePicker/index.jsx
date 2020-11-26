@@ -5,6 +5,7 @@ import { AtCalendar } from "taro-ui"
 
 import { updateBizData, updateUiData, updateDayByCalendar } from '../../../../actions/event'
 import IconFont from '../../../../components/iconfont'
+import themeC from '../../../../style/theme'
 import './index.scss';
 
 export default () => {
@@ -14,6 +15,7 @@ export default () => {
   const currentWeekIndex = useSelector(state => state.event.bizData.currentWeekIndex)
   const dayIndex = useSelector(state => state.event.bizData.dayIndex)
   const showCalendar = useSelector(state => state.event.uiData.showCalendar)
+  const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
   const [currentSwiper, setCurrentSwiper] = useState(1)
   const [weekDataList, setWeekDataList] = useState([[
     { dayZh: "周一", dateZh: "2000/10/01", today: false },
@@ -30,7 +32,7 @@ export default () => {
     if (weekDataList.length !== 1 || dayLineMatrix.length === 0) {
       return
     }
-    
+
     const weekDataList_ = []
     if (weekIndex > 0) {
       weekDataList_.push(dayLineMatrix[weekIndex - 1])
@@ -42,6 +44,10 @@ export default () => {
     setWeekDataList(weekDataList_)
   }, [dayLineMatrix, weekDataList, weekIndex])
 
+
+  // if (globalTheme === 99) {
+  //   return <View></View>
+  // }
 
   const handleClickDay = (dayIndex_, weekIndex_) => {
     dispatch(updateBizData({
@@ -60,13 +66,17 @@ export default () => {
         showCalendar ?
           <View className='eventTimePicker-calendar'>
             <AtCalendar isSwiper={false} minDate='2020/9/7' maxDate='2021/1/24' onSelectDate={e => handleClickCalendarDay(e)} />
-            <View className='eventTimePicker-calendar-back' onClick={() => dispatch(updateUiData({ showCalendar: false }))}>收起</View>
+            <View
+              className='eventTimePicker-calendar-back'
+              onClick={() => dispatch(updateUiData({ showCalendar: false }))}
+              style={{ color: themeC[`color-brand-${globalTheme}`] }}
+            >收起</View>
           </View>
           :
           <Swiper style={{ height: '124rpx' }} current={currentSwiper} duration={250}>
             {
               weekDataList.map((weekData, wi) => {
-                const weekIndex_ = dayLineMatrix.indexOf(weekData)
+                const weekIndex_ = currentWeekIndex + wi - 1
                 if (weekIndex === weekIndex_ && currentSwiper !== wi) {
                   setCurrentSwiper(wi)
                 }
@@ -78,6 +88,7 @@ export default () => {
                           <View className='eventTimePicker-dayLine-item' key={dayData.dateZh}>
                             <View
                               className={`eventTimePicker-dayLine-box ${dayLineMatrix.length === 0 && 'eventTimePicker-dayLine-box_static'} eventTimePicker-dayLine-box_${(dayIndex === dayIndex_ && weekIndex === weekIndex_) ? 'active' : ''}`}
+                              style={(dayIndex === dayIndex_ && weekIndex === weekIndex_) ? { backgroundColor: themeC[`color-brand-${globalTheme}`], animationName: `grey-color-shadow-${globalTheme}` } : { animationName: `color-grey-shadow-${globalTheme}` }}
                               onClick={() => handleClickDay(dayIndex_, weekIndex_)}
                             >
                               <View className='eventTimePicker-dayLine-box_day'>

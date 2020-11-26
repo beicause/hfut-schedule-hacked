@@ -7,7 +7,7 @@
   &-header {
     width: 100%;
     padding: 32px 32px;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
     box-sizing: border-box;
     box-shadow: 0 4px 4px #e8e8e8;
     display: flex;
@@ -43,7 +43,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0 32px;
+    padding: 24px 32px;
 
     &-name {
       color: $color-grey;
@@ -52,7 +52,7 @@
 
     &-comment {
       color: $color-light;
-      margin-top: 24px;
+      margin-top: 48px;
       text-align: center;
     }
   }

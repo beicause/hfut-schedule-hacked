@@ -9,11 +9,12 @@ import * as scheduleActions_ from '../../../../actions/schedule'
 import * as loginActions_ from '../../../../actions/login'
 import IconFont from '../../../../components/iconfont'
 import CustomButton from '../../../../components/CustomButton'
+import themeC from '../../../../style/theme'
 
 
 function SettingFloatLayout(props) {
   const { userConfig, userType, scheduleActions, loginActions, isOpened, onClose } = props
-  const { theme, showAiXin, imgOpacity, courseOpacity, showRedPoint } = userConfig
+  const { theme, showAiXin, imgOpacity, courseOpacity, showRedPoint, globalTheme } = userConfig
   const [showSetBackground, setShowSetBackground] = useState(false)
 
   const themeRange = [
@@ -214,13 +215,13 @@ function SettingFloatLayout(props) {
           userType === 'me' &&
           <View className='settingFloatLayout-content-item'>
             <Text>隐藏情侣课表入口</Text>
-            <Switch checked={!showAiXin} onChange={e => updateUserConfig({ showAiXin: !e.detail.value })} color='#29a2ff' />
+            <Switch checked={!showAiXin} onChange={e => updateUserConfig({ showAiXin: !e.detail.value })} color={themeC[`color-brand-${globalTheme}`]} />
           </View>
         }
 
         <View className='settingFloatLayout-content-item'>
           <Text>有备忘录的课程右上角显示红点</Text>
-          <Switch checked={showRedPoint} onChange={e => updateUserConfig({ showRedPoint: e.detail.value })} color='#29a2ff' />
+          <Switch checked={showRedPoint} onChange={e => updateUserConfig({ showRedPoint: e.detail.value })} color={themeC[`color-brand-${globalTheme}`]} />
         </View>
 
         <View className='settingFloatLayout-line'></View>
@@ -249,7 +250,7 @@ function SettingFloatLayout(props) {
               max={100}
               blockSize={24}
               showValue
-              activeColor='#29a2ff'
+              activeColor={themeC[`color-brand-${globalTheme}`]}
               onchange={handleImgOpacityChange}
             />
           </View>
@@ -264,7 +265,7 @@ function SettingFloatLayout(props) {
               max={100}
               blockSize={24}
               showValue
-              activeColor='#29a2ff'
+              activeColor={themeC[`color-brand-${globalTheme}`]}
               onchange={handleCourseOpacityChange}
             />
           </View>

@@ -15,13 +15,11 @@
   line-height: 88px;
 
   &_call {
-    background-color: $color-brand;
     color: #ffffff;
   }
 
   &_default {
     background-color: $color-background;
-    color: $color-font-brand;
   }
 
   &_primary {
@@ -58,13 +56,11 @@
   text-align: center;
 
   &_call {
-    background-color: $color-brand;
     color: #ffffff;
   }
 
   &_default {
     background-color: $color-background;
-    color: $color-font-brand;
   }
 
   &_primary {
@@ -86,5 +82,9 @@
     background-color: $color-background;
     color: $color-grey;
   }
+}
+
+.relative-circle-button::after {
+  border: none;
 }
 

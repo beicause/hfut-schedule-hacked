@@ -1,10 +1,13 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { View } from '@tarojs/components'
 
+import themeC from '../../../style/theme'
 import './index.scss'
 
 export default (props) => {
   let { dayLineData } = props
+  const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
 
   if (!dayLineData) {
     dayLineData = [
@@ -25,7 +28,7 @@ export default (props) => {
           const { dayZh, dateZh, today } = dayData
           return (
             <View className='dayLine-box' key={dateZh}>
-              <View className={today && 'dayLine-box-today'}>
+              <View className={today && 'dayLine-box-today'} style={today && { backgroundColor: themeC[`color-brand-light-${globalTheme}`] }}>
                 <View className={'dayLine-box-day ' + (today && 'dayLine-box-day-today')}>{dayZh}</View>
                 <View className={'dayLine-box-date ' + (today && 'dayLine-box-date-today')}>{dateZh.slice(5,)}</View>
               </View>

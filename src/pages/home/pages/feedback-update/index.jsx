@@ -1,4 +1,6 @@
 import React from 'react'
+import Taro, { useDidShow } from '@tarojs/taro'
+import { useSelector } from 'react-redux'
 import { View, Button, Text } from '@tarojs/components'
 
 import updateHistory from '../../../../assets/data/updateHistory'
@@ -8,6 +10,12 @@ import './index.scss'
 
 
 function Gift() {
+  const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
+  // console.log('---------------')
+  // console.log(globalTheme)
+
+  // 适配全局主题
+  useDidShow(() => Taro.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: themeC[`color-brand-dark-${globalTheme}`] }))
 
   return (
     <View className='feedbackUpdate'>
@@ -18,10 +26,10 @@ function Gift() {
 
       <View className='feedbackUpdate-card'>
         <View className='feedbackUpdate-card-item'>
-          <Button className='feedbackUpdate-card-item-btn' openType='feedback'>功能建议/问题反馈</Button>
+          <Button className='feedbackUpdate-card-item-btn' style={{ color: themeC[`color-brand-${globalTheme}`] }} openType='feedback'>功能建议/问题反馈</Button>
         </View>
         <View className='feedbackUpdate-card-item'>
-          <Button className='feedbackUpdate-card-item-btn' openType='contact'>联系客服</Button>
+          <Button className='feedbackUpdate-card-item-btn' style={{ color: themeC[`color-brand-${globalTheme}`] }} openType='contact'>联系客服</Button>
         </View>
       </View>
 
@@ -35,7 +43,7 @@ function Gift() {
             <View key={updateData.version} className='feedbackUpdate-list-item'>
               <View className='feedbackUpdate-list-item-title'>
                 {/* <View style={{ position: 'relative', top: 2 }}> */}
-                  <IconFont name='huatifuhao' size={44} color={themeC["color-font-brand"]} />
+                  <IconFont name='huatifuhao' size={44} color={themeC[`color-brand-light-${globalTheme}`]} />
                 <Text style={{ marginLeft: 8 }}>{updateData.version}</Text>
               </View>
               <View className='feedbackUpdate-list-item-comment'>

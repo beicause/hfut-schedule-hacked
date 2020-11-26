@@ -1,13 +1,12 @@
 import React from 'react'
 import Taro, { useDidShow } from '@tarojs/taro'
 import { connect } from 'react-redux'
-import { View, Text, Input, Picker } from '@tarojs/components'
+import { View, Text, Input, Picker, Button } from '@tarojs/components'
 import { AtMessage, AtList, AtListItem } from 'taro-ui'
 
 import IconFont from '../../components/iconfont'
 import * as actions from '../../actions/login'
 import StandardFloatLayout from '../../components/StandardFloatLayout'
-import CustomButton from '../../components/CustomButton'
 import './index.scss'
 
 function Login(props) {
@@ -117,12 +116,11 @@ function Login(props) {
           遇到问题
         </View>
 
-        <CustomButton
-          value='登录'
-          type='call'
+        <Button
           disabled={isLoginDisabled}
-          onSubmit={submitHandleClick}
-        />
+          onClick={submitHandleClick}
+          className='relative-circle-button login-content-submit'
+        >登录</Button>
 
       </View>
 
@@ -132,7 +130,7 @@ function Login(props) {
           关于这个
         </View>
       }
-      
+
       <AtMessage />
 
       <StandardFloatLayout

@@ -1,5 +1,5 @@
 import React, { useEffect, memo, useState } from 'react'
-import Taro, { usePullDownRefresh } from '@tarojs/taro'
+import Taro, { useDidShow, usePullDownRefresh } from '@tarojs/taro'
 import { connect } from 'react-redux'
 import { View } from '@tarojs/components'
 
@@ -15,15 +15,25 @@ import CourseTable from './components/CourseTable'
 import ScheduleTop from './components/ScheduleTop'
 import ScheduleFooter from './components/ScheduleFooter'
 import checkUpdate from '../../utils/checkUpdate'
+import themeC from '../../style/theme'
 
 const MemoBackgroundImg = memo(BackgroundImg)
 
 
 function Schedule(props) {
   const { bizData, uiData, enter, userType } = props
-  const { weekIndex, currentWeekIndex, scheduleMatrix, dayLineMatrix, timeTable, backgroundPath } = bizData
+  const { weekIndex, currentWeekIndex, scheduleMatrix, dayLineMatrix, timeTable, backgroundPath, userConfig } = bizData
   const { courseDetailFLData, customScheduleFLData, colorPickerData } = uiData
+  const { globalTheme } = userConfig
   const [renderElse, setRenderElse] = useState(false)
+
+  // 适配全局主题
+  useDidShow(() => Taro.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: themeC[`color-brand-dark-${globalTheme}`] }))
+
+  // 适应首次登陆时的场景
+  useEffect(() => {
+    Taro.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: themeC[`color-brand-dark-${globalTheme}`] })
+  }, [globalTheme])
 
   useEffect(() => {
     enter({ userType })

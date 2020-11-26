@@ -85,7 +85,7 @@ function Gift() {
 
       <View className='gift-item'>
         <View className='gift-item-title'>
-          <IconFont name='caidan' size={48} color={themeC['color-font-brand']} />
+          <IconFont name='caidan' size={48} color={themeC['color-brand-0']} />
           <View className='gift-item-title__value'>未来更新预告</View>
         </View>
         <View className='gift-item-content'>
@@ -102,7 +102,7 @@ function Gift() {
 
       <View className='gift-item'>
         <View className='gift-item-title'>
-          <IconFont name='mingxinghuodong' size={48} color={themeC['color-font-brand']} />
+          <IconFont name='mingxinghuodong' size={48} color={themeC['color-brand-0']} />
           <View className='gift-item-title__value'>更名征集</View>
         </View>
         <View className='gift-item-content'>
@@ -134,7 +134,7 @@ function Gift() {
 
       <View className='gift-item'>
         <View className='gift-item-title'>
-          <IconFont name='wenjuan' size={48} color={themeC['color-font-brand']} />
+          <IconFont name='wenjuan' size={48} color={themeC['color-brand-0']} />
           <View className='gift-item-title__value'>新功能征集与意见反馈</View>
         </View>
         <View className='gift-item-content'>

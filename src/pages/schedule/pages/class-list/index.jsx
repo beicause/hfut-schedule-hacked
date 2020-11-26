@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import Taro from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { connect, useDispatch } from 'react-redux'
 import { View, Image, Text } from '@tarojs/components'
 
 import EmptyImg from '../../../../assets/img/empty.svg'
 import { GET } from '../../../../utils/request'
 import { relogin } from '../../../../actions/login'
+import themeC from '../../../../style/theme'
 import './index.scss'
 
 // key过期后，尝试重新登陆的次数
@@ -14,9 +15,12 @@ let reloginTime = 0
 
 
 function Classlist(props) {
-  const { clazzName, semestercode, lessonCode, campusId } = props
+  const { clazzName, semestercode, lessonCode, campusId, globalTheme } = props
   const [matelist, setMatelist] = useState([])
   const dispatch = useDispatch()
+
+  // 适配全局主题
+  useDidShow(() => Taro.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: themeC[`color-brand-dark-${globalTheme}`] }))
 
   // 核心业务逻辑
   const getClasslist = useCallback(async () => {
@@ -84,7 +88,7 @@ function Classlist(props) {
       Taro.hideLoading()
     }, 800);
 
-  }, [clazzName, semestercode, lessonCode, dispatch])
+  }, [clazzName, campusId, semestercode, lessonCode, dispatch])
 
   // 请求
   useEffect(() => {
@@ -126,7 +130,8 @@ function Classlist(props) {
 
 function mapStateToProps(state) {
   return {
-    ...state.classlist.bizData
+    ...state.classlist.bizData,
+    globalTheme: state.schedule.bizData.userConfig.globalTheme,
   };
 }
 

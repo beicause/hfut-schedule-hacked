@@ -1,14 +1,17 @@
 import React from 'react'
 import Taro from '@tarojs/taro'
+import { useSelector } from 'react-redux'
 import { View } from '@tarojs/components'
 import { AtFloatLayout, AtLoadMore } from 'taro-ui'
 
 import IconFont from '../../../../../../components/iconfont'
+import themeC from '../../../../../../style/theme'
 import './index.scss'
 
 export default (props) => {
   const { bookStatusFLData } = props
   const { isOpened, onClose, title, statusList } = bookStatusFLData
+  const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
 
   const handleClickSelectNumber = (selectNumber) => {
     Taro.setClipboardData({
@@ -63,7 +66,11 @@ export default (props) => {
                   return (
                     <View className='bookStatusFL-content-item' key={index}>
                       <View className='bookStatusFL-content-item_box1'>{statusData.location}</View>
-                      <View className='bookStatusFL-content-item_box2' onClick={() => handleClickSelectNumber(statusData.selectNumber)}>{statusData.selectNumber}</View>
+                      <View
+                        className='bookStatusFL-content-item_box2'
+                        onClick={() => handleClickSelectNumber(statusData.selectNumber)}
+                        style={{ color: themeC[`color-brand-${globalTheme}`] }}
+                      >{statusData.selectNumber}</View>
                       <View className={`bookStatusFL-content-item_box3 bookStatusFL-content-item_box3_${statusColor}`}>{statusData.status}</View>
                     </View>
                   )

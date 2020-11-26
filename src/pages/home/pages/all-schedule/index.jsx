@@ -12,16 +12,18 @@ import ScheduleTop from './components/ScheduleTop'
 import CourseDetailFloatLayout2 from '../../../../components/schedule-component/CourseDetailFloatLayout2'
 import BackgroundImg from '../../../../components/schedule-component/BackgroundImg'
 import ScheduleFooter from './components/ScheduleFooter'
+import themeC from '../../../../style/theme'
 
 const MemoBackgroundImg = memo(BackgroundImg)
 
+
 function AllSchedule(props) {
-  const { bizData, uiData } = props
+  const { bizData, uiData, globalTheme } = props
   const { weekIndex, currentWeekIndex, scheduleMatrix, dayLineMatrix } = bizData
   const { courseDetailFLData } = uiData
 
   useDidShow(() => {
-    Taro.hideHomeButton()
+    Taro.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: themeC[`color-brand-dark-${globalTheme}`] })
     props.enter()
   })
 
@@ -84,6 +86,7 @@ function mapStateToProps(state) {
   return {
     ...state.allSchedule,
     showAd: state.schedule.bizData.userConfig.showAd,
+    globalTheme: state.schedule.bizData.userConfig.globalTheme,
   };
 }
 

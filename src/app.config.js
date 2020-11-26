@@ -2,6 +2,7 @@ import { useGlobalIconFont } from './components/iconfont/helper';
 
 export default {
   pages: [
+    // 'pages/home/index',
 
     'pages/event/index',
     'pages/schedule/index',

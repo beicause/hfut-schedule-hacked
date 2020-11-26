@@ -160,5 +160,12 @@ export default [
       '加入历史学期课表',
     ],
   },
+  {
+    version: 'v4.8.0',
+    time: '2020-11-26',
+    features: [
+      '支持自定义小程序主题色',
+    ],
+  },
   
 ].reverse()

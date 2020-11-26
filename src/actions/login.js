@@ -17,13 +17,22 @@ export const login = ({ username, password, userType, campus }) => async () => {
   })
   const res = await GET('/login', { username, password })
   Taro.hideLoading()
-  const { success, msg, key } = res
 
+  // 这种情况一般是突然封网了
+  if (!res) {
+    return Taro.atMessage({
+      'message': '教务又双叒叕出问题了，请稍后再试',
+      'type': 'error',
+      duration: 2000,
+    })
+  }
+
+  const { success, msg, key } = res
   // 验证失败
   if (!success) {
     if (msg.indexOf('webvpn登录出错') !== -1) {
       Taro.atMessage({
-        'message': '教务又双叒叕拥堵了，请稍后再试',
+        'message': '教务又双叒叕出问题了，请稍后再试',
         'type': 'error',
         duration: 2000,
       })
@@ -150,6 +159,7 @@ export const relogin = ({ userType, reloginTime, callback }) => async (dispatch)
   const { userInfo } = localUserData
   const { username, password, campus } = userInfo
   const res = await GET('/login', { username, password })
+
   const { success, key, msg } = res
   if (success && reloginTime < 6) {
     await Taro.setStorage({

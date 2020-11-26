@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { View, Text } from '@tarojs/components'
 
 import { updateUiData } from '../../../../actions/event'
+import themeC from '../../../../style/theme'
 import './index.scss';
 
 export default () => {
@@ -12,6 +13,7 @@ export default () => {
   const weekIndex = useSelector(state => state.event.bizData.weekIndex)
   const currentWeekIndex = useSelector(state => state.event.bizData.currentWeekIndex)
   const eventBoxHeight = useSelector(state => state.schedule.bizData.userConfig.eventBoxHeight)
+  const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
   const dispatch = useDispatch()
   const timeList = [
     '08:00',
@@ -45,7 +47,6 @@ export default () => {
   }, [dispatch])
 
 
-
   return (
     <View className='eventTimeList'>
       {
@@ -61,9 +62,9 @@ export default () => {
 
       {
         (dayIndex === currentDayIndex && weekIndex === currentWeekIndex) &&
-        <View className='eventTimeList-pTimeLine' style={{ marginTop: pTimeLine * eventBoxHeight - (15 / eventBoxHeight) + 16 + 'rpx' }}>
-          <View className='eventTimeList-pTimeLine-dot'></View>
-          <View className='eventTimeList-pTimeLine-line'></View>
+        <View className='eventTimeList-pTimeLine' style={{ marginTop: pTimeLine * eventBoxHeight - (15 / eventBoxHeight) + 'rpx' }}>
+          <View className='eventTimeList-pTimeLine-dot' style={{ backgroundColor: themeC[`color-brand-light-${globalTheme}`] }}></View>
+          <View className='eventTimeList-pTimeLine-line' style={{ backgroundColor: themeC[`color-brand-light-${globalTheme}`] }}></View>
         </View>
       }
     </View>

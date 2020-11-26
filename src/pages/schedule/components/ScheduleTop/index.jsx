@@ -10,14 +10,24 @@ import IconFont from '../../../../components/iconfont'
 import LittleMenu from '../../../../components/LittleMenu'
 import SettingFloatLayout from '../SettingFloatLayout'
 import WeekPicker from '../../../../components/schedule-component/WeekPicker'
-import './index.scss'
+import themeC from '../../../../style/theme'
+
 
 export default (props) => {
   const { weekIndex, currentWeekIndex, changeWeekIndex, preRender } = props
 
+  const [showMenu, setShowMenu] = useState(false)
+  const [showLoverBox, setShowLoverBox] = useState(false)
+  const [showSetting, setShowSetting] = useState(false)
+  const [showWeekPicker, setShowWeekPicker] = useState(false)
+  const userType = useSelector(state => state.login.bizData.userType)
+  const showAiXin = useSelector(state => state.schedule.bizData.userConfig.showAiXin)
+  const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
+  const dispatch = useDispatch()
+
   if (preRender) {
     return (
-      <View className='scheduleTop'>
+      <View className='scheduleTop' style={{ backgroundColor: themeC[`color-brand-dark-${globalTheme}`] }}>
 
         <View className='scheduleTop-aixin'>
         </View>
@@ -35,14 +45,6 @@ export default (props) => {
       </View>
     )
   }
-
-  const [showMenu, setShowMenu] = useState(false)
-  const [showLoverBox, setShowLoverBox] = useState(false)
-  const [showSetting, setShowSetting] = useState(false)
-  const [showWeekPicker, setShowWeekPicker] = useState(false)
-  const userType = useSelector(state => state.login.bizData.userType)
-  const showAiXin = useSelector(state => state.schedule.bizData.userConfig.showAiXin)
-  const dispatch = useDispatch()
 
   const daysZh = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
 
@@ -89,7 +91,7 @@ export default (props) => {
   }
 
   return (
-    <View className='scheduleTop'>
+    <View className='scheduleTop' style={{ backgroundColor: themeC[`color-brand-dark-${globalTheme}`] }}>
 
       <View className='scheduleTop-aixin' onClick={handleAiXinClick}>
         {
