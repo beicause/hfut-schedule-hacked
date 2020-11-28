@@ -10,10 +10,11 @@ import CustomButton from '../../../components/CustomButton'
 import ColorButton from '../../../components/ColorButton'
 import validWeekChecker from '../../../utils/validWeekChecker'
 import themeC from '../../../style/theme'
+import { currentSemester } from '../../../config/config.default'
 import './index.scss'
 
 export default (props) => {
-  const { isOpened, source, onClose, customScheduleFLData, updateData, scheduleMatrix, timeTable, updateColorPicker, updateCourseDetailFL } = props
+  const { isOpened, source, onClose, customScheduleFLData, updateData, scheduleMatrix, timeTable, updateColorPicker } = props
   const { type = 'add', name, clazzRoom, chosenWeeks = [], currentWeekIndex, courseType = 1, dayIndex = 0, startTime = 0, lessonId, memo, color = 'blue' } = customScheduleFLData
   const theme = useSelector(state => state.schedule.bizData.userConfig.theme)
   const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
@@ -77,21 +78,21 @@ export default (props) => {
       setMultChosen(method)
       switch (method) {
         case '单周':
-          for (let i = 1; i < 21; i++) {
+          for (let i = 1; i <= currentSemester.weekNumber; i++) {
             if (i % 2 === 1) {
               newChosenWeeks.push(i)
             }
           }
           break;
         case '双周':
-          for (let i = 1; i < 21; i++) {
+          for (let i = 1; i <= currentSemester.weekNumber; i++) {
             if (i % 2 === 0) {
               newChosenWeeks.push(i)
             }
           }
           break;
         case '全选':
-          for (let i = 1; i < 21; i++) {
+          for (let i = 1; i <= currentSemester.weekNumber; i++) {
             newChosenWeeks.push(i)
           }
           break;
@@ -145,15 +146,13 @@ export default (props) => {
 
     dispatch(customScheduleActions.updateCustomSchedule(newData))
 
-    if (type === 'change') {
-      updateCourseDetailFL(newData)
-    }
-
     Taro.showToast({
       title: '添加成功',
       duration: 1000
     })
-    onClose()
+
+    // 关闭自定义事件弹窗，并传出新的数据
+    onClose(newData)
   }
 
   return (
@@ -163,7 +162,7 @@ export default (props) => {
       onClose={onClose}
     >
       <View className='customScheduleFL-header'>
-        新增事件
+        {`${type === 'add' ? '新增' : '修改'}修改`}
         <View className='customScheduleFL-header-close' onClick={onClose}>
           <IconFont name='shibai' size={48} color='#60646b' />
         </View>
@@ -258,7 +257,7 @@ export default (props) => {
                     <View key={`key${weekIndex}`}
                       className={`customScheduleFL-content-item-weekIndexContent-week customScheduleFL-content-item-weekIndexContent-week_${isChosen ? 'chosen' : ''}`}
                       style={{
-                        opacity: weekIndex >= 20 ? 0 : 1,
+                        opacity: weekIndex >= currentSemester.weekNumber ? 0 : 1,
                         animationName: isChosen ? `grey-color-${globalTheme}` : `color-grey-${globalTheme}`,
                         backgroundColor: isChosen && themeC[`color-brand-${globalTheme}`]
                       }}
@@ -269,13 +268,13 @@ export default (props) => {
                   )
                 } else if (validWeeks[i] === 1) {
                   return (
-                    <View key={`key${weekIndex}`} className='customScheduleFL-content-item-weekIndexContent-week' style={`opacity: ${weekIndex > 20 ? 0 : 1}`}>
+                    <View key={`key${weekIndex}`} className='customScheduleFL-content-item-weekIndexContent-week' style={`opacity: ${weekIndex > currentSemester.weekNumber ? 0 : 1}`}>
                       有课
                     </View>
                   )
                 } else {
                   return (
-                    <View key={`key${weekIndex}`} className='customScheduleFL-content-item-weekIndexContent-week' style={`opacity: ${weekIndex > 20 ? 0 : 1}`}>
+                    <View key={`key${weekIndex}`} className='customScheduleFL-content-item-weekIndexContent-week' style={`opacity: ${weekIndex > currentSemester.weekNumber ? 0 : 1}`}>
                       超时
                     </View>
                   )

@@ -13,6 +13,7 @@ import CourseDetailFloatLayout2 from '../../../../components/schedule-component/
 import BackgroundImg from '../../../../components/schedule-component/BackgroundImg'
 import ScheduleFooter from './components/ScheduleFooter'
 import themeC from '../../../../style/theme'
+import { currentSemester } from '../../../../config/config.default'
 
 const MemoBackgroundImg = memo(BackgroundImg)
 
@@ -35,7 +36,7 @@ function AllSchedule(props) {
         duration: 500
       })
       return null
-    } else if (weekIndex_ > 19) {
+    } else if (weekIndex_ > (currentSemester.weekNumber - 1)) {
       Taro.showToast({
         title: '当前已经是最后一周',
         icon: 'none',

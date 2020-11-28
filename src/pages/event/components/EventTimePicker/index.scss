@@ -67,13 +67,13 @@
   &-calendar {
     position: relative;
     animation: calendar-in .35s forwards;
-    margin-bottom: 52px;
+    margin-bottom: 72px;
     padding: 0 36px;
 
     &-back {
       z-index: 4;
       position: absolute;
-      bottom: -56px;
+      bottom: -72px;
       font-size: 27px;
       width: 678px;
       padding: 12px;

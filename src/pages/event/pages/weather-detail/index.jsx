@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from 'react'
 import Taro, { usePullDownRefresh } from '@tarojs/taro'
 import { useSelector, useDispatch } from 'react-redux'
 import { View, Canvas, ScrollView } from '@tarojs/components'
-import * as moment from 'moment'
+import dayjs from 'dayjs'
 
 import { refreshWeather } from '../../../../actions/event'
 import { dayIndexToZh } from '../../../../utils/scheduleDataTranslator'
@@ -70,7 +70,7 @@ function WeatherDetail() {
         cvsDaily.drawImage(weatherConfig[iconName].img, beginX - 16, maxHeight - 60, 32, 32)
 
         // 画顶部的日期
-        const dayMoment = moment(date)
+        const dayMoment = dayjs(date)
         cvsDaily.font = '14px sans-serif'
         if (d === 0) {
           cvsDaily.fillText('今日', beginX - 13, 24)
@@ -139,7 +139,7 @@ function WeatherDetail() {
         cvsHourly.drawImage(weatherConfig[iconName].img, beginX - 16, height - 60, 32, 32)
         cvsHourly.lineTo(beginX, height);
         // 绘制顶部的小时
-        const hourMoment = moment(datetime)
+        const hourMoment = dayjs(datetime)
         cvsHourly.font = '14px sans-serif'
         cvsHourly.fillText(hourMoment.hour() + '时', beginX - 13, 24)
         cvsHourly.font = '12px sans-serif'

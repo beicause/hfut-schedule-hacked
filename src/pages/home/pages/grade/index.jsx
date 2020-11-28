@@ -97,6 +97,7 @@ function Grade() {
         indicatorColor='#dddddd'
         indicatorActiveColor='#999999'
         indicatorDots
+        duration={350}
         current={scorelist.length - 1}
       >
         {

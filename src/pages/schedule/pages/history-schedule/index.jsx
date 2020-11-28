@@ -17,6 +17,7 @@ import { relogin } from '../../../../actions/login'
 import dataToMatrix from '../../../../utils/scheduleDataTranslator'
 import makeDayLineMatrix from '../../../../utils/dayLineMatrixMaker'
 import themeC from '../../../../style/theme'
+import { currentSemester } from '../../../../config/config.default'
 
 const MemoBackgroundImg = memo(BackgroundImg)
 // key过期后，尝试重新登陆的次数
@@ -94,7 +95,7 @@ function HistorySchedule(props) {
         duration: 500
       })
       return null
-    } else if (weekIndex_ > 19) {
+    } else if (weekIndex_ > (currentSemester.weekNumber - 1)) {
       Taro.showToast({
         title: '当前已经是最后一周',
         icon: 'none',

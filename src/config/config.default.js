@@ -1,3 +1,4 @@
+import semesterData from '../assets/data/semesterData'
 
 // 0：无需进行操作
 // 1：需要重新登陆
@@ -5,8 +6,8 @@ export const updateState = 0
 
 // 当前学期
 export const currentSemester = {
-  code: '037',  // app教务使用这个
-  id: 114,  // pc教务使用这个
+  ...semesterData[0],
+  weekNumber: 20,
 }
 
 export const config = {

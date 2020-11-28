@@ -3,7 +3,7 @@ import Taro, { useDidShow } from '@tarojs/taro'
 import { useSelector } from 'react-redux'
 import { View, Text, OpenData } from '@tarojs/components'
 import { AtBadge } from 'taro-ui'
-import * as moment from 'moment';
+import dayjs from 'dayjs';
 
 import IconFont from '../../components/iconfont'
 import StandardFloatLayout from '../../components/StandardFloatLayout'
@@ -64,7 +64,7 @@ function Home() {
   let examCount = 0
   examData.map(exam => {
     const { timeText } = exam
-    if (moment().isBefore(moment(timeText.split('~')[0]))) {
+    if (dayjs().isBefore(dayjs(timeText.split('~')[0]))) {
       examCount++
     }
   })

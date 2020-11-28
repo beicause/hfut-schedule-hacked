@@ -1,10 +1,9 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-// import 'taro-ui/dist/style/index.scss'
-import './style/taro-ui-custom.scss'
 
 import configStore from './store'
 
+import './style/taro-ui-custom.scss'
 import './style/app.scss'
 
 const store = configStore()

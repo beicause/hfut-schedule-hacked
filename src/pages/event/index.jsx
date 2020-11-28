@@ -104,15 +104,9 @@ function Event(props) {
           }
         })}
         source='event'
-        updateCourseDetailFL={(data) => props.updateUiData({
-          courseDetailFLData: {
-            ...courseDetailFLData,
-            ...data
-          }
-        })}
-        onClose={() => props.updateUiData({
+        onClose={(data) => props.updateUiData({
           customScheduleFLData: { isOpened: false },
-          courseDetailFLData: { ...courseDetailFLData, showMemo: true }
+          courseDetailFLData: { ...courseDetailFLData, ...data, showMemo: true }
         })}
         scheduleMatrix={scheduleMatrix}
         timeTable={timeTable}

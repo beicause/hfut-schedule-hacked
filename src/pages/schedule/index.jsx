@@ -16,6 +16,7 @@ import ScheduleTop from './components/ScheduleTop'
 import ScheduleFooter from './components/ScheduleFooter'
 import checkUpdate from '../../utils/checkUpdate'
 import themeC from '../../style/theme'
+import { currentSemester } from '../../config/config.default'
 
 const MemoBackgroundImg = memo(BackgroundImg)
 
@@ -69,7 +70,7 @@ function Schedule(props) {
         duration: 500
       })
       return null
-    } else if (weekIndex_ > 19) {
+    } else if (weekIndex_ > (currentSemester.weekNumber - 1)) {
       Taro.showToast({
         title: '当前已经是最后一周',
         icon: 'none',
@@ -141,15 +142,9 @@ function Schedule(props) {
                 ...newData,
               }
             })}
-            updateCourseDetailFL={(data) => props.updateUiData({
-              courseDetailFLData: {
-                ...courseDetailFLData,
-                ...data
-              }
-            })}
-            onClose={() => props.updateUiData({
+            onClose={(data) => props.updateUiData({
               customScheduleFLData: { isOpened: false },
-              courseDetailFLData: { ...courseDetailFLData, showMemo: true }
+              courseDetailFLData: { ...courseDetailFLData, ...data, showMemo: true }
             })}
             scheduleMatrix={scheduleMatrix}
             timeTable={timeTable}

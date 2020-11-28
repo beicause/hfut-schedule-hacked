@@ -33,11 +33,23 @@ export const enter = ({ userType, isEvent }) => async (dispatch, getState) => {
       const { scheduleMatrix, scheduleData, lessonIds, timeTable = [], examData = [] } = userData.data  // 读取本地的课表数据
       const { moocData } = dataToMatrix(scheduleData, lessonIds, timeTable)
       const { dayLineMatrix, currentWeekIndex } = makeDayLineMatrix()  // 生成一个时间线矩阵
-      // 二话不说先渲染
-      dispatch(updateBizData({ scheduleMatrix, timeTable, moocData, dayLineMatrix, currentWeekIndex, weekIndex: currentWeekIndex }))
+
+      // 判断是否为情侣课表之间来回切换
+      // 实现：切换情侣课表不改变课表上的周数
+      const stateScheduleMatrix = getState().schedule.bizData.scheduleMatrix
+      const stateWeekIndex = getState().schedule.bizData.weekIndex
+      const eventStateWeekIndex = getState().event.bizData.weekIndex
+      let weekIndex = stateWeekIndex
+      let eventWeekIndex = eventStateWeekIndex
+      if (stateScheduleMatrix.length === 0) {
+        weekIndex = currentWeekIndex
+        eventWeekIndex = currentWeekIndex
+      }
+      // 二话不说就渲染
+      dispatch(updateBizData({ scheduleMatrix, timeTable, moocData, dayLineMatrix, currentWeekIndex, weekIndex }))
       // 是自己，再渲染event，情侣与event页面无关
       if (userType === 'me') {
-        dispatch(eventActions.updateBizData({ scheduleMatrix, timeTable, examData, dayLineMatrix, currentWeekIndex, weekIndex: currentWeekIndex }))
+        dispatch(eventActions.updateBizData({ scheduleMatrix, timeTable, examData, dayLineMatrix, currentWeekIndex, weekIndex: eventWeekIndex }))
       }
 
       //读取本地设置

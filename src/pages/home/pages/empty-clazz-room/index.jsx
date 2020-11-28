@@ -7,7 +7,7 @@ import Taro, { useDidShow } from '@tarojs/taro'
 import { useSelector, useDispatch } from 'react-redux'
 import { View, Text, Picker } from '@tarojs/components'
 import _ from 'lodash'
-import * as moment from 'moment';
+import dayjs from 'dayjs';
 
 import IconFont from '../../../../components/iconfont'
 import { dayIndexToZh } from '../../../../utils/scheduleDataTranslator'
@@ -73,7 +73,7 @@ function EmptyClazzRoom() {
   const [startTime, setStartTime] = useState(1)
   const [endTime, setEndTime] = useState(1)
 
-  const [buildingRange, setBuildingRange] = useState([{ buildingZh: '' }])
+  const [buildingRange, setBuildingRange] = useState(buildingRange_0)
   const [showDatePicker, setShowDatePicker] = useState(false)
   const [showWeekPicker, setShowWeekPicker] = useState(false)
   const [uiData, setUiData] = useState([])
@@ -98,18 +98,16 @@ function EmptyClazzRoom() {
           const { userInfo: { campus: userCampus } } = Taro.getStorageSync('me')
           if (userCampus === 2) {
             setCampus(2)
-            setBuildingRange(buildingRange_2)
           } else {
             setCampus(0)
-            setBuildingRange(buildingRange_0)
           }
         })
 
       // 初始化数据
       setWeekIndex(currentWeekIndex)
       setDayIndex(currentDayIndex)
-      setDate(moment().format('YYYY-MM-DD'))
-      let currentTime = parseInt(moment().format("Hmm"))
+      setDate(dayjs().format('YYYY-MM-DD'))
+      let currentTime = parseInt(dayjs().format("Hmm"))
       currentTime = currentTime > 800 ? currentTime : 801
       timeTable.map((timeData, tableIndex) => {
         const { startTime: startTime_, endTime: endTime_, indexNo } = timeData
@@ -239,7 +237,7 @@ function EmptyClazzRoom() {
         }
       })
       setBuildingRange(buildingRange_1)
-    } else if (campus === '2') {
+    } else if (parseInt(campus) === 2) {
       console.log('宣城')
       setBuildingRange(buildingRange_2)
     } else {
@@ -320,7 +318,7 @@ function EmptyClazzRoom() {
 
   // 定位到当天、当前时间
   const locateAll = () => {
-    let currentTime = parseInt(moment().format("Hmm"))
+    let currentTime = parseInt(dayjs().format("Hmm"))
     currentTime = currentTime > 800 ? currentTime : 801
     timeTable.map((timeData, tableIndex) => {
       const { startTime: startTime_, endTime: endTime_, indexNo } = timeData
@@ -339,7 +337,7 @@ function EmptyClazzRoom() {
   // 定位按钮是否可见
   const isLocateBtnShow = () => {
     let isShow = false
-    let currentTime = parseInt(moment().format("Hmm"))
+    let currentTime = parseInt(dayjs().format("Hmm"))
     currentTime = currentTime > 800 ? currentTime : 801
     timeTable.map((timeData, tableIndex) => {
       const { startTime: startTime_, endTime: endTime_, indexNo } = timeData

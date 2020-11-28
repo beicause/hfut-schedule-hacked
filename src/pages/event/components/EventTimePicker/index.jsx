@@ -6,6 +6,7 @@ import { AtCalendar } from "taro-ui"
 import { updateBizData, updateUiData, updateDayByCalendar } from '../../../../actions/event'
 import IconFont from '../../../../components/iconfont'
 import themeC from '../../../../style/theme'
+import { currentSemester } from '../../../../config/config.default'
 import './index.scss';
 
 export default () => {
@@ -45,10 +46,6 @@ export default () => {
   }, [dayLineMatrix, weekDataList, weekIndex])
 
 
-  // if (globalTheme === 99) {
-  //   return <View></View>
-  // }
-
   const handleClickDay = (dayIndex_, weekIndex_) => {
     dispatch(updateBizData({
       dayIndex: dayIndex_,
@@ -65,7 +62,13 @@ export default () => {
       {
         showCalendar ?
           <View className='eventTimePicker-calendar'>
-            <AtCalendar isSwiper={false} minDate='2020/9/7' maxDate='2021/1/24' onSelectDate={e => handleClickCalendarDay(e)} />
+            <AtCalendar
+              isSwiper={false}
+              currentDate={dayLineMatrix[weekIndex][dayIndex].dateZh}
+              minDate={currentSemester.startDate}
+              maxDate={currentSemester.endDate}
+              onSelectDate={e => handleClickCalendarDay(e)}
+            />
             <View
               className='eventTimePicker-calendar-back'
               onClick={() => dispatch(updateUiData({ showCalendar: false }))}

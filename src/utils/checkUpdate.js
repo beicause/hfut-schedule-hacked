@@ -11,8 +11,8 @@ export default () => {
 
   updateManager.onUpdateReady(function () {
     Taro.showModal({
-      title: '更新提示',
-      content: '新版本已经准备好，是否重启应用？',
+      title: '更新提示!',
+      content: '新版本已经准备好啦，是否重启应用？',
       confirmColor: '#0089ff',
       cancelColor: '#60646b',
       success: function (res) {

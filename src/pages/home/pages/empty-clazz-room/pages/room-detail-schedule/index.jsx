@@ -12,6 +12,7 @@ import ScheduleFooter from './components/ScheduleFooter'
 import BackgroundImg from '../../../../../../components/schedule-component/BackgroundImg'
 import { UPDATE_BIZDATA } from '../../../../../../constants/schedule/roomDetailSchedule'
 import themeC from '../../../../../../style/theme'
+import { currentSemester } from '../../../../../../config/config.default'
 
 const MemoBackgroundImg = memo(BackgroundImg)
 
@@ -40,7 +41,7 @@ function RoomDetailSchedule(props) {
         duration: 500
       })
       return null
-    } else if (weekIndex_ > 19) {
+    } else if (weekIndex_ > (currentSemester.weekNumber - 1)) {
       Taro.showToast({
         title: '当前已经是最后一周',
         icon: 'none',

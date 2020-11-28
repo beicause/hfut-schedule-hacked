@@ -2,7 +2,7 @@ import React from 'react'
 import Taro from '@tarojs/taro'
 import { useDispatch, useSelector } from 'react-redux'
 import { View } from '@tarojs/components'
-import * as moment from 'moment'
+import dayjs from 'dayjs'
 
 import { updateUiData } from '../../../../actions/event'
 import IconFont from '../../../../components/iconfont'
@@ -178,11 +178,11 @@ export default ({ boxType, courseBoxList, dayIndex, startTime, timeTable }) => {
   let rainPre = 0
   if (weatherHourly && dayLineMatrix.length !== 0 && weatherHourly.precipitation && name) {
     // 这里加(减)了15分钟，为了更大范围的预测
-    const eventStartMoment = moment(dayLineMatrix[weekIndex][dayIndex].dateZh + ' ' + timeTable[startTime].startTimeText).subtract(15, 'minutes')
-    const eventEndMoment = moment(dayLineMatrix[weekIndex][dayIndex].dateZh + ' ' + timeTable[endTime].endTimeText).add(15, 'minutes')
+    const eventStartMoment = dayjs(dayLineMatrix[weekIndex][dayIndex].dateZh + ' ' + timeTable[startTime].startTimeText).subtract(15, 'minutes')
+    const eventEndMoment = dayjs(dayLineMatrix[weekIndex][dayIndex].dateZh + ' ' + timeTable[endTime].endTimeText).add(15, 'minutes')
     weatherHourly.precipitation.map(hourPre => {
       const { datetime, value } = hourPre
-      const preMoment = moment(datetime)
+      const preMoment = dayjs(datetime)
 
       if (preMoment.isAfter(eventStartMoment) && preMoment.isBefore(eventEndMoment)) {
         rainPre += value

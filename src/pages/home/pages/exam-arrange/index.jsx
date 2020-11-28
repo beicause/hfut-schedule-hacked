@@ -2,7 +2,7 @@ import React from 'react'
 import Taro, { useDidShow } from '@tarojs/taro'
 import { useSelector } from 'react-redux'
 import { View, Image, Text } from '@tarojs/components'
-import * as moment from 'moment';
+import dayjs from 'dayjs';
 
 import IconFont from '../../../../components/iconfont'
 import img from '../../../../assets/img/examArrange.svg'
@@ -37,7 +37,7 @@ function ExamArrange() {
         {
           examData.map(exam => {
             const { name, timeText, room } = exam
-            const isPassed = moment().isAfter(moment(timeText.split('~')[0]))
+            const isPassed = dayjs().isAfter(dayjs(timeText.split('~')[0]))
             return (
               <View className={`examArrange-content-item examArrange-content-item_${isPassed && 'passed'}`} key={name}>
                 {isPassed && <View className='examArrange-content-item-finished'>已考完</View>}

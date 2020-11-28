@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View } from '@tarojs/components'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { useSelector } from 'react-redux'
 
 import IconFont from '../../../../../../../../components/iconfont'
@@ -26,7 +26,7 @@ export default (props) => {
       </View>
 
       <View className='scheduleTop-title' onClick={() => setShowWeekPicker(true)}>
-        {`第${weekIndex + 1}周 ` + (currentWeekIndex === weekIndex ? `（当前${daysZh[moment().day()]}）` : `（当前第${currentWeekIndex + 1}周）`)}
+        {`第${weekIndex + 1}周 ` + (currentWeekIndex === weekIndex ? `（当前${daysZh[dayjs().day()]}）` : `（当前第${currentWeekIndex + 1}周）`)}
         <View className='scheduleTop-title-icon'>
           <IconFont name='icon-test' size={46} color='#ffffff' />
         </View>

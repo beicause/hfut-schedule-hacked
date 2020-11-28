@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import Taro from '@tarojs/taro'
+import { currentSemester } from '../config/config.default'
 
 export const themeColors = [
   // 默认
@@ -61,7 +62,7 @@ export default (scheduleData, lessonIds, timeTable) => {
 
   // 初始化scheduleMatrix
   let scheduleMatrix = []
-  for (let i = 0; i < 22; i++) {
+  for (let i = 0; i < currentSemester.weekNumber; i++) {
     scheduleMatrix.push([
       [[], [], [], [], [], [], [], [], [], [], []],
       [[], [], [], [], [], [], [], [], [], [], []],

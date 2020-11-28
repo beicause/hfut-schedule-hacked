@@ -257,4 +257,5 @@ export default [
   '莣憂草',
   'somebody',
   'qazx',
+  'SiS',
 ]

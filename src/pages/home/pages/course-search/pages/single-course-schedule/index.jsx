@@ -13,6 +13,7 @@ import CourseDetailFloatLayout2 from '../../../../../../components/schedule-comp
 import BackgroundImg from '../../../../../../components/schedule-component/BackgroundImg'
 import { UPDATE_BIZDATA, UPDATE_UIDATA } from '../../../../../../constants/schedule/singleCourseSchedule'
 import themeC from '../../../../../../style/theme'
+import { currentSemester } from '../../../../../../config/config.default'
 
 const MemoBackgroundImg = memo(BackgroundImg)
 
@@ -39,7 +40,7 @@ function SingleCourseSchedule(props) {
         duration: 500
       })
       return null
-    } else if (weekIndex_ > 19) {
+    } else if (weekIndex_ > (currentSemester.weekNumber - 1)) {
       Taro.showToast({
         title: '当前已经是最后一周',
         icon: 'none',

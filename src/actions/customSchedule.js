@@ -54,8 +54,6 @@ export const updateCustomSchedule = (payload) => async (dispatch, getState) => {
           const { lessonId: lessonId_ } = courseBoxList[0]
           // 删除修改后没有的
           if (lessonId_ == lessonId && weekIndexes.indexOf(weekIndex_ + 1) === -1) {
-            // console.log('--------')
-            // console.log(courseBoxList[0])
             scheduleMatrix[weekIndex_][dayIndex_][timeIndex_][0] = {}
             userCustomSchedule[weekIndex_][dayIndex_][timeIndex_][0] = {}
           }
