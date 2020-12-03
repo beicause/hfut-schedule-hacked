@@ -29,7 +29,7 @@ function Grade() {
   // 通过本地key请求成绩
   const getScorelist = useCallback(() => {
     Taro.showLoading({
-      title: '查询中',
+      title: '正在获取你的最新成绩',
     })
     const userData = Taro.getStorageSync('me')
     const { userInfo } = userData

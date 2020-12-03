@@ -162,7 +162,7 @@ export default (props) => {
       onClose={onClose}
     >
       <View className='customScheduleFL-header'>
-        {`${type === 'add' ? '新增' : '修改'}修改`}
+        {`${type === 'add' ? '新增' : '修改'}事件`}
         <View className='customScheduleFL-header-close' onClick={onClose}>
           <IconFont name='shibai' size={48} color='#60646b' />
         </View>

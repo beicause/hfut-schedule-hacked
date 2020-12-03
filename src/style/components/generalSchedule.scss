@@ -38,11 +38,10 @@
 
     &-pop {
       border-radius: 50%;
-      width: 108px;
-      height: 108px;
-      background-color: #ddd;
+      width: 112px;
+      height: 112px;
+      background-color: #dddddd;
       margin: 36px;
-      border: 2px solid #ddd;
       opacity: 0.7;
 
       display: flex;
@@ -60,7 +59,8 @@
       }
 
       &:active {
-        background-color: #eee;
+        background-color: #c8c8c8;
+
       }
     }
   }

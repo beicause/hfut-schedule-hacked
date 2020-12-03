@@ -11,8 +11,6 @@ import './index.scss'
 
 function Gift() {
   const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
-  // console.log('---------------')
-  // console.log(globalTheme)
 
   // 适配全局主题
   useDidShow(() => Taro.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: themeC[`color-brand-dark-${globalTheme}`] }))

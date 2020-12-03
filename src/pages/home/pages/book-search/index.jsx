@@ -56,6 +56,7 @@ function CourseSearch() {
     if (!searchData.keyword) {
       return
     }
+    searchData.keyword = searchData.keyword.replace(/[\'\"\\\/\b\f\n\r\t ]/g, '')
     Taro.showLoading({ title: '搜索中...', mask: true, })
     GET('/book_search', {
       key: ticket,
