@@ -305,7 +305,7 @@ export const deleteSingleCustom = (payload) => async (dispatch, getState) => {
 
 // 改变单个自定义事件的备忘录
 export const updateSingleCustomMemo = (payload) => async (dispatch, getState) => {
-  const { userType, source, type, memo, courseDetailFLData: { courseDetailFLData } } = payload
+  const { userType, source, type, startTime, dayIndex, weekIndex, memo, courseDetailFLData: { courseDetailFLData } } = payload
   const { lessonId } = courseDetailFLData
 
   // 拿到scheduleMatrix和本地数据
@@ -329,14 +329,17 @@ export const updateSingleCustomMemo = (payload) => async (dispatch, getState) =>
     userCustomSchedule = customSchedule['me']
   }
 
-  scheduleMatrix.map((weekData, weekIndex) => {
-    weekData.map((dayData, dayIndex) => {
+  scheduleMatrix.map((weekData, weekIndex_) => {
+    weekData.map((dayData, dayIndex_) => {
       dayData.map((courseBoxList, courseIndex) => {
         courseBoxList.map((courseBoxData, timeIndex) => {
-          if (courseBoxData.lessonId === lessonId) {
-            scheduleMatrix[weekIndex][dayIndex][courseIndex][timeIndex].memo = memo
+          if (courseBoxData.lessonId === lessonId &&
+            weekIndex_ === weekIndex &&
+            dayIndex_ === dayIndex &&
+            courseIndex === startTime) {
+            scheduleMatrix[weekIndex_][dayIndex_][courseIndex][timeIndex].memo = memo
             if (type === 'custom') {
-              userCustomSchedule[weekIndex][dayIndex][courseIndex][timeIndex].memo = memo
+              userCustomSchedule[weekIndex_][dayIndex_][courseIndex][timeIndex].memo = memo
             }
           }
         })

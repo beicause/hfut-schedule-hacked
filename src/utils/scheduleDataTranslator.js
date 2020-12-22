@@ -249,6 +249,7 @@ export default (scheduleData, lessonIds, timeTable) => {
           courseBoxData.color = color
         }
 
+        courseBoxData.weekIndex = weekIndex_
         courseBoxList.push(_.cloneDeep(courseBoxData))
       })
     })
@@ -260,7 +261,7 @@ export default (scheduleData, lessonIds, timeTable) => {
     weekData.map((dayData) => {
       dayData.map((courseBoxList, timeIndex) => {
         if (courseBoxList.length === 0) {
-          courseBoxList.push({ timeIndexes: [timeIndex] })
+          courseBoxList.push({ timeIndexes: [timeIndex + 1] })
         }
       })
     })

@@ -11,13 +11,17 @@ export const currentSemester = {
 }
 
 export const config = {
-  version: '4.8.0',
+  version: '4.8.2',
+
+  // 自动配置设置
   autoConfig: {
     showDiffHelp: true,
     showAllSHelp: true,
     showHomeRedPoint: true,
-    // showWeatherRedPoint: true, // event页面天气右上角的红点
+    fineModel: false,
   },
+
+  // 用户设置
   userConfig: {
     // schedule的
     showAiXin: true,
@@ -38,6 +42,9 @@ export const config = {
 
     // 全局的
     globalTheme: 8,
+
+    // 开发者设置
+    showFuckedGrade: true,
   }
 }
 
@@ -49,21 +56,17 @@ export const updateInfo = {
   ],
   features: [
     {
-      info: '1. 自定义小程序主题色',
-      comment: '支持12个不同的主题！位于页面"我"的左上角~',
+      info: '1. 改进课程备忘录的红点',
+      comment: '只能给具体的一门课添加备忘录（以及显示红点提示）',
     },
-    // {
-    //   info: '2. 日程页面顶部的日期选择器支持左右滑动',
-    //   comment: '操作没那么蛋疼了。。',
-    // },
+    {
+      info: '2. 新增开发者模式',
+      comment: '解锁一些特别的小功能',
+    },
   ],
   bugs: [
-    {
-      info: '修复部分已知问题,优化体验',
-      // comment: '很多人都被提示',
-    },
     // {
-    //   info: '修复情侣课表下的历史课表',
+    //   info: '修复部分已知问题,优化体验',
     //   // comment: '很多人都被提示',
     // },
   ]

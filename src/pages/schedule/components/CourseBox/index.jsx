@@ -1,23 +1,26 @@
 import React from 'react'
 import Taro from '@tarojs/taro'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { View } from '@tarojs/components'
 
 import { updateUiData } from '../../../../actions/schedule'
 import IconFont from '../../../../components/iconfont'
 
-export default ({ boxType, courseBoxList, dayIndex, startTime }) => {
+export default ({ boxType, courseBoxList, dayIndex, startTime, bizData }) => {
+  const {
+    theme,
+    showRedPoint,
+    diff,
+    chosenBlank,
+    courseOpacity,
+    weekIndex,
+    currentWeekIndex,
+  } = bizData
+
   const courseBoxData = courseBoxList[0] ? courseBoxList[0] : {}
   const courseBoxData_ = courseBoxList[1] ? courseBoxList[1] : {}
   const { type, name = "", clazzRoom, color, memo } = courseBoxData
   const { name: name_ = "", color: color_, memo: memo_ } = courseBoxData_
-  const theme = useSelector(state => state.schedule.bizData.userConfig.theme)
-  const showRedPoint = useSelector(state => state.schedule.bizData.userConfig.showRedPoint)
-  const diff = useSelector(state => state.schedule.uiData.diff)
-  const chosenBlank = useSelector(state => state.schedule.uiData.chosenBlank)
-  const courseOpacity = useSelector(state => state.schedule.bizData.userConfig.courseOpacity)
-  const weekIndex = useSelector(state => state.schedule.bizData.weekIndex)
-  const currentWeekIndex = useSelector(state => state.schedule.bizData.currentWeekIndex)
   const dispatch = useDispatch()
 
   const isChosen = (chosenBlank[0] === dayIndex && chosenBlank[1] === startTime)
@@ -42,7 +45,9 @@ export default ({ boxType, courseBoxList, dayIndex, startTime }) => {
         teacher: data.teacher,
         timeRange: data.timeRange,
         timeIndexes: data.timeIndexes,
+        startTime,
         dayIndex,
+        weekIndex,
         lessonCode: data.lessonCode,
         lessonType: data.lessonType,
         weekIndexes: data.weekIndexes,

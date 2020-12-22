@@ -13,8 +13,9 @@ import themeC from '../../../../style/theme'
 
 
 function SettingFloatLayout(props) {
-  const { userConfig, scheduleActions, loginActions, isOpened, onClose, openGlobalTheme, closeGlobalTheme } = props
-  const { showDonate, globalTheme } = userConfig
+  const { userConfig, autoConfig, scheduleActions, loginActions, isOpened, onClose, openGlobalTheme, closeGlobalTheme } = props
+  const { showDonate, globalTheme, showFuckedGrade } = userConfig
+  const { fineModel } = autoConfig
 
   const handleLogoutClick = () => {
     Taro.showModal({
@@ -98,6 +99,19 @@ function SettingFloatLayout(props) {
 
         <View className='settingFloatLayout-line'></View>
 
+        {/* 开发者选项 */}
+        {
+          fineModel &&
+          <>
+            <View className='settingFloatLayout-content-item'>
+              <Text>隐藏挂科的科目</Text>
+              <Switch checked={!showFuckedGrade} onChange={e => updateUserConfig({ showFuckedGrade: !e.detail.value })} color={themeC[`color-brand-${globalTheme}`]} />
+            </View>
+
+            <View className='settingFloatLayout-line'></View>
+          </>
+        }
+
       </View>
 
       <View className='settingFloatLayout-footer'>
@@ -113,6 +127,7 @@ function SettingFloatLayout(props) {
 function mapStateToProps(state) {
   return {
     userConfig: state.schedule.bizData.userConfig,
+    autoConfig: state.schedule.bizData.autoConfig,
   };
 }
 

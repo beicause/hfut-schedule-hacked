@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Taro, { useDidShow } from '@tarojs/taro'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { View, Text, OpenData } from '@tarojs/components'
 import { AtBadge } from 'taro-ui'
 import dayjs from 'dayjs';
@@ -12,12 +12,16 @@ import UpdateNotice from '../../components/UpdateNotice'
 import SettingFloatLayout from './components/SettingFloatLayout'
 import GlobalThemePicker from './components/GlobalThemePicker'
 import themeC from '../../style/theme'
+import * as scheduleActions from '../../actions/schedule'
 import './index.scss'
+
+let avatarClick = 0
 
 function Home() {
   const examData = useSelector(state => state.event.bizData.examData)
   const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
   const showDonate = useSelector(state => state.schedule.bizData.userConfig.showDonate)
+  const fineModel = useSelector(state => state.schedule.bizData.autoConfig.fineModel)
   const [sno, setSno] = useState('')
   const [showAbout, setShowAbout] = useState(false)
   const [showUpdateNotice, setShowUpdateNotice] = useState(false)
@@ -26,6 +30,7 @@ function Home() {
   const [statusBarHeight, setStatusBarHeight] = useState(28)
   const [showSetting, setShowSetting] = useState(false)
   const [showGlobalThemePicker, setShowGlobalThemePicker] = useState(false)
+  const dispatch = useDispatch()
 
   // 适配全局主题
   useDidShow(() => Taro.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: themeC[`color-brand-dark-${globalTheme}`] }))
@@ -124,6 +129,42 @@ function Home() {
     Taro.navigateTo({ url: '/pages/home/pages/donate/index' })
   }
 
+  // 连续点击5次头像，除非美好模式
+  const handleClickAvatar = () => {
+    avatarClick += 1
+    setTimeout(() => {
+      avatarClick -= 1
+    }, 4000);
+
+    if (avatarClick === 5) {
+      const localConfig = Taro.getStorageSync('config')
+
+      dispatch(scheduleActions.updateBizData({
+        autoConfig: {
+          ...localConfig.autoConfig,
+          fineModel: !fineModel,
+        }
+      }))
+      Taro.setStorage({
+        key: 'config',
+        data: {
+          ...localConfig,
+          autoConfig: {
+            ...localConfig.autoConfig,
+            fineModel: !fineModel,
+          }
+        }
+      })
+      Taro.showModal({
+        title: '如你所愿',
+        content: fineModel ? '开发者模式已关闭' : '开发者模式已开启',
+        showCancel: false,
+        confirmText: '👌',
+      })
+    }
+
+  }
+
   return (
     <View className='home'>
       <View className='home-nav' style={{ top: statusBarHeight + 10 }} onClick={() => setShowSetting(true)} >
@@ -133,9 +174,11 @@ function Home() {
       <View className='home-header' style={{ paddingTop: statusBarHeight + 58, backgroundImage: `linear-gradient(180deg, ${themeC[`color-brand-dark-${globalTheme}`]} 76%, ${themeC['color-background']} 100%)` }}>
 
         <View className='home-header-avatar'>
-          <View className='home-header-avatar-img'>
+
+          <View className='home-header-avatar-img' onClick={handleClickAvatar}>
             <OpenData type='userAvatarUrl'></OpenData>
           </View>
+
           {
             showDonate &&
             <View class='home-header-coin' onClick={handleClickCoin}>
@@ -218,7 +261,7 @@ function Home() {
         content={`本小程序不代表任何组织或机构的利益，完全出于交流学习和方便工大学子的目的而开发。\n
         小程序大部分功能都依靠于学校的系统，如果学校的系统发生异常小程序也可能会受到影响，希望同学们理解！\n
         本项目已在GitHub开源，仓库名称为：hfut-schedule-hacked。欢迎志同道合的同学与我一起交流、参与开发。\n
-        旅途总有一天会迎来终点，各位旅者，不必匆忙。
+        降温了记得穿厚，晚上别胡思乱想。好好吃饭，早点休息。早，晚安。
         `}
         buttons={[{
           value: '查看帮助',

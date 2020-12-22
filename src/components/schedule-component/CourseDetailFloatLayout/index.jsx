@@ -15,7 +15,30 @@ import './index.scss'
 
 export default (props) => {
   const { courseDetailFLData, source, onClose, updateColorPicker, openCustomScheduleFL } = props
-  const { isOpened, showMemo, type, name, campus, credits, clazzRoom, teacher, timeRange, lessonCode, lessonType, timeIndexes, dayIndex, studentClazzes, studentNumber, weekIndexes = [], weekIndexesZh, semestercode, color, memo: memo_ } = courseDetailFLData
+  const {
+    isOpened,
+    showMemo,
+    type,
+    name,
+    campus,
+    credits,
+    clazzRoom,
+    teacher,
+    timeRange,
+    lessonCode,
+    lessonType,
+    timeIndexes,
+    startTime,
+    dayIndex,
+    weekIndex,
+    studentClazzes,
+    studentNumber,
+    weekIndexes = [],
+    weekIndexesZh,
+    semestercode,
+    color,
+    memo: memo_ } = courseDetailFLData
+
   const userType = useSelector(state => state.login.bizData.userType)
   const theme = useSelector(state => state.schedule.bizData.userConfig.theme)
   const [memo, setMemo] = useState('')
@@ -30,7 +53,7 @@ export default (props) => {
 
   const CDFLOnClose = () => {
     if (memo !== memo_ && memo_ !== undefined) {
-      dispatch(updateSingleCustomMemo({ userType, source, type, memo, courseDetailFLData: props }))
+      dispatch(updateSingleCustomMemo({ userType, source, type, startTime, dayIndex, weekIndex, memo, courseDetailFLData: props }))
     } else {
       onClose()
     }
@@ -89,7 +112,7 @@ export default (props) => {
       },
     ]
   } else if (type === 'custom' || type === 'exam') {
-    let customWeeksZh = weekIndexes.map(weekIndex => (weekIndex !== weekIndexes[weekIndexes.length - 1]) ? weekIndex + ', ' : weekIndex)
+    let customWeeksZh = weekIndexes.map(weekIndex_ => (weekIndex_ !== weekIndexes[weekIndexes.length - 1]) ? weekIndex_ + ', ' : weekIndex_)
     if (customWeeksZh.length === 20) {
       customWeeksZh = '整个学期'
     }

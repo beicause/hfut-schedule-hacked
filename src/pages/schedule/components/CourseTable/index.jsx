@@ -1,10 +1,20 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { View } from '@tarojs/components'
 
 import CourseBox from '../CourseBox'
 import './index.scss'
 
 export default ({ weekScheduleData }) => {
+  const diff = useSelector(state => state.schedule.uiData.diff)
+  const chosenBlank = useSelector(state => state.schedule.uiData.chosenBlank)
+  const weekIndex = useSelector(state => state.schedule.bizData.weekIndex)
+  const currentWeekIndex = useSelector(state => state.schedule.bizData.currentWeekIndex)
+
+  // 设置
+  const theme = useSelector(state => state.schedule.bizData.userConfig.theme)
+  const showRedPoint = useSelector(state => state.schedule.bizData.userConfig.showRedPoint)
+  const courseOpacity = useSelector(state => state.schedule.bizData.userConfig.courseOpacity)
 
   if (!weekScheduleData) {
     return ''
@@ -39,11 +49,20 @@ export default ({ weekScheduleData }) => {
               {
                 dayScheduleData.map((courseBoxList, startTime) => (
                   <CourseBox
+                    key={startTime}
                     boxType={boxTypeList[startTime]}
                     courseBoxList={courseBoxList}
-                    key={startTime}
                     dayIndex={dayIndex}
                     startTime={startTime}
+                    bizData={{
+                      theme,
+                      showRedPoint,
+                      diff,
+                      chosenBlank,
+                      courseOpacity,
+                      weekIndex,
+                      currentWeekIndex,
+                    }}
                   />
                 ))
               }

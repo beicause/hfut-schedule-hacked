@@ -16,6 +16,7 @@ let reloginTime = 0
 
 function Grade() {
   const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
+  const showFuckedGrade = useSelector(state => state.schedule.bizData.userConfig.showFuckedGrade)
   const [scorelist, setScorelist] = useState([])
   const [scoreDetailFLData, setScoreDetailFLData] = useState({
     isOpened: false,
@@ -29,7 +30,7 @@ function Grade() {
   // 通过本地key请求成绩
   const getScorelist = useCallback(() => {
     Taro.showLoading({
-      title: '正在获取你的最新成绩',
+      title: '查询中',
     })
     const userData = Taro.getStorageSync('me')
     const { userInfo } = userData
@@ -113,6 +114,11 @@ function Grade() {
                     } else if (parseFloat(elemData.gpa) < 2) {
                       decoColor = 'yellow'
                     }
+
+                    if (!showFuckedGrade && decoColor === 'red') {
+                      return
+                    }
+
                     return (
                       <View className='grade-swiper-item-elem' key={elemData.lessonCode} onClick={() => setScoreDetailFLData({ isOpened: true, info: elemData })}>
                         <View className={`grade-swiper-item-elem-deco grade-swiper-item-elem-deco_${decoColor}`}></View>

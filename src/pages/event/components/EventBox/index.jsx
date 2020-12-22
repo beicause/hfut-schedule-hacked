@@ -1,6 +1,6 @@
 import React from 'react'
 import Taro from '@tarojs/taro'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { View } from '@tarojs/components'
 import dayjs from 'dayjs'
 
@@ -11,25 +11,24 @@ import './index.scss'
 import '../../../../style/components/courseBox.scss'
 
 
-export default ({ boxType, courseBoxList, dayIndex, startTime, timeTable }) => {
+export default ({ boxType, courseBoxList, dayIndex, weekIndex, startTime, timeTable, bizData }) => {
+  const {
+    chosenBlank,
+    timeDistance,
+    currentDayIndex,
+    currentWeekIndex,
+    dayLineMatrix,
+    weatherHourly,
+    theme,
+    showBoxMask,
+    showEventMemo,
+    eventBoxHeight,
+  } = bizData
+
   const courseBoxData = courseBoxList[0] ? courseBoxList[0] : {}
   const courseBoxData_ = courseBoxList[1] ? courseBoxList[1] : {}
   const { type, name = "", clazzRoom, color, memo } = courseBoxData
   const { name: name_ = "", clazzRoom: clazzRoom_, color: color_ } = courseBoxData_
-
-  const chosenBlank = useSelector(state => state.event.uiData.chosenBlank)
-  const timeDistance = useSelector(state => state.event.uiData.timeDistance)
-  const currentDayIndex = useSelector(state => state.event.bizData.currentDayIndex)
-  const weekIndex = useSelector(state => state.event.bizData.weekIndex)
-  const currentWeekIndex = useSelector(state => state.event.bizData.currentWeekIndex)
-  const dayLineMatrix = useSelector(state => state.event.bizData.dayLineMatrix)
-  // 天气
-  const weatherHourly = useSelector(state => state.event.bizData.weatherData.hourly)
-
-  const theme = useSelector(state => state.schedule.bizData.userConfig.theme)
-  const eventBoxHeight = useSelector(state => state.schedule.bizData.userConfig.eventBoxHeight)
-  const showBoxMask = useSelector(state => state.schedule.bizData.userConfig.showBoxMask)
-  const showEventMemo = useSelector(state => state.schedule.bizData.userConfig.showEventMemo)
   const dispatch = useDispatch()
 
   const isChosen = (chosenBlank[0] === dayIndex && chosenBlank[1] === startTime)
@@ -56,9 +55,11 @@ export default ({ boxType, courseBoxList, dayIndex, startTime, timeTable }) => {
         teacher: data.teacher,
         timeRange: data.timeRange,
         timeIndexes: data.timeIndexes,
-        dayIndex,
         lessonCode: data.lessonCode,
         lessonType: data.lessonType,
+        startTime,
+        dayIndex,
+        weekIndex,
         weekIndexes: data.weekIndexes,
         studentClazzes: data.studentClazzes,
         studentNumber: data.studentNumber,

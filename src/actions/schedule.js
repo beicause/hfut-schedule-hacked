@@ -98,7 +98,7 @@ export const enter = ({ userType, isEvent }) => async (dispatch, getState) => {
       // 确保diff按钮是关闭的
       dispatch(updateUiData({ diff: false }))
       // 更新用户设置
-      dispatch(updateBizData({ userConfig: updatedConfig.userConfig }))
+      dispatch(updateBizData({ ...updatedConfig }))
 
 
       // 这里为什么要多此一举 呢？
