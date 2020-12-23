@@ -9,6 +9,18 @@ const INITIAL_STATE = {
     timeTable: [],
     meUpdate: false,
     herUpdate: false,
+    backgroundPath: '',
+    moocData: [],
+    meAutoUpdated: false,
+    herAutoUpdated: false,
+
+    // 设置
+    autoConfig: {
+      showDiffHelp: true,
+      showAllSHelp: true,
+      showHomeRedPoint: true,
+      fineModel: false,
+    },
     userConfig: {
       // schedule的
       showAiXin: true,
@@ -24,12 +36,11 @@ const INITIAL_STATE = {
       exactWeather: true,
       // 全局的
       globalTheme: 99,
+      // 开发者选项
+      showFuckedGrade: true,
     },
-    backgroundPath: '',
-    moocData: [],
-    meAutoUpdated: false,
-    herAutoUpdated: false,
   },
+  
   uiData: {
     diff: false,
     chosenBlank: [],

@@ -43,7 +43,7 @@ export const config = {
     // 全局的
     globalTheme: 8,
 
-    // 开发者设置
+    // 开发者选项
     showFuckedGrade: true,
   }
 }
