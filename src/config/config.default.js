@@ -6,12 +6,12 @@ export const updateState = 0
 
 // 当前学期
 export const currentSemester = {
-  ...semesterData[0],
+  ...semesterData[1],
   weekNumber: 20,
 }
 
 export const config = {
-  version: '4.8.2',
+  version: '4.8.3',
 
   // 自动配置设置
   autoConfig: {
@@ -56,13 +56,13 @@ export const updateInfo = {
   ],
   features: [
     {
-      info: '1. 改进课程备忘录的红点',
-      comment: '只能给具体的一门课添加备忘录（以及显示红点提示）',
+      info: '查看选课状态',
+      comment: '“历史课表”中加入下半学期的课表，可以在这里看到自己的选课状态。  (“历史课表”位置：“课表页右上角加号内”)',
     },
-    {
-      info: '2. 新增开发者模式',
-      comment: '解锁一些特别的小功能',
-    },
+    // {
+    //   info: '2. 新增开发者模式',
+    //   comment: '解锁一些特别的小功能',
+    // },
   ],
   bugs: [
     // {

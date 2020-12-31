@@ -80,7 +80,7 @@ function HistorySchedule(props) {
           duration: 2000
         })
       })
-  }, [dispatch, semester])
+  }, [dispatch, semester.id, userType])
 
   useEffect(() => {
     Taro.setNavigationBarTitle({ title: semester.nameZh || '' })
