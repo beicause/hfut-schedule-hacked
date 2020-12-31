@@ -651,11 +651,17 @@ export const logout = () => {
 const examTimeText_to_timeIndex = (timeText) => {
   let timeIndex = 0
   switch (timeText) {
-    case '8:00':
+    case '08:00':
       timeIndex = 1
+      break;
+    case '09:00':
+      timeIndex = 2
       break;
     case '10:00':
       timeIndex = 2
+      break;
+    case '11:00':
+      timeIndex = 3
       break;
     case '10:20':
       timeIndex = 3
@@ -666,10 +672,16 @@ const examTimeText_to_timeIndex = (timeText) => {
     case '14:00':
       timeIndex = 5
       break;
+    case '15:00':
+      timeIndex = 6
+      break;
     case '16:00':
       timeIndex = 6
       break;
     case '16:20':
+      timeIndex = 7
+      break;
+    case '17:00':
       timeIndex = 7
       break;
     case '18:20':
