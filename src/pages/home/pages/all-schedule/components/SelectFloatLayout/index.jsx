@@ -22,7 +22,7 @@ export default (props) => {
   const [clazzList, setClazzList] = useState([])
   const [selectedClazz, setSelectedClazz] = useState('')
 
-  const [selectedSemester, setSelectedSemester] = useState(semesterData[0])
+  const [selectedSemester, setSelectedSemester] = useState(semesterData[1])
 
   const handleAcademyChange = (e) => {
     const academy = Object.keys(selectInfo)[e.detail.value]

@@ -1,5 +1,5 @@
 
 export default {
-  navigationBarTitleText: '成绩查询',
+  navigationBarTitleText: '校园卡年度账单',
   navigationBarTextStyle: 'white',
 }

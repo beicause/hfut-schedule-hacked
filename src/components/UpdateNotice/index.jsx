@@ -16,8 +16,7 @@ export default ({ onClose }) => {
     <View className='updateNotice'>
 
       <View className='updateNotice-content'>
-        {/* <View className='updateNotice-content-title'>{`${version}更新公告`}</View> */}
-        <View className='updateNotice-content-title'>新年贺电</View>
+        <View className='updateNotice-content-title'>{`${version}更新公告`}</View>
         <View className='updateNotice-content-close' onClick={onClose}>
           <IconFont name='shibai' size={48} color='#60646b' />
         </View>
@@ -68,6 +67,7 @@ export default ({ onClose }) => {
         {
           bugs.length !== 0 &&
           <>
+          {/* 只有bug更新的时候注释掉 */}
             <View className='updateNotice-content-line'></View>
 
             <View className='updateNotice-content-subTitle'>

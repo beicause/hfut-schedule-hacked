@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import Iconqupiao from './Iconqupiao';
 import Iconbofangjilu from './Iconbofangjilu';
 import Iconhuatifuhao from './Iconhuatifuhao';
 import Iconshuju from './Iconshuju';
@@ -57,6 +58,8 @@ import Icongift from './Icongift';
 
 const IconFont = ({ name, ...rest }) => {
   switch (name) {
+    case 'qupiao':
+      return <Iconqupiao {...rest} />;
     case 'bofangjilu':
       return <Iconbofangjilu {...rest} />;
     case 'huatifuhao':

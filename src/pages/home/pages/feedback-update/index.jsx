@@ -32,7 +32,7 @@ function Gift() {
       </View>
 
       <View className='feedbackUpdate-history'>
-        <Text>以下是历史更新：</Text>
+        <Text>以下是历史更新（只记录重大功能性更新）</Text>
       </View>
 
       <View className='feedbackUpdate-list'>

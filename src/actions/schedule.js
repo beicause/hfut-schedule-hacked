@@ -375,7 +375,7 @@ export const updateScheduleData = ({ userType, isEvent }) => async (dispatch, ge
 
 }
 
-// 颜色持久化
+// 颜色、备忘录持久化
 const dataPersistence = ({ userType, scheduleMatrix, type = 'all' }) => {
   const newScheduleMatrix = _.cloneDeep(scheduleMatrix)
   const { scheduleMatrix: localScheduleMatrix } = Taro.getStorageSync(userType)
@@ -384,33 +384,18 @@ const dataPersistence = ({ userType, scheduleMatrix, type = 'all' }) => {
     return scheduleMatrix
   }
 
-  // 先生成一个本地颜色库
-  const localColorLibrary = {}
-  localScheduleMatrix.map((weekData) => {
-    weekData.map((dayData) => {
-      dayData.map((courseBoxList) => {
-        courseBoxList.map((courseBoxData) => {
-          const { lessonId, color, memo } = courseBoxData
-          if (lessonId && color) {
-            localColorLibrary[lessonId] = { color, memo }
-          }
-        })
-      })
-    })
-  })
-
-  newScheduleMatrix.map((weekData) => {
-    weekData.map((dayData) => {
-      dayData.map((courseBoxList) => {
-        courseBoxList.map((courseBoxData) => {
+  newScheduleMatrix.map((weekData, weekIndex) => {
+    weekData.map((dayData, dayIndex) => {
+      dayData.map((courseBoxList, courseIndex) => {
+        courseBoxList.map((courseBoxData, courseBoxIndex) => {
           const { lessonId } = courseBoxData
           if (lessonId) {
             if (type === 'all') {
-              courseBoxData.color = localColorLibrary[lessonId].color
-              courseBoxData.memo = localColorLibrary[lessonId].memo
+              courseBoxData.color = localScheduleMatrix[weekIndex][dayIndex][courseIndex][courseBoxIndex].color
+              courseBoxData.memo = localScheduleMatrix[weekIndex][dayIndex][courseIndex][courseBoxIndex].memo
             }
             else if (type === 'memo') {
-              courseBoxData.memo = localColorLibrary[lessonId].memo
+              courseBoxData.memo = localScheduleMatrix[weekIndex][dayIndex][courseIndex][courseBoxIndex].memo
             }
           }
         })
