@@ -391,7 +391,11 @@ const dataPersistence = ({ userType, scheduleMatrix, type = 'all' }) => {
           const { lessonId } = courseBoxData
           if (lessonId) {
             if (type === 'all') {
-              courseBoxData.color = localScheduleMatrix[weekIndex][dayIndex][courseIndex][courseBoxIndex].color
+              const presistColor = localScheduleMatrix[weekIndex][dayIndex][courseIndex][courseBoxIndex].color
+              // color为unfinded的情况：考试
+              if (presistColor) {
+                courseBoxData.color = presistColor
+              }
               courseBoxData.memo = localScheduleMatrix[weekIndex][dayIndex][courseIndex][courseBoxIndex].memo
             }
             else if (type === 'memo') {
@@ -424,10 +428,12 @@ export const refreshColor = ({ userType, render = true }) => async (dispatch, ge
   // 写入考试数据
   examData.map(examInfo => {
     const { name, room, timeText } = examInfo
-    let date = timeText.split(' ')[0].slice(5, timeText.split(' ')[0].length)
-    date = date.split('-')[0] + '/' + date.split('-')[1]
+    const date = timeText.split(' ')[0].replace('-', '/').replace('-', '/')
     const timeRangeText = timeText.split(' ')[1]
     const startTime = examTimeText_to_timeIndex(timeRangeText.split('~')[0])
+    if (startTime === 0) {
+      return
+    }
     const endTime = examTimeText_to_timeIndex(timeRangeText.split('~')[1])
     dayLineMatrix.map((weekInfo, weekIndex) => {
       weekInfo.map((dayInfo, dayIndex) => {

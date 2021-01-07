@@ -10,14 +10,19 @@ import singleCourseSchedule from './schedule/singleCourseSchedule'
 import historySchedule from './schedule/historySchedule'
 import classlist from './schedule/classlist'
 
+import card from './package-card/card'
+
 
 export default combineReducers({
   login,
+  event,
+
   schedule,
   allSchedule,
-  event,
   roomDetailSchedule,
   singleCourseSchedule,
   historySchedule,
   classlist,
+
+  card,
 })

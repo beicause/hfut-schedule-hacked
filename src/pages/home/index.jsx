@@ -99,12 +99,12 @@ function Home() {
   ]
 
   const toolsData = [
-    // {
-    //   name: '校园卡年度账单',
-    //   icon: 'qupiao',
-    //   onClick: () => Taro.navigateTo({ url: '/package-card/pages/card/index' }),
-    //   redPoint: true,
-    // },
+    {
+      name: '校园卡年度账单',
+      icon: 'qupiao',
+      onClick: () => Taro.navigateTo({ url: '/package-card/pages/card/index' }),
+      redPoint: true,
+    },
     {
       name: '全校课表',
       icon: 'rili',

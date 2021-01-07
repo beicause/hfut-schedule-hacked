@@ -1,6 +1,9 @@
 /* eslint-disable */
 
 import React from 'react';
+import Iconcreditcard from './Iconcreditcard';
+import IconroundLikeFill from './IconroundLikeFill';
+import IconroundRankFill from './IconroundRankFill';
 import Iconqupiao from './Iconqupiao';
 import Iconbofangjilu from './Iconbofangjilu';
 import Iconhuatifuhao from './Iconhuatifuhao';
@@ -57,6 +60,12 @@ import Icongift from './Icongift';
 
 const IconFont = ({ name, ...rest }) => {
   switch (name) {
+    case 'creditcard':
+      return <Iconcreditcard {...rest} />;
+    case 'round_like_fill':
+      return <IconroundLikeFill {...rest} />;
+    case 'round_rank_fill':
+      return <IconroundRankFill {...rest} />;
     case 'qupiao':
       return <Iconqupiao {...rest} />;
     case 'bofangjilu':

@@ -68,7 +68,7 @@ export default ({ onClose }) => {
           bugs.length !== 0 &&
           <>
           {/* 只有bug更新的时候注释掉 */}
-            <View className='updateNotice-content-line'></View>
+            {/* <View className='updateNotice-content-line'></View> */}
 
             <View className='updateNotice-content-subTitle'>
               <IconFont name='anquan' size={36} color={themeC[`color-brand-${globalTheme}`]} />

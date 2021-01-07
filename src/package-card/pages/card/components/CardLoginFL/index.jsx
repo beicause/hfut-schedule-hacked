@@ -40,7 +40,7 @@ function CardLoginFL(props) {
 
   // 登陆请求
   const loginReq = () => {
-    if (!cardLoginFLData.name || !cardLoginFLData.passwd || !cardLoginFLData.rand) {
+    if (!cardLoginFLData.name || !cardLoginFLData.passwd) {
       return Taro.showToast({
         title: '请填写全信息',
         icon: 'none',
@@ -137,7 +137,7 @@ function CardLoginFL(props) {
           <Input
             className='cardLoginFL-content-item-input'
             border={false}
-            placeholder='请输入验证码'
+            placeholder='验证码（不用输'
             placeholder-style='color:#ccc;'
             value={rand}
             onInput={e => setCardLoginFLData({ ...cardLoginFLData, rand: e.detail.value })}

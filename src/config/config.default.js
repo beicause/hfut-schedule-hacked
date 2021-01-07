@@ -11,7 +11,7 @@ export const currentSemester = {
 }
 
 export const config = {
-  version: '4.8.5',
+  version: '4.8.6',
 
   // 自动配置设置
   autoConfig: {
@@ -67,10 +67,10 @@ export const updateInfo = {
     // },
   ],
   features: [
-    {
-      info: '全校课表新增下半学期的课',
-      comment: '可以看到各专业最新的选课结果啦，之后还会更新数据～',
-    },
+    // {
+    //   info: '全校课表新增下半学期的课',
+    //   comment: '可以看到各专业最新的选课结果啦，之后还会更新数据～',
+    // },
     // {
     //   info: '2. 新增开发者模式',
     //   comment: '解锁一些特别的小功能',
@@ -78,13 +78,13 @@ export const updateInfo = {
   ],
   bugs: [
     {
-      info: '修复备忘录相关问题',
+      info: '修复课表上考试的显示问题',
       // comment: '很多人都被提示',
     },
-    {
-      info: '修复全校课表相关问题',
-      // comment: '很多人都被提示',
-    },
+    // {
+    //   info: '修复全校课表相关问题',
+    //   // comment: '很多人都被提示',
+    // },
   ]
 }
 

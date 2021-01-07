@@ -2,11 +2,11 @@ import { useGlobalIconFont } from './components/iconfont/helper';
 
 export default {
   pages: [
-    // 'pages/home/pages/card/index',
+    'pages/home/index',
 
     'pages/event/index',
     'pages/schedule/index',
-    'pages/home/index',
+    // 'pages/home/index',
     'pages/login/index',
 
     'pages/event/pages/weather-detail/index',
@@ -27,7 +27,6 @@ export default {
     'pages/home/pages/donate/index',
     'pages/home/pages/feedback-update/index',
     'pages/home/pages/all-schedule/index',
-    // 'pages/home/pages/card/index',
 
   ],
   "subpackages": [
