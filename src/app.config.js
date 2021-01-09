@@ -34,6 +34,8 @@ export default {
       "root": "package-card",
       "pages": [
         "pages/card/index",
+        "pages/card-ranking/index",
+        "pages/card-custom/index",
       ]
     },
   ],

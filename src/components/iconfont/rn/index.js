@@ -2,6 +2,14 @@
 
 import React from 'react';
 
+import IconfoodCookie from './IconfoodCookie';
+import IconfoodAvocado from './IconfoodAvocado';
+import IconfoodPudding from './IconfoodPudding';
+import IconfoodStrawberry from './IconfoodStrawberry';
+import IconfoodDoughnut from './IconfoodDoughnut';
+import IconfoodBread from './IconfoodBread';
+import IconfoodPizza from './IconfoodPizza';
+import IconfoodTaco from './IconfoodTaco';
 import Iconcreditcard from './Iconcreditcard';
 import IconroundLikeFill from './IconroundLikeFill';
 import IconroundRankFill from './IconroundRankFill';
@@ -61,6 +69,22 @@ import Icongift from './Icongift';
 
 const IconFont = ({ name, ...rest }) => {
   switch (name) {
+    case 'food-cookie':
+      return <IconfoodCookie {...rest} />;
+    case 'food-avocado':
+      return <IconfoodAvocado {...rest} />;
+    case 'food-pudding':
+      return <IconfoodPudding {...rest} />;
+    case 'food-strawberry':
+      return <IconfoodStrawberry {...rest} />;
+    case 'food-doughnut':
+      return <IconfoodDoughnut {...rest} />;
+    case 'food-bread':
+      return <IconfoodBread {...rest} />;
+    case 'food-pizza':
+      return <IconfoodPizza {...rest} />;
+    case 'food-taco':
+      return <IconfoodTaco {...rest} />;
     case 'creditcard':
       return <Iconcreditcard {...rest} />;
     case 'round_like_fill':

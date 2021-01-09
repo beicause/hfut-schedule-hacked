@@ -4,6 +4,7 @@ import { relogin } from '../actions/login'
 export const config = {
   baseUrl: 'https://api.cavano.vip',
   // baseUrl: 'http://127.0.0.1:3002',
+  // baseUrl: 'http://127.0.0.1:3003',
 }
 
 const baseOptions = ({ url, data, method }) => Taro.request({

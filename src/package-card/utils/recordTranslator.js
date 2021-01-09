@@ -1,4 +1,8 @@
 import cheerio from 'cheerio'
+import {
+  recordClass,
+  alias,
+} from '../assets/recordClass'
 
 
 export default (html) => {
@@ -23,7 +27,9 @@ export default (html) => {
           recordData.type = $(this).text()
           break;
         case 4:
-          recordData.place = $(this).text().replace(/\s+/g,'')
+          const place = $(this).text().replace(/\s+/g,'')
+          recordData.place = place
+          recordData.classIndex = recordClass[place]
           break;
         case 5:
           recordData.money = $(this).text()

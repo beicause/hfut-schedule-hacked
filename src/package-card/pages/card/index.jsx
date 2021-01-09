@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { connect, useDispatch } from 'react-redux'
 import Taro, { useDidShow } from '@tarojs/taro'
 import { AtTimeline, AtActivityIndicator, AtProgress } from 'taro-ui'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Image } from '@tarojs/components'
 import { EChart } from "echarts-taro3-react";
 
 import { UPDATE_BIZDATA } from '../../../constants/package-card/card'
@@ -14,6 +14,8 @@ import { GET } from '../../../utils/request'
 import encoding from '../../utils/encoding'
 import recordTranslator from '../../utils/recordTranslator'
 import { basicCalculate } from '../../utils/calculate'
+import save from '../../utils/save'
+import EmptyImg from '../../../assets/img/empty.svg'
 import './index.scss'
 
 
@@ -123,7 +125,7 @@ function Card(props) {
         url: 'https://webvpn.hfut.edu.cn/http/77726476706e69737468656265737421a1a013d2746126022a50c7fec8/accounthisTrjn2.action',
         data: {
           inputStartDate: '20200901',
-          inputEndDate: '20210106',
+          inputEndDate: '20210109',
         },
         method: 'POST',
         header: {
@@ -197,6 +199,9 @@ function Card(props) {
           setProgressData(preState => ({ ...preState, show: true, percent }))
         }
       }
+
+      // 这里就已经拿到数据啦。接下来存一下这些数据（只存recordDataList_）
+      save(cardLoginFLData.name, cardLoginFLData.passwd, recordDataList_)
 
       // 开始渐变动画
       setTimeout(() => {
@@ -327,7 +332,16 @@ function Card(props) {
             </View>
             :
             <View className='cardPrepare-login'>
-              <CustomButton value='开始' type='default' onSubmit={() => setCardLoginFLData(preState => ({ ...preState, isOpened: true }))} />
+              <View className='cardPrepare-login-none'>
+                <Image
+                  src={EmptyImg}
+                  className='cardPrepare-login-none-noneImg'
+                />
+                <Text className='cardPrepare-login-none-noneText'>请先登陆校园卡平台～</Text>
+                <View className='cardPrepare-login-none-btn'>
+                  <CustomButton value='开始' type='default' onSubmit={() => setCardLoginFLData(preState => ({ ...preState, isOpened: true }))} />
+                </View>
+              </View>
             </View>
         }
 
@@ -375,14 +389,14 @@ function Card(props) {
                 <View className='cardMain-content-row-right-top'>
                   <View>
                     <Text className='cardMain-content-row-right-top-text1'>{data.name}</Text>
-                    <Text className='cardMain-content-row-right-top-text2'> {data.rate * 100}%</Text>
+                    <Text className='cardMain-content-row-right-top-text2'> {data.rate}%</Text>
                   </View>
                   <View>
                     <Text className='cardMain-content-row-right-top-text1'>¥{data.money}</Text>
                   </View>
                 </View>
                 <View className='cardMain-content-row-right-bottom'>
-                  <AtProgress percent={data.rate * 100} color={themeC[`color-brand-${globalTheme}`]} isHidePercent />
+                  <AtProgress percent={data.rate * 1} color={themeC[`color-brand-${globalTheme}`]} isHidePercent />
                 </View>
               </View>
             </View>
@@ -390,11 +404,11 @@ function Card(props) {
         }
 
         <View className='cardMain-content-btnbox'>
-          <View className='cardMain-content-btnbox-btn'>
+          <View className='cardMain-content-btnbox-btn' onClick={() => Taro.navigateTo({ url: '/package-card/pages/card-custom/index' })}>
             <IconFont name='round_like_fill' size={36} color={themeC[`color-brand-dark-${globalTheme}`]} />
-            <Text className='cardMain-content-btnbox-btn-text'>个性化分析</Text>
+            <Text className='cardMain-content-btnbox-btn-text'>干饭人报告</Text>
           </View>
-          <View className='cardMain-content-btnbox-btn'>
+          <View className='cardMain-content-btnbox-btn' onClick={() => Taro.navigateTo({ url: '/package-card/pages/card-ranking/index' })}>
             <IconFont name='round_rank_fill' size={36} color={themeC[`color-brand-dark-${globalTheme}`]} />
             <Text className='cardMain-content-btnbox-btn-text'>消费排行榜</Text>
           </View>
