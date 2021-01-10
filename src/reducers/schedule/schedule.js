@@ -35,7 +35,7 @@ const INITIAL_STATE = {
       showEventMemo: true, // event上显示memo
       exactWeather: true,
       // 全局的 默认99
-      globalTheme: 7,
+      globalTheme: 99,
       // 开发者选项
       showFuckedGrade: true,
     },

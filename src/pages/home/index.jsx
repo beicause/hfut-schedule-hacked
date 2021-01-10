@@ -223,7 +223,8 @@ function Home() {
                 <View className='home-content-group-item-left'>
                   <IconFont name={data.icon} size={48} color='#60646b' />
                   <View className='home-content-group-item-left-nameBox'>
-                    <View className='home-content-group-item-left-nameBox_redPoint'>{data.redPoint}</View>
+                    {/* <View className='home-content-group-item-left-nameBox_redPoint'>{data.redPoint}</View> */}
+                    <View className='home-content-group-item-left-nameBox_redPoint'>{(showHomeRedPoint && data.redPoint) && <AtBadge dot></AtBadge>}</View>
                     <Text style={{ marginLeft: 10 }}>{data.name}</Text>
                   </View>
                 </View>
@@ -250,7 +251,7 @@ function Home() {
             <View className='home-content-group-item-left'>
               <IconFont name='taolunqu' size={46} color='#60646b' />
               <View className='home-content-group-item-left-nameBox'>
-                <View className='home-content-group-item-left-nameBox_redPoint'>{showHomeRedPoint && <AtBadge dot></AtBadge>}</View>
+                {/* <View className='home-content-group-item-left-nameBox_redPoint'>{showHomeRedPoint && <AtBadge dot></AtBadge>}</View> */}
                 <Text style={{ marginLeft: 10 }}>反馈与更新</Text>
               </View>
             </View>

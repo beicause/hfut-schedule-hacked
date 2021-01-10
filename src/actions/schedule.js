@@ -80,6 +80,7 @@ export const enter = ({ userType, isEvent }) => async (dispatch, getState) => {
         autoConfig: {
           ...config.autoConfig,
           ...localConfig.autoConfig,
+          showHomeRedPoint: true,  // 默认显示新功能右上角红点
         },
         userConfig: {
           ...config.userConfig,

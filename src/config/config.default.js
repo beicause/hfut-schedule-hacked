@@ -11,7 +11,7 @@ export const currentSemester = {
 }
 
 export const config = {
-  version: '4.9.0 build1',
+  version: '4.9.0',
 
   // 自动配置设置
   autoConfig: {
@@ -51,7 +51,7 @@ export const config = {
 export const updateInfo = {
   notices: [
     {
-      info: '校园卡年度账单重磅来袭！快去看看自己在学校的的年度消费报告吧～'
+      info: '校园卡年度账单来袭！'
     },
   ],
   features: [

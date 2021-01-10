@@ -125,7 +125,7 @@ function Card(props) {
         url: 'https://webvpn.hfut.edu.cn/http/77726476706e69737468656265737421a1a013d2746126022a50c7fec8/accounthisTrjn2.action',
         data: {
           inputStartDate: '20200901',
-          inputEndDate: '20210109',
+          inputEndDate: '20210110',
         },
         method: 'POST',
         header: {
