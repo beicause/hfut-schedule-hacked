@@ -6,6 +6,12 @@ module.exports = {
     NODE_ENV: '"production"',
   },
   defineConstants: {},
+  terser: {
+    enable: false,
+    config: {
+      // 配置项同 https://github.com/terser/terser#minify-options
+    }
+  },
   mini: {
     prerender: {
       match: 'pages/schedule/**', // 所有以 `pages/shop/` 开头的页面都参与 prerender
@@ -13,8 +19,8 @@ module.exports = {
         'pages/event/index',
         'pages/home/index',
         'pages/home/pages/empty-clazz-room/index',
-        'pages/home/pages/empty-clazz-room/pages/room-detail-schedule/index',
-        'pages/home/pages/course-search/pages/single-course-schedule/index',
+        // 'pages/home/pages/empty-clazz-room/pages/room-detail-schedule/index',
+        // 'pages/home/pages/course-search/pages/single-course-schedule/index',
         'pages/home/pages/feedback-update/index',
         'pages/home/pages/all-schedule/index',
         'pages/home/pages/donate/index',

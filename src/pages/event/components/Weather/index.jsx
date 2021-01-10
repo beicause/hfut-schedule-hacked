@@ -27,7 +27,7 @@ export default (props) => {
   const imgSrc = weatherConfig[weatherRealTime.skycon].img
 
   return (
-    <View className='weather' style={{ top: statusBarHeight + 8 }} onClick={() => Taro.navigateTo({ url: '/pages/event/pages/weather-detail/index' })}>
+    <View className='weather' style={{ top: statusBarHeight + 8 }} onClick={() => Taro.navigateTo({ url: '/package-weather/pages/weather/index' })}>
       <Image className='weather-img' src={imgSrc} />
       <Text className='weather-temp'>{parseInt(weatherRealTime.temperature)}°C</Text>
     </View>

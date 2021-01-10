@@ -24,10 +24,10 @@ export default ({ onClose }) => {
         {
           notices.length !== 0 &&
           <>
-            {/* <View className='updateNotice-content-subTitle'>
+            <View className='updateNotice-content-subTitle'>
               <IconFont name='tanhao' size={36} color={themeC[`color-brand-${globalTheme}`]} />
-              <Text className='updateNotice-content-subTitle_text'>坏消息</Text>
-            </View> */}
+              <Text className='updateNotice-content-subTitle_text'>功能上线</Text>
+            </View>
             {
               notices.map((notice, index) => (
                 <View className='updateNotice-content-item' key={`thisis${index}`}>

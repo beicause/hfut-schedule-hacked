@@ -2,14 +2,12 @@ import { useGlobalIconFont } from './components/iconfont/helper';
 
 export default {
   pages: [
-    'pages/home/index',
+    // 'pages/home/index',
 
     'pages/event/index',
     'pages/schedule/index',
-    // 'pages/home/index',
+    'pages/home/index',
     'pages/login/index',
-
-    'pages/event/pages/weather-detail/index',
 
     'pages/schedule/pages/mooc/index',
     'pages/schedule/pages/history-schedule/index',
@@ -36,6 +34,12 @@ export default {
         "pages/card/index",
         "pages/card-ranking/index",
         "pages/card-custom/index",
+      ]
+    },
+    {
+      "root": "package-weather",
+      "pages": [
+        "pages/weather/index",
       ]
     },
   ],

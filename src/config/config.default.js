@@ -11,7 +11,7 @@ export const currentSemester = {
 }
 
 export const config = {
-  version: '4.8.6',
+  version: '4.9.0 build1',
 
   // 自动配置设置
   autoConfig: {
@@ -50,21 +50,9 @@ export const config = {
 
 export const updateInfo = {
   notices: [
-    // {
-    //   info: '大家2021快乐欸！🌈🌈🌈'
-    // },
-    // {
-    //   info: '小课表和大家已经相遇四个月啦~'
-    // },
-    // {
-    //   info: '祝大家新的一年，多吃不胖 积极又向上。'
-    // },
-    // {
-    //   info: '感谢大家一直以来的支持和建议！'
-    // },
-    // {
-    //   info: '2021，我们会继续前行，不断为课表添加新元素！'
-    // },
+    {
+      info: '校园卡年度账单重磅来袭！快去看看自己在学校的的年度消费报告吧～'
+    },
   ],
   features: [
     // {
@@ -77,10 +65,10 @@ export const updateInfo = {
     // },
   ],
   bugs: [
-    {
-      info: '修复课表上考试的显示问题',
-      // comment: '很多人都被提示',
-    },
+    // {
+    //   info: '修复课表上考试的显示问题',
+    //   // comment: '很多人都被提示',
+    // },
     // {
     //   info: '修复全校课表相关问题',
     //   // comment: '很多人都被提示',

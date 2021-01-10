@@ -4,10 +4,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { View, Canvas, ScrollView } from '@tarojs/components'
 import dayjs from 'dayjs'
 
-import { refreshWeather } from '../../../../actions/event'
-import { dayIndexToZh } from '../../../../utils/scheduleDataTranslator'
-import themeC from '../../../../style/theme'
-import weatherConfig from '../../../../assets/img/weather/enter'
+import { refreshWeather } from '../../../actions/event'
+import { dayIndexToZh } from '../../../utils/scheduleDataTranslator'
+import themeC from '../../../style/theme'
+import weatherConfig from '../../../assets/img/weather/enter'
 import './index.scss'
 
 function WeatherDetail() {
