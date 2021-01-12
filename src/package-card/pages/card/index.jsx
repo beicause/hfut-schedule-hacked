@@ -99,6 +99,7 @@ function Card(props) {
           'Cookie': `wengine_vpn_ticketwebvpn_hfut_edu_cn=${cardKey};`,
         },
         responseType: 'arraybuffer',
+        timeout: 1200000,
       })
       // gbk转码
       const selfinfoRresults = new encoding.TextDecoder('gbk').decode(new Uint8Array(selfinfoRes.data))
@@ -118,6 +119,7 @@ function Card(props) {
           'content-type': 'application/x-www-form-urlencoded',
           'Cookie': `wengine_vpn_ticketwebvpn_hfut_edu_cn=${cardKey};`,
         },
+        timeout: 1200000,
       })
 
       // 3. 选择查询时间
@@ -132,11 +134,12 @@ function Card(props) {
           'content-type': 'application/x-www-form-urlencoded',
           'Cookie': `wengine_vpn_ticketwebvpn_hfut_edu_cn=${cardKey};`,
         },
+        timeout: 1200000,
       })
 
       setTimelineData([
         { title: '准备账单生成环境', color: 'green', icon: 'check-circle' },
-        { title: '正在查询数据库（可能需要几秒）...', icon: 'check-circle' },
+        { title: '正在查询数据库（可能需要一段时间）...', icon: 'check-circle' },
       ])
 
       // 4. 触发查询
@@ -147,6 +150,7 @@ function Card(props) {
           'Cookie': `wengine_vpn_ticketwebvpn_hfut_edu_cn=${cardKey};`,
         },
         responseType: 'arraybuffer',
+        timeout: 1200000,
       })
       // gbk转码
       const queryTriggerRresults = new encoding.TextDecoder('gbk').decode(new Uint8Array(queryTriggerRes.data))
@@ -175,6 +179,7 @@ function Card(props) {
             'Cookie': `wengine_vpn_ticketwebvpn_hfut_edu_cn=${cardKey};`,
           },
           responseType: 'arraybuffer',
+          timeout: 1200000,
         })
         // gbk转码
         const singlePageRresults = new encoding.TextDecoder('gbk').decode(new Uint8Array(singlePageRes.data))
@@ -242,6 +247,14 @@ function Card(props) {
     }
 
     generateFlow()
+    .catch(e => {
+      console.log(e)
+      Taro.showToast({
+        title: '查询失败，请换个时间试试',
+        icon: 'none',
+        duration: 60000
+      })
+    })
 
   }, [cardKey, cardLoginFLData, dispatch, globalTheme, timelineData])
 
@@ -380,7 +393,7 @@ function Card(props) {
       <View className='cardMain-content'>
         <View className='cardMain-content-title'>消费分类</View>
         {
-          basicAnalyzedData.ranking.map(data => (
+          basicAnalyzedData.ranking.map(data => data.rate && (
             <View className='cardMain-content-row' key={data.index}>
               <View className='cardMain-content-row-left'>
                 <IconFont name='creditcard' size={48} color='#60646b' />

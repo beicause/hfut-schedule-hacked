@@ -94,6 +94,14 @@ function CardLoginFL(props) {
           })
         }
       })
+      .catch(e => {
+        console.log(e)
+        Taro.showToast({
+          title: '查询失败，请换个时间试试',
+          icon: 'none',
+          duration: 50000
+        })
+      })
 
   }
 
@@ -105,7 +113,7 @@ function CardLoginFL(props) {
       onClose={onClose}
     >
       <View className='settingFloatLayout-header'>
-        登陆校园卡平台
+        登录校园卡平台
       </View>
 
       <View className='settingFloatLayout-content'>

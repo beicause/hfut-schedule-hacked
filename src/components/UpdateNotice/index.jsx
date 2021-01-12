@@ -16,7 +16,8 @@ export default ({ onClose }) => {
     <View className='updateNotice'>
 
       <View className='updateNotice-content'>
-        <View className='updateNotice-content-title'>{`${version}更新公告`}</View>
+        {/* <View className='updateNotice-content-title'>{`${version}更新公告`}</View> */}
+        <View className='updateNotice-content-title'>关于校园卡年度账单</View>
         <View className='updateNotice-content-close' onClick={onClose}>
           <IconFont name='shibai' size={48} color='#60646b' />
         </View>
@@ -24,10 +25,10 @@ export default ({ onClose }) => {
         {
           notices.length !== 0 &&
           <>
-            <View className='updateNotice-content-subTitle'>
+            {/* <View className='updateNotice-content-subTitle'>
               <IconFont name='tanhao' size={36} color={themeC[`color-brand-${globalTheme}`]} />
               <Text className='updateNotice-content-subTitle_text'>功能上线</Text>
-            </View>
+            </View> */}
             {
               notices.map((notice, index) => (
                 <View className='updateNotice-content-item' key={`thisis${index}`}>
@@ -68,7 +69,7 @@ export default ({ onClose }) => {
           bugs.length !== 0 &&
           <>
           {/* 只有bug更新的时候注释掉 */}
-            {/* <View className='updateNotice-content-line'></View> */}
+            <View className='updateNotice-content-line'></View>
 
             <View className='updateNotice-content-subTitle'>
               <IconFont name='anquan' size={36} color={themeC[`color-brand-${globalTheme}`]} />

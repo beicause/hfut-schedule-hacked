@@ -11,7 +11,7 @@ export const currentSemester = {
 }
 
 export const config = {
-  version: '4.9.0',
+  version: '4.9.20',
 
   // 自动配置设置
   autoConfig: {
@@ -51,7 +51,19 @@ export const config = {
 export const updateInfo = {
   notices: [
     {
-      info: '校园卡年度账单来袭！'
+      info: '很多同学都无法正常查询😶',
+    },
+    {
+      info: '是因为校园卡平台已经被同学们查爆了',
+    },
+    {
+      info: '小课表已经尽力了，但我们对学校的🥔服务器无能为力',
+    },
+    {
+      info: '我们呼吁大家这两天先不要太着急查询账单，或是在人少的时间段查',
+    },
+    {
+      info: '若有不便，希望同学们理解！',
     },
   ],
   features: [
@@ -66,13 +78,13 @@ export const updateInfo = {
   ],
   bugs: [
     // {
-    //   info: '修复课表上考试的显示问题',
+    //   info: '修复年度账单中新区一食堂和三食堂混淆的问题',
     //   // comment: '很多人都被提示',
     // },
-    // {
-    //   info: '修复全校课表相关问题',
-    //   // comment: '很多人都被提示',
-    // },
+    // // {
+    // //   info: '修复全校课表相关问题',
+    // //   // comment: '很多人都被提示',
+    // // },
   ]
 }
 
