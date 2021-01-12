@@ -4,6 +4,9 @@ import semesterData from '../assets/data/semesterData'
 // 1：需要重新登陆
 export const updateState = 0
 
+// 是否需要更新全校课表的selectInfo
+export const updateAllSchedule = true
+
 // 当前学期
 export const currentSemester = {
   ...semesterData[1],
@@ -11,13 +14,13 @@ export const currentSemester = {
 }
 
 export const config = {
-  version: '4.9.20',
+  version: '4.9.3',
 
   // 自动配置设置
   autoConfig: {
     showDiffHelp: true,
     showAllSHelp: true,
-    showHomeRedPoint: true,
+    showHomeRedPoint: true,  // 显示home页面新功能的红点
     fineModel: false,
   },
 
@@ -51,20 +54,20 @@ export const config = {
 export const updateInfo = {
   notices: [
     {
-      info: '很多同学都无法正常查询😶',
+      info: '我们刚刚修复了一个小bug，涉及到极少数同学的账单数据完整性。已经查询成功账单的同学如果感觉自己的数据比较扭曲，可以考虑将账单重新生成一下。',
     },
-    {
-      info: '是因为校园卡平台已经被同学们查爆了',
-    },
-    {
-      info: '小课表已经尽力了，但我们对学校的🥔服务器无能为力',
-    },
-    {
-      info: '我们呼吁大家这两天先不要太着急查询账单，或是在人少的时间段查',
-    },
-    {
-      info: '若有不便，希望同学们理解！',
-    },
+    // {
+    //   info: '是因为校园卡平台已经被同学们查爆了',
+    // },
+    // {
+    //   info: '小课表已经尽力了，但我们对学校的🥔服务器无能为力',
+    // },
+    // {
+    //   info: '我们呼吁大家这两天先不要太着急查询账单，或是在人少的时间段查',
+    // },
+    // {
+    //   info: '若有不便，希望同学们理解！',
+    // },
   ],
   features: [
     // {
@@ -77,14 +80,18 @@ export const updateInfo = {
     // },
   ],
   bugs: [
+    {
+      info: '修复优化校园卡年度账单',
+      // comment: '很多人都被提示',
+    },
+    {
+      info: '修复全校课表',
+      // comment: '很多人都被提示',
+    },
     // {
-    //   info: '修复年度账单中新区一食堂和三食堂混淆的问题',
+    //   info: '修复全校课表相关问题',
     //   // comment: '很多人都被提示',
     // },
-    // // {
-    // //   info: '修复全校课表相关问题',
-    // //   // comment: '很多人都被提示',
-    // // },
   ]
 }
 

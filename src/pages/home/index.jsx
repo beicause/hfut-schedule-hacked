@@ -103,7 +103,7 @@ function Home() {
       name: '校园卡年度账单',
       icon: 'qupiao',
       onClick: () => Taro.navigateTo({ url: '/package-card/pages/card/index' }),
-      redPoint: true,
+      redPoint: '',
     },
     {
       name: '全校课表',

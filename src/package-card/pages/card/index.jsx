@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { connect, useDispatch } from 'react-redux'
 import Taro, { useDidShow } from '@tarojs/taro'
-import { AtTimeline, AtActivityIndicator, AtProgress } from 'taro-ui'
+import { AtTimeline, AtActivityIndicator, AtProgress, AtNoticebar } from 'taro-ui'
 import { View, Text, Image } from '@tarojs/components'
 import { EChart } from "echarts-taro3-react";
 
@@ -167,8 +167,8 @@ function Card(props) {
 
       // 5. 循环获取每页的数据
       let recordDataList_ = []
-      for (let page = 1; page <= totalPages; page++) {
-        const singlePageRes = await Taro.request({
+      const getOnePage = (page) => {
+        return Taro.request({
           url: 'https://webvpn.hfut.edu.cn/http/77726476706e69737468656265737421a1a013d2746126022a50c7fec8/accountconsubBrows.action',
           data: {
             pageNum: page,
@@ -181,6 +181,14 @@ function Card(props) {
           responseType: 'arraybuffer',
           timeout: 1200000,
         })
+      }
+      // 主循环部分
+      for (let page = 1; page <= totalPages; page++) {
+        let singlePageRes = null
+        // gbk转码
+        do {
+          singlePageRes = await getOnePage(page)
+        } while (singlePageRes.statusCode !== 200);
         // gbk转码
         const singlePageRresults = new encoding.TextDecoder('gbk').decode(new Uint8Array(singlePageRes.data))
         // 解析html，并存入recordDataList_
@@ -247,14 +255,14 @@ function Card(props) {
     }
 
     generateFlow()
-    .catch(e => {
-      console.log(e)
-      Taro.showToast({
-        title: '查询失败，请换个时间试试',
-        icon: 'none',
-        duration: 60000
+      .catch(e => {
+        console.log(e)
+        Taro.showToast({
+          title: '查询失败，请换个时间试试',
+          icon: 'none',
+          duration: 60000
+        })
       })
-    })
 
   }, [cardKey, cardLoginFLData, dispatch, globalTheme, timelineData])
 
@@ -327,6 +335,10 @@ function Card(props) {
     return (
       <View className='cardPrepare'>
 
+        <AtNoticebar marquee>
+          由于查询人数过多，并且学校的校园卡服务器性能不足，导致同学们普遍查询困难。如果查询失败可以等两天或者换个人少的时间段再试试。
+        </AtNoticebar>
+
         {
           cardLoginFLData.verify ?
             <View className={`cardPrepare-loading cardPrepare-loading_${loadingOpacity}`} >
@@ -393,7 +405,7 @@ function Card(props) {
       <View className='cardMain-content'>
         <View className='cardMain-content-title'>消费分类</View>
         {
-          basicAnalyzedData.ranking.map(data => data.rate && (
+          basicAnalyzedData.ranking.map(data => (parseInt(data.rate) !== 0) && (
             <View className='cardMain-content-row' key={data.index}>
               <View className='cardMain-content-row-left'>
                 <IconFont name='creditcard' size={48} color='#60646b' />

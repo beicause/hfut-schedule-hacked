@@ -167,5 +167,12 @@ export default [
       '支持自定义小程序主题色',
     ],
   },
+  {
+    version: 'v4.9.0',
+    time: '2021-1-10',
+    features: [
+      '上线“校园卡年度账单”',
+    ],
+  },
   
 ].reverse()

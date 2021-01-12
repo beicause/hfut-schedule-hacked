@@ -12,7 +12,7 @@ import * as loginActions from './login'
 import * as eventActions from './event'
 import makeDayLineMatrix from '../utils/dayLineMatrixMaker'
 import scheduleDiffTool from '../utils/scheduleDiffTool'
-import { config, updateState, currentSemester } from '../config/config.default'
+import { config, updateState, updateAllSchedule, currentSemester } from '../config/config.default'
 import { relogin } from '../actions/login'
 
 const { version } = config
@@ -183,11 +183,13 @@ const handleCheckUpdate = (updatedConfig) => async (dispatch) => {
   // 判断更新的类型
   if (localVersion !== version && updateState === 0) {
     // 更新selectInfo（可能全校课表有添加班级）
-    const res = await GET('/schedule/select_info', {})
-    Taro.setStorage({
-      key: 'selectInfo',
-      data: res
-    })
+    if (updateAllSchedule) {
+      const res = await GET('/schedule/select_info', {})
+      Taro.setStorage({
+        key: 'selectInfo',
+        data: res
+      })
+    }
     // 显示更新公告
     dispatch(eventActions.updateUiData({ showUpdateNotice: true }))
     // 更新本地config缓存
