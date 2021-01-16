@@ -81,18 +81,25 @@ export const enter = () => async (dispatch) => {
   }
   const { dayLineMatrix, currentWeekIndex } = makeDayLineMatrix()
   dispatch(updateBizData({ dayLineMatrix: dayLineMatrix, currentWeekIndex, weekIndex: currentWeekIndex }))
-  Taro.getStorage({ key: 'selectInfo' })
-    .then(async ({ data: selectInfo }) => {
-      dispatch(updateBizData({ selectInfo }))
+  const localSelectInfo = Taro.getStorageSync('selectInfo')
+  // 本地有selectinfo并且不是internal error
+  if (localSelectInfo && typeof (localSelectInfo) !== 'string') {
+    return dispatch(updateBizData({ selectInfo: localSelectInfo }))
+  }
+  // 请求一个selectinfo
+  const selectInfoRes = await GET('/schedule/select_info', {})
+  if (typeof(selectInfoRes) === 'string') {
+    return Taro.showToast({
+      title: '全校课表出错，请重新进入或联系客服',
+      icon: 'none',
+      duration: 2000
     })
-    .catch(async () => {
-      const res = await GET('/schedule/select_info', {})
-      Taro.setStorage({
-        key: 'selectInfo',
-        data: res
-      })
-      dispatch(updateBizData({ selectInfo: res }))
-    })
+  }
+  Taro.setStorage({
+    key: 'selectInfo',
+    data: selectInfoRes
+  })
+  dispatch(updateBizData({ selectInfo: selectInfoRes }))
 }
 
 // 开始执行diff
