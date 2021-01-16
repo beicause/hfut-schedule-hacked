@@ -128,7 +128,7 @@ function Grade() {
                             {`学分:${elemData.credit}        绩点:${elemData.gpa}`}
                           </View>
                         </View>
-                        <View className='grade-swiper-item-elem-right'>{elemData.grade}</View>
+                        <View className='grade-swiper-item-elem-right'>{elemData.grade === '--' ? '待评教' : elemData.grade}</View>
                       </View>
                     )
                   })
