@@ -14,7 +14,7 @@ export const currentSemester = {
 }
 
 export const config = {
-  version: '4.9.3',
+  version: '4.9.4',
 
   // 自动配置设置
   autoConfig: {
@@ -53,9 +53,9 @@ export const config = {
 
 export const updateInfo = {
   notices: [
-    {
-      info: '我们刚刚修复了一个小bug，涉及到极少数同学的账单数据完整性。已经查询成功账单的同学如果感觉自己的数据比较扭曲，可以考虑将账单重新生成一下。',
-    },
+    // {
+    //   info: '我们刚刚修复了一个小bug，涉及到极少数同学的账单数据完整性。已经查询成功账单的同学如果感觉自己的数据比较扭曲，可以考虑将账单重新生成一下。',
+    // },
     // {
     //   info: '是因为校园卡平台已经被同学们查爆了',
     // },
@@ -81,13 +81,13 @@ export const updateInfo = {
   ],
   bugs: [
     {
-      info: '修复优化校园卡年度账单',
-      // comment: '很多人都被提示',
-    },
-    {
       info: '修复全校课表',
       // comment: '很多人都被提示',
     },
+    // {
+    //   info: '修复全校课表',
+    //   // comment: '很多人都被提示',
+    // },
     // {
     //   info: '修复全校课表相关问题',
     //   // comment: '很多人都被提示',
