@@ -63,15 +63,7 @@ export default (scheduleData, lessonIds, timeTable) => {
   // 初始化scheduleMatrix
   let scheduleMatrix = []
   for (let i = 0; i < currentSemester.weekNumber; i++) {
-    scheduleMatrix.push([
-      [[], [], [], [], [], [], [], [], [], [], []],
-      [[], [], [], [], [], [], [], [], [], [], []],
-      [[], [], [], [], [], [], [], [], [], [], []],
-      [[], [], [], [], [], [], [], [], [], [], []],
-      [[], [], [], [], [], [], [], [], [], [], []],
-      [[], [], [], [], [], [], [], [], [], [], []],
-      [[], [], [], [], [], [], [], [], [], [], []],
-    ])
+    scheduleMatrix.push([0, 1, 2, 3, 4, 5, 6].map(() => ([[], [], [], [], [], [], [], [], [], [], []])))
   }
 
   // 生成一个空scheduleMatrix

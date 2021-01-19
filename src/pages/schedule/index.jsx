@@ -72,9 +72,9 @@ function Schedule(props) {
       return null
     } else if (weekIndex_ > (currentSemester.weekNumber - 1)) {
       Taro.showToast({
-        title: '当前已经是最后一周',
+        title: '下学期课表位置：右上角加号-其他学期',
         icon: 'none',
-        duration: 500
+        duration: 2000
       })
       return null
     }

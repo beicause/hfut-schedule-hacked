@@ -1,8 +1,15 @@
 @import '../../style/theme.scss';
 
-@keyframes fadeIn{
-	0%{transform: translateY(50px);opacity: 0;}
-	100%{ transform: translateY(0px);opacity: 1;}
+@keyframes fadeIn {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
 }
 
 .updateNotice {
@@ -81,6 +88,28 @@
       // height: 2px;
       // background-color: #e8e8e8;
       margin: 24px 0;
+    }
+
+    &-btnBox {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 48px;
+
+      &-btn {
+        background-color: #fa6277;
+        border: none;
+        border-radius: 14px;
+        color: #ffffff;
+        padding: 16px 24px;
+        font-size: 28px;
+        width: fit-content;
+
+        &:active {
+          opacity: 0.5;
+        }
+      }
     }
   }
 

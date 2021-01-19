@@ -1,4 +1,5 @@
 import React from 'react'
+import Taro from '@tarojs/taro'
 import { useSelector } from 'react-redux'
 import { View, Text } from '@tarojs/components'
 
@@ -9,15 +10,30 @@ import themeC from '../../style/theme'
 
 export default ({ onClose }) => {
   const { version } = config
-  const { notices, features, bugs } = updateInfo
+  const { notices, features, bugs, btn } = updateInfo
   const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
+
+  const handleClickBtn = () => {
+    Taro.setClipboardData({
+      data: '673885056',
+      success: function () {
+        Taro.hideToast();
+        Taro.showModal({
+          title: '小提示',
+          showCancel: false,
+          content: '已复制到剪切板',
+          confirmColor: '#0089ff',
+        })
+      }
+    })
+  }
 
   return (
     <View className='updateNotice'>
 
       <View className='updateNotice-content'>
-        <View className='updateNotice-content-title'>{`${version}更新公告`}</View>
-        {/* <View className='updateNotice-content-title'>关于校园卡年度账单</View> */}
+        {/* <View className='updateNotice-content-title'>{`${version}更新公告`}</View> */}
+        <View className='updateNotice-content-title'>来自小课表的邀请函</View>
         <View className='updateNotice-content-close' onClick={onClose}>
           <IconFont name='shibai' size={48} color='#60646b' />
         </View>
@@ -25,10 +41,10 @@ export default ({ onClose }) => {
         {
           notices.length !== 0 &&
           <>
-            <View className='updateNotice-content-subTitle'>
+            {/* <View className='updateNotice-content-subTitle'>
               <IconFont name='tanhao' size={36} color={themeC[`color-brand-${globalTheme}`]} />
               <Text className='updateNotice-content-subTitle_text'>通告</Text>
-            </View>
+            </View> */}
             {
               notices.map((notice, index) => (
                 <View className='updateNotice-content-item' key={`thisis${index}`}>
@@ -87,6 +103,13 @@ export default ({ onClose }) => {
               ))
             }
           </>
+        }
+
+        {
+          btn.show && 
+          <View className='updateNotice-content-btnBox'>
+            <View className='updateNotice-content-btnBox-btn' onClick={handleClickBtn}>{btn.text}</View>
+          </View>
         }
 
       </View>

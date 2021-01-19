@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux'
 import { View, Text } from '@tarojs/components'
 import { AtFloatLayout } from 'taro-ui'
 
-import IconFont from '../../../../../../components/iconfont'
-import themeC from '../../../../../../style/theme'
+import IconFont from '../../../../../components/iconfont'
+import themeC from '../../../../../style/theme'
 import './index.scss'
 
 export default (props) => {

@@ -20,7 +20,6 @@ export default {
     'pages/home/pages/course-search/pages/single-course-schedule/index',
     'pages/home/pages/book-search/index',
     'pages/home/pages/exam-arrange/index',
-    'pages/home/pages/grade/index',
     'pages/home/pages/teacher-evaluate/index',
     'pages/home/pages/donate/index',
     'pages/home/pages/feedback-update/index',
@@ -40,6 +39,12 @@ export default {
       "root": "package-weather",
       "pages": [
         "pages/weather/index",
+      ]
+    },
+    {
+      "root": "package-grade",
+      "pages": [
+        "pages/main/index",
       ]
     },
   ],

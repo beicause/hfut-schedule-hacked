@@ -4,6 +4,7 @@ import { View } from '@tarojs/components'
 import { AtFloatLayout } from 'taro-ui'
 
 import themeC from '../../../style/theme'
+import { currentSemester } from '../../../config/config.default'
 import './index.scss'
 
 export default (props) => {
@@ -11,7 +12,7 @@ export default (props) => {
   const globalTheme = useSelector(state => state.schedule.bizData.userConfig.globalTheme)
 
   const weekIndexes = []
-  for (let i = 0; i < 24; i++) {
+  for (let i = 0; i < currentSemester.weekNumber; i++) {
     weekIndexes.push(i)
   }
 

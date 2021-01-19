@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from '@tarojs/components'
 
-import { helpInfo } from '../../config/config.default'
+import { helpInfo } from '../../assets/data/helpInfo'
 import IconFont from '../../components/iconfont'
 import './index.scss'
 

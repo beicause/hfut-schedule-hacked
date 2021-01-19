@@ -84,7 +84,7 @@ function Home() {
     {
       name: '成绩查询',
       icon: 'jixiaopinggu',
-      onClick: () => Taro.navigateTo({ url: '/pages/home/pages/grade/index' }),
+      onClick: () => Taro.navigateTo({ url: '/package-grade/pages/main/index' }),
       redPoint: '',
     },
     {
@@ -103,7 +103,7 @@ function Home() {
       name: '校园卡年度账单',
       icon: 'qupiao',
       onClick: () => Taro.navigateTo({ url: '/package-card/pages/card/index' }),
-      redPoint: '',
+      redPoint: true,
     },
     {
       name: '全校课表',

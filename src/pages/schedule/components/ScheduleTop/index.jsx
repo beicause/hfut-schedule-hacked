@@ -60,7 +60,7 @@ export default (props) => {
       onClick: () => Taro.navigateTo({ url: '/pages/schedule/pages/mooc/index' }),
     },
     {
-      value: '历史课表',
+      value: '其他学期',
       icon: 'bofangjilu',
       onClick: () => Taro.navigateTo({ url: '/pages/schedule/pages/history-schedule/index' }),
     },

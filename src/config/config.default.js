@@ -5,16 +5,17 @@ import semesterData from '../assets/data/semesterData'
 export const updateState = 0
 
 // 是否需要更新全校课表的selectInfo
-export const updateAllSchedule = true
+export const updateAllSchedule = false
 
 // 当前学期
 export const currentSemester = {
   ...semesterData[1],
-  weekNumber: 20,
+  weekNumber: 25,
+  endDate: '2021-02-28',
 }
 
 export const config = {
-  version: '4.9.4',
+  version: '4.9.5',
 
   // 自动配置设置
   autoConfig: {
@@ -53,21 +54,27 @@ export const config = {
 
 export const updateInfo = {
   notices: [
-    // {
-    //   info: '我们刚刚修复了一个小bug，涉及到极少数同学的账单数据完整性。已经查询成功账单的同学如果感觉自己的数据比较扭曲，可以考虑将账单重新生成一下。',
-    // },
-    // {
-    //   info: '是因为校园卡平台已经被同学们查爆了',
-    // },
-    // {
-    //   info: '小课表已经尽力了，但我们对学校的🥔服务器无能为力',
-    // },
-    // {
-    //   info: '我们呼吁大家这两天先不要太着急查询账单，或是在人少的时间段查',
-    // },
-    // {
-    //   info: '若有不便，希望同学们理解！',
-    // },
+    {
+      info: '祝大家寒假愉快哦～🌈🌈🌈',
+    },
+    {
+      info: '寒假期间小课表会努力实现更多的功能，希望同学们能更加喜欢！',
+    },
+    {
+      info: ' ',
+    },
+    {
+      info: '呐，我们想在这里向全校同学发出邀请，想要和更多的同学一起去做这个炫酷的东东😉',
+    },
+    {
+      info: '如果你有兴趣，快进群了解一下吧！',
+    },
+    {
+      info: '另外，有任何问题或想要反馈意见也欢迎进群和我们聊聊～',
+    },
+    {
+      info: '小课表在这里等候大家⬇',
+    },
   ],
   features: [
     // {
@@ -80,10 +87,10 @@ export const updateInfo = {
     // },
   ],
   bugs: [
-    {
-      info: '修复全校课表',
-      // comment: '很多人都被提示',
-    },
+    // {
+    //   info: '修复全校课表',
+    //   // comment: '很多人都被提示',
+    // },
     // {
     //   info: '修复全校课表',
     //   // comment: '很多人都被提示',
@@ -92,20 +99,10 @@ export const updateInfo = {
     //   info: '修复全校课表相关问题',
     //   // comment: '很多人都被提示',
     // },
-  ]
+  ],
+  btn: {
+    show: true,
+    text: '点我复制QQ群号',
+  }
 }
 
-export const helpInfo = [
-  {
-    info: '1. 课表显示不出来/更新失败怎么办？',
-    comment: '先多次下拉刷新试试。如果不行，请尝试以下操作：①退出小程序后台并重新进入；②退出登录并重新绑定，并确认自己的校区选择正确。如果进行了上述操作依旧无法正常显示，请反馈或联系客服',
-  },
-  {
-    info: '2. 我的课表好像不准？',
-    comment: '本小程序的数据与PC端教务实时同步（封网时也是），请先登录PC端教务查看自己课程是否一致，如有不一致请请反馈或联系客服',
-  },
-  {
-    info: '3. 更换课程配色主题、解绑情侣等选项在哪里？',
-    comment: '课表页-右上角加号-课表设置',
-  },
-]

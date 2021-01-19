@@ -3,8 +3,10 @@
 
 import Taro from '@tarojs/taro'
 // import _ from 'lodash'
+
 import uuid from '../utils/uuid'
 import * as eventActions from './event'
+import { currentSemester } from '../config/config.default'
 
 import {
   UPDATE_BIZDATA,
@@ -46,6 +48,15 @@ export const updateCustomSchedule = (payload) => async (dispatch, getState) => {
     userCustomSchedule = customSchedule['me']
   }
 
+  // 检测userCustomSchedule与scheduleMatrix长度是否一致
+  // 不一致就补上
+  // 适用于改变scheduleMatrix的更新后
+  if (userCustomSchedule.length !== scheduleMatrix.length) {
+    for (let t = 0; t <= currentSemester.weekNumber; t++) {
+      userCustomSchedule.push([0, 1, 2, 3, 4, 5, 6].map(() => ([[{}], [{}], [{}], [{}], [{}], [{}], [{}], [{}], [{}], [{}], [{}]])))
+    }
+  }
+
   // lessonId不为空，说明是修改，不是新增
   if (lessonId) {
     scheduleMatrix.map((weekData, weekIndex_) => {
@@ -62,6 +73,10 @@ export const updateCustomSchedule = (payload) => async (dispatch, getState) => {
     })
   }
   lessonId = lessonId ? lessonId : uuid()
+
+  console.log('到这里了')
+  console.log(scheduleMatrix)
+  console.log(userCustomSchedule)
 
   weekIndexes.map(weekIndex => {
     scheduleMatrix[weekIndex - 1][dayIndex][startTime][0] = {
@@ -101,7 +116,7 @@ export const updateCustomSchedule = (payload) => async (dispatch, getState) => {
   if (userType === 'me' || source === 'event') {
     dispatch(eventActions.updateBizData({ scheduleMatrix }))
   }
-  
+
   // 更新本地存储，包括scheduleMatrix和custom
   Taro.setStorage({
     key: 'custom',
@@ -124,7 +139,7 @@ export const updateCustomSchedule = (payload) => async (dispatch, getState) => {
       }
     })
   }
-  
+
 }
 
 // 改变单个自定义事件的颜色

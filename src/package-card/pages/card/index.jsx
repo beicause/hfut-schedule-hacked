@@ -335,9 +335,9 @@ function Card(props) {
     return (
       <View className='cardPrepare'>
 
-        <AtNoticebar marquee>
+        {/* <AtNoticebar marquee>
           由于查询人数过多，并且学校的校园卡服务器性能不足，导致同学们普遍查询困难。如果查询失败可以等两天或者换个人少的时间段再试试。
-        </AtNoticebar>
+        </AtNoticebar> */}
 
         {
           cardLoginFLData.verify ?

@@ -1,11 +1,12 @@
 import { UPDATE_BIZDATA, UPDATE_UIDATA, LOGOUT } from '../../constants/schedule/historySchedule'
+import semesterData from '../../assets/data/semesterData'
 
 const INITIAL_STATE = {
   bizData: {
     weekIndex: 0, // 课表上展示的周数
     scheduleMatrix: [],
     dayLineMatrix: [],
-    semester: {},
+    semester: semesterData[0],  // 默认显示semesterData第一个学期
   },
   uiData: {
     courseDetailFLData: {
