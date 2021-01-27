@@ -184,7 +184,7 @@ const handleCheckUpdate = (updatedConfig) => async (dispatch) => {
   if (localVersion !== version && updateState === 0) {
     // 更新selectInfo（可能全校课表有添加班级）
     if (updateAllSchedule) {
-      const res = await GET('/schedule/select_info', {})
+      const res = await GET('/custom/schedule/select_info', {})
       Taro.setStorage({
         key: 'selectInfo',
         data: res

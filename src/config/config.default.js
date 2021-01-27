@@ -15,7 +15,7 @@ export const currentSemester = {
 }
 
 export const config = {
-  version: '4.9.5',
+  version: '4.9.6',
 
   // 自动配置设置
   autoConfig: {
@@ -55,25 +55,13 @@ export const config = {
 export const updateInfo = {
   notices: [
     {
-      info: '祝大家寒假愉快哦～🌈🌈🌈',
+      info: '这是课表诞生以来最复杂也是最强大的功能。寒假以来，我们就没有休息过、一直在努力加班，希望同学能更早的使用上。',
     },
     {
-      info: '寒假期间小课表会努力实现更多的功能，希望同学们能更加喜欢！',
+      info: '这期间有很多同学对我们的鼓励，这是给予我们最大的支持。但同时也希望个别同学停止对我们的催促和抱怨，耐心等待',
     },
     {
-      info: ' ',
-    },
-    {
-      info: '呐，我们想在这里向全校同学发出邀请，想要和更多的同学一起去做这个炫酷的东东😉',
-    },
-    {
-      info: '如果你有兴趣，快进群了解一下吧！',
-    },
-    {
-      info: '另外，有任何问题或想要反馈意见也欢迎进群和我们聊聊～',
-    },
-    {
-      info: '小课表在这里等候大家⬇',
+      info: '望互相理解🙏',
     },
   ],
   features: [
@@ -101,7 +89,7 @@ export const updateInfo = {
     // },
   ],
   btn: {
-    show: true,
+    show: false,
     text: '点我复制QQ群号',
   }
 }

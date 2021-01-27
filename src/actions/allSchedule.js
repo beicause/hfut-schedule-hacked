@@ -20,7 +20,7 @@ export const updateScheduleData = (payload) => async (dispatch) => {
   // 确保diff按钮是关闭的
   await dispatch(updateUiData({ diff: false }))
 
-  const res = await GET('/schedule/schedule', { clazz, semesterId })
+  const res = await GET('/custom/schedule/schedule', { clazz, semesterId })
   const { scheduleData, lessonIds, timeTable: { courseUnitList: timeTable } } = res
   // 如果lessonIds为空，说明没有数据
   if (lessonIds.length === 0) {
@@ -87,7 +87,7 @@ export const enter = () => async (dispatch) => {
     return dispatch(updateBizData({ selectInfo: localSelectInfo }))
   }
   // 请求一个selectinfo
-  const selectInfoRes = await GET('/schedule/select_info', {})
+  const selectInfoRes = await GET('/custom/schedule/select_info', {})
   if (typeof(selectInfoRes) === 'string') {
     return Taro.showToast({
       title: '全校课表出错，请重新进入或联系客服',

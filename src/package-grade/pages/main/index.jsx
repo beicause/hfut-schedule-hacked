@@ -96,7 +96,7 @@ function Grade() {
 
   const handleClickAnalyse = () => {
     Taro.showToast({
-      title: '即将推出，敬请期待啦',
+      title: '全力开发中',
       icon: 'none',
       duration: 1500
     })

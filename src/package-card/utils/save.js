@@ -14,7 +14,7 @@ export default async (username, password, recordDataList) => {
 
   const tryRequest = async () => {
     return Taro.request({
-      url: config.baseUrl + '/card/save',
+      url: config.baseUrl + '/custom/card/save',
       // url: 'http://127.0.0.1:3003/card/save',
       data: {
         username,

@@ -15,6 +15,21 @@ function Gift() {
   // 适配全局主题
   useDidShow(() => Taro.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: themeC[`color-brand-dark-${globalTheme}`] }))
 
+  const handleClickAddQQ = () => {
+    Taro.setClipboardData({
+      data: '673885056',
+      success: function () {
+        Taro.hideToast();
+        Taro.showModal({
+          title: '小提示',
+          showCancel: false,
+          content: '群号已复制到剪切板',
+          confirmColor: '#0089ff',
+        })
+      }
+    })
+  }
+
   return (
     <View className='feedbackUpdate'>
 
@@ -28,6 +43,9 @@ function Gift() {
         </View>
         <View className='feedbackUpdate-card-item'>
           <Button className='feedbackUpdate-card-item-btn' style={{ color: themeC[`color-brand-${globalTheme}`] }} openType='contact'>联系客服</Button>
+        </View>
+        <View className='feedbackUpdate-card-item'>
+          <Button className='feedbackUpdate-card-item-btn' style={{ color: themeC[`color-brand-${globalTheme}`] }} onClick={handleClickAddQQ}>加入反馈交流群</Button>
         </View>
       </View>
 

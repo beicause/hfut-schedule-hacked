@@ -24,7 +24,7 @@ function Gift() {
     }
     Taro, showLoading({ title: '正在发送...', mask: true })
     const { userInfo: { username, campus } } = Taro.getStorageSync('me')
-    await GET('/feedback/addBrandname', { user_code: username, campus, name: brandname })
+    await GET('/custom/feedback/addBrandname', { user_code: username, campus, name: brandname })
       .then(res => {
         if (res.success) {
           Taro.hideLoading()
@@ -54,7 +54,7 @@ function Gift() {
     }
     Taro, showLoading({ title: '正在发送...', mask: true })
     const { userInfo: { username, campus } } = Taro.getStorageSync('me')
-    await GET('/feedback/addFeedback', { user_code: username, campus, content: feedback })
+    await GET('/custom/feedback/addFeedback', { user_code: username, campus, content: feedback })
       .then(res => {
         if (res.success) {
           Taro.hideLoading()
