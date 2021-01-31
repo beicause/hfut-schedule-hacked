@@ -8,9 +8,10 @@ import { GET, POST } from '../utils/request'
 import { enter, logout as scheduleLogout } from './schedule'
 import { logout as allScheduleLogout } from './allSchedule'
 import { logout as eventLogout } from './event'
+import { logout as scoreLogout, updateUiData as updateScoreUiData } from './score'
 import { config } from '../config/config.default'
 
-export const login = ({ username, password, userType, campus }) => async () => {
+export const login = ({ username, password, userType, campus }) => async (dispatch) => {
   Taro.showLoading({
     title: '正在加载...',
     mask: true,
@@ -75,7 +76,12 @@ export const login = ({ username, password, userType, campus }) => async () => {
   }
 
   // 请求爬取成绩数据
+  dispatch(updateScoreUiData({ crawing: true }))
   POST(`/score/reCraw/${username}`)
+  .then(() => {
+    console.log('爬虫完成')
+    dispatch(updateScoreUiData({ crawing: false }))
+  })
 
   // 跳转至课表页
   await Taro.switchTab({ url: '/pages/schedule/index' })
@@ -122,6 +128,7 @@ export const logout = ({ localSave = true }) => async (dispatch) => {
   dispatch(scheduleLogout())
   dispatch(allScheduleLogout())
   dispatch(eventLogout())
+  dispatch(scoreLogout())
 
   if (localSave) {
     const localConfig = Taro.getStorageSync('config')

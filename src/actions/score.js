@@ -14,7 +14,7 @@ import { relogin } from '../actions/login'
 // 需缓存的数据：
 // main = allRank + termRanks
 // pubCredit, pubFailRate
-export const handleData = (type) => async (dispatch, getState) => {
+export const enter = (type) => async (dispatch, getState) => {
 
   const localUserData = Taro.getStorageSync('me')
   const { userInfo: { username } } = localUserData

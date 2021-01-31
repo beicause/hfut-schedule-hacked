@@ -28,10 +28,10 @@ require('@antv/f2/lib/geom/area');
 // require('@antv/f2/lib/geom/');
 
 function Grade(props) {
-  const { bizData: { allRank, termRanks }, globalTheme, hasPub, rankType, scoreDigits, handleData } = props
+  const { bizData: { allRank, termRanks }, uiData: { crawing }, globalTheme, hasPub, rankType, scoreDigits, enter } = props
   const [statusBarHeight, setStatusBarHeight] = useState(28)
   const [showSetting, setShowSetting] = useState(false)
-  // const consumeRateChart = useRef(null);
+  const [showChart, setShowChart] = useState(true)
 
   const bottomBtns = [
     {
@@ -67,20 +67,37 @@ function Grade(props) {
 
   // 下拉刷新
   usePullDownRefresh(async () => {
-    await handleData('main')
+    await enter('main')
   })
 
   // 设置改变后的effect
   useEffect(() => {
-    Taro.showLoading({ title: '加载中' })
-    handleData('main')
-  }, [handleData, hasPub, rankType])
+    if (rankType && !crawing) {
+      Taro.showLoading({ title: '加载中' })
+      enter('main')
+    }
+  }, [crawing, enter, hasPub, rankType])
+
+  // 重新渲染图表的effect
+  useEffect(() => {
+    console.log('准备重新渲染图表')
+    if (termRanks.legend !== 0) {
+      setShowChart(false)
+      setTimeout(() => {
+        setShowChart(true)
+      });
+    }
+  }, [termRanks])
+
+  // 登陆后的自动爬虫尚未完成
+  if (crawing) {
+    Taro.showLoading({ title: '首次加载中...' })
+    return <View></View>
+  }
 
   // 绘制图表
   const chartOnInit = (config) => {
-
     let data = []
-
     data = data.concat(termRanks.map((termData) => ({
       term: termData.term,
       type: '我的',
@@ -98,7 +115,6 @@ function Grade(props) {
     })))
 
     const chart = new F2.Chart(config);
-
     chart.source(data, {
       value: {
         tickCount: 5,
@@ -203,9 +219,13 @@ function Grade(props) {
         </View>
       </View>
 
+      <View className='score-chartTitle'>
+        <Text className='score-title_small'>分数走势图</Text>
+      </View>
+
       <View className='score-chartPlace'>
         {
-          !showSetting &&
+          showChart &&
           <F2Canvas
             className='score-chartPlace-chart'
             onInit={chartOnInit}
@@ -222,6 +242,11 @@ function Grade(props) {
             </View>
           ))
         }
+      </View>
+
+      <View className='score-warningText'>
+        <View className='score-warningText-top'><IconFont name='tanhao' size={32} color={themeC['color-light']} />小提示</View>
+        <View>成绩信息仅供参考，一切以教务系统为准</View>
       </View>
 
       <SettingFloatLayout

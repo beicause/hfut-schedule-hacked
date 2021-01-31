@@ -15,7 +15,7 @@ const INITIAL_STATE = {
     scorelist: [],
   },
   uiData: {
-    
+    crawing: false,
   }
 }
 
@@ -25,13 +25,13 @@ export default function counter(state = INITIAL_STATE, action) {
   switch (action.type) {
     // 更新业务数据
     case UPDATE_BIZDATA:
-      return { 
+      return {
         ...state,
         bizData: {
           ...state.bizData,
           ...payload,
         }
-       }
+      }
 
     // 更新UI数据
     case UPDATE_UIDATA:

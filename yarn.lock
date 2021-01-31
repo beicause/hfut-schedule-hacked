@@ -29,12 +29,12 @@
 
 "@antv/gl-matrix@^2.7.1":
   version "2.7.1"
-  resolved "https://registry.npm.taobao.org/@antv/gl-matrix/download/@antv/gl-matrix-2.7.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40antv%2Fgl-matrix%2Fdownload%2F%40antv%2Fgl-matrix-2.7.1.tgz#acb8e37f7ab3df01345aba4372d7942be42eba14"
+  resolved "https://registry.npm.taobao.org/@antv/gl-matrix/download/@antv/gl-matrix-2.7.1.tgz#acb8e37f7ab3df01345aba4372d7942be42eba14"
   integrity sha1-rLjjf3qz3wE0WrpDcteUK+QuuhQ=
 
 "@antv/scale@~0.3.3":
   version "0.3.7"
-  resolved "https://registry.npm.taobao.org/@antv/scale/download/@antv/scale-0.3.7.tgz?cache=0&sync_timestamp=1610089802093&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40antv%2Fscale%2Fdownload%2F%40antv%2Fscale-0.3.7.tgz#649d44894b5e1bc62927e0f17b84e7a8abcae7b6"
+  resolved "https://registry.npm.taobao.org/@antv/scale/download/@antv/scale-0.3.7.tgz#649d44894b5e1bc62927e0f17b84e7a8abcae7b6"
   integrity sha1-ZJ1EiUteG8YpJ+Dxe4TnqKvK57Y=
   dependencies:
     "@antv/util" "~2.0.3"
@@ -43,14 +43,14 @@
 
 "@antv/util@~1.3.1":
   version "1.3.1"
-  resolved "https://registry.npm.taobao.org/@antv/util/download/@antv/util-1.3.1.tgz?cache=0&sync_timestamp=1608536974828&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40antv%2Futil%2Fdownload%2F%40antv%2Futil-1.3.1.tgz#30a34b201ff9126ec0d58c72c8166a9c3e644ccd"
+  resolved "https://registry.npm.taobao.org/@antv/util/download/@antv/util-1.3.1.tgz#30a34b201ff9126ec0d58c72c8166a9c3e644ccd"
   integrity sha1-MKNLIB/5Em7A1YxyyBZqnD5kTM0=
   dependencies:
     "@antv/gl-matrix" "^2.7.1"
 
 "@antv/util@~2.0.3", "@antv/util@~2.0.6":
   version "2.0.10"
-  resolved "https://registry.npm.taobao.org/@antv/util/download/@antv/util-2.0.10.tgz?cache=0&sync_timestamp=1608536974828&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40antv%2Futil%2Fdownload%2F%40antv%2Futil-2.0.10.tgz#e8f35d4e9c7fc3205d8d8149ceb1f7c941191f29"
+  resolved "https://registry.npm.taobao.org/@antv/util/download/@antv/util-2.0.10.tgz#e8f35d4e9c7fc3205d8d8149ceb1f7c941191f29"
   integrity sha1-6PNdTpx/wyBdjYFJzrH3yUEZHyk=
   dependencies:
     tslib "^2.0.3"
@@ -4153,16 +4153,6 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
-
-echarts-taro3-react@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.npm.taobao.org/echarts-taro3-react/download/echarts-taro3-react-1.0.8.tgz#d043611fa96a89d4f3be224bbb1b4ba8ca77e0db"
-  integrity sha1-0ENhH6lqidTzviJLuxtLqMp34Ns=
-  dependencies:
-    "@tarojs/react" "3.0.8"
-    "@tarojs/taro" "3.0.8"
-    react "^16.10.0"
-    react-dom "^16.10.0"
 
 ee-first@1.1.1:
   version "1.1.1"
@@ -10382,7 +10372,7 @@ type-fest@^0.11.0:
 
 type-fest@^0.15.1:
   version "0.15.1"
-  resolved "https://registry.npm.taobao.org/type-fest/download/type-fest-0.15.1.tgz#d2c4e73d3e4a53cf1a906396dd460a1c5178ca00"
+  resolved "https://registry.npm.taobao.org/type-fest/download/type-fest-0.15.1.tgz?cache=0&sync_timestamp=1606471358613&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftype-fest%2Fdownload%2Ftype-fest-0.15.1.tgz#d2c4e73d3e4a53cf1a906396dd460a1c5178ca00"
   integrity sha1-0sTnPT5KU88akGOW3UYKHFF4ygA=
 
 type-fest@^0.8.1:
@@ -10415,7 +10405,7 @@ typedarray@^0.0.6:
 
 typescript@3.8.2:
   version "3.8.2"
-  resolved "https://registry.npm.taobao.org/typescript/download/typescript-3.8.2.tgz?cache=0&sync_timestamp=1611991436224&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftypescript%2Fdownload%2Ftypescript-3.8.2.tgz#91d6868aaead7da74f493c553aeff76c0c0b1d5a"
+  resolved "https://registry.npm.taobao.org/typescript/download/typescript-3.8.2.tgz#91d6868aaead7da74f493c553aeff76c0c0b1d5a"
   integrity sha1-kdaGiq6tfadPSTxVOu/3bAwLHVo=
 
 typescript@3.9.7:

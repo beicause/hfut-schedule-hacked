@@ -2,8 +2,9 @@
 
 .score {
   padding: 32px;
-  padding-top: 158px;
+  padding-top: 10vh;
   width: 100%;
+  height: fit-content;
   min-height: 100%;
   background-color: $color-background;
   box-sizing: border-box;
@@ -12,11 +13,11 @@
   &-title {
     position: absolute;
     left: 34px;
-    height: 64px;
+    height: 54px;
     display: flex;
-    align-items: center;
-    font-size: 32px;
-    color: $color-semi;
+    align-items: flex-end;
+    font-size: 25px;
+    color: $color-light;
   }
 
   &-shadow {
@@ -133,14 +134,39 @@
 
   }
 
+  &-chartTitle {
+    margin-top: 4vh;
+    margin-left: 26px;
+  }
+
   &-chartPlace {
     width: 100%;
-    height: 360px;
-    padding-bottom: 24px;
+    height: 28vh;
+    padding-bottom: 2px;
+    margin: 2vh 0;
 
     &-chart {
       width: 100%;
       height: 100%;
+    }
+  }
+
+  &-warningText {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: $color-light;
+    padding-top: 24px;
+    padding-bottom: 8px;
+
+    &-top {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      margin-bottom: 8px;
     }
   }
 

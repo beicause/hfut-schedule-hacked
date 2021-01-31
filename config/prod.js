@@ -19,6 +19,7 @@ module.exports = {
         'pages/event/index',
         'pages/score/index',
         'pages/home/index',
+        
         'pages/home/pages/empty-clazz-room/index',
         // 'pages/home/pages/empty-clazz-room/pages/room-detail-schedule/index',
         // 'pages/home/pages/course-search/pages/single-course-schedule/index',
