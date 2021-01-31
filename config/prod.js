@@ -17,6 +17,7 @@ module.exports = {
       match: 'pages/schedule/**', // 所有以 `pages/shop/` 开头的页面都参与 prerender
       include: [
         'pages/event/index',
+        'pages/score/index',
         'pages/home/index',
         'pages/home/pages/empty-clazz-room/index',
         // 'pages/home/pages/empty-clazz-room/pages/room-detail-schedule/index',
@@ -24,7 +25,6 @@ module.exports = {
         'pages/home/pages/all-schedule/index',
         'pages/home/pages/donate/index',
         // 'pages/home/pages/feedback-update/index',
-
       ], // `pages/any/way/index` 也会参与 prerender
       console: true,
       // exclude: ['pages/shop/index/index'] // `pages/shop/index/index` 不用参与 prerender

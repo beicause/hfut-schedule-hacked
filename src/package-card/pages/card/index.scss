@@ -172,16 +172,19 @@
   }
 
   &-footer {
-    // background-color: yellow;
     width: 100%;
     height: 480px;
     padding: 0 28px;
     box-sizing: border-box;
 
     &-title {
-      position: absolute;
       color: $color-semi;
       font-size: 32px;
+    }
+
+    &-chart {
+      width: 100%;
+      height: 400px;
     }
   }
 

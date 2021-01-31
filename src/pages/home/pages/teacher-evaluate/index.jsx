@@ -3,7 +3,7 @@ import Taro, { useDidShow } from '@tarojs/taro'
 import { useSelector } from 'react-redux'
 import { View, Image, Text, Ad } from '@tarojs/components'
 
-import img from '../../../../assets/img/teacherEvaluate.svg'
+import img from '../../../../assets/img/empty.svg'
 import themeC from '../../../../style/theme'
 import './index.scss'
 

@@ -4,7 +4,7 @@ import {
   UPDATE_UIDATA,
   LOGOUT,
 } from '../constants/login'
-import { GET } from '../utils/request'
+import { GET, POST } from '../utils/request'
 import { enter, logout as scheduleLogout } from './schedule'
 import { logout as allScheduleLogout } from './allSchedule'
 import { logout as eventLogout } from './event'
@@ -74,10 +74,12 @@ export const login = ({ username, password, userType, campus }) => async () => {
     })
   }
 
+  // 请求爬取成绩数据
+  POST(`/score/reCraw/${username}`)
+
+  // 跳转至课表页
   await Taro.switchTab({ url: '/pages/schedule/index' })
 
-  // // 更新课表数据
-  // dispatch(updateScheduleData({ userType }))
   return null
 }
 

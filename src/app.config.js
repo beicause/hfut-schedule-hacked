@@ -2,16 +2,23 @@ import { useGlobalIconFont } from './components/iconfont/helper';
 
 export default {
   pages: [
-    // 'pages/home/index',
+    // 'pages/score/index',
 
     'pages/event/index',
     'pages/schedule/index',
+    'pages/score/index',
     'pages/home/index',
     'pages/login/index',
 
     'pages/schedule/pages/mooc/index',
     'pages/schedule/pages/history-schedule/index',
     'pages/schedule/pages/class-list/index',
+
+    'pages/score/pages/score-list/index',
+    // 'pages/score/pages/one-course-score/index',
+    // 'pages/score/pages/pub-credit/index',
+    // 'pages/score/pages/pub-fail-rate/index',
+    // 'pages/score/pages/score-else-data/index',
 
     // 'pages/home/pages/gift/index',
     'pages/home/pages/empty-clazz-room/index',
@@ -41,12 +48,6 @@ export default {
         "pages/weather/index",
       ]
     },
-    {
-      "root": "package-grade",
-      "pages": [
-        "pages/main/index",
-      ]
-    },
   ],
   window: {
     backgroundTextStyle: 'light',
@@ -63,20 +64,26 @@ export default {
     list: [{
       pagePath: 'pages/event/index',
       text: '日程',
-      iconPath: 'assets/event.png',
-      selectedIconPath: 'assets/event_active.png',
+      iconPath: 'assets/tab/event.png',
+      selectedIconPath: 'assets/tab/event_active.png',
     },
     {
       pagePath: 'pages/schedule/index',
       text: '课表',
-      iconPath: 'assets/schedule.png',
-      selectedIconPath: 'assets/schedule_active.png',
+      iconPath: 'assets/tab/schedule.png',
+      selectedIconPath: 'assets/tab/schedule_active.png',
+    },
+    {
+      pagePath: 'pages/score/index',
+      text: '成绩',
+      iconPath: 'assets/tab/score.png',
+      selectedIconPath: 'assets/tab/score_active.png',
     },
     {
       pagePath: 'pages/home/index',
       text: '我',
-      iconPath: 'assets/home.png',
-      selectedIconPath: 'assets/home_active.png',
+      iconPath: 'assets/tab/home.png',
+      selectedIconPath: 'assets/tab/home_active.png',
     },
     ]
   },

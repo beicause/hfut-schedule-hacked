@@ -15,7 +15,7 @@ export const currentSemester = {
 }
 
 export const config = {
-  version: '4.9.6',
+  version: '5.0.0dev1',
 
   // 自动配置设置
   autoConfig: {
@@ -49,6 +49,11 @@ export const config = {
 
     // 开发者选项
     showFuckedGrade: true,
+
+    // 成绩的
+    hasPub: false,
+    rankType: 'Avg',
+    scoreDigits: 2,
   }
 }
 

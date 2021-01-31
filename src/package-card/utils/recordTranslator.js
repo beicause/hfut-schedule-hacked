@@ -1,7 +1,6 @@
 import cheerio from 'cheerio'
 import {
   recordClass,
-  alias,
 } from '../assets/recordClass'
 
 

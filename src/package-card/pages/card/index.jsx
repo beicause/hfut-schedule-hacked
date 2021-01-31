@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react'
+/* eslint-disable import/no-commonjs */
+import React, { useState, useEffect } from 'react'
 import { connect, useDispatch } from 'react-redux'
 import Taro, { useDidShow } from '@tarojs/taro'
-import { AtTimeline, AtActivityIndicator, AtProgress, AtNoticebar } from 'taro-ui'
+import { AtTimeline, AtActivityIndicator, AtProgress } from 'taro-ui'
 import { View, Text, Image } from '@tarojs/components'
-import { EChart } from "echarts-taro3-react";
 
+import F2Canvas from '../../../components/F2Canvas'
 import { UPDATE_BIZDATA } from '../../../constants/package-card/card'
 import CustomButton from '../../../components/CustomButton'
 import CardLoginFL from './components/CardLoginFL'
@@ -18,6 +19,15 @@ import save from '../../utils/save'
 import EmptyImg from '../../../assets/img/empty.svg'
 import './index.scss'
 
+// 引入F2
+const F2 = require('@antv/f2/lib/core')
+const Tooltip = require('@antv/f2/lib/plugin/tooltip');
+const GroupAnimation = require('@antv/f2/lib/animation/detail');
+
+F2.Chart.plugins.register(Tooltip);
+F2.Chart.plugins.register(GroupAnimation);
+require('@antv/f2/lib/geom/line')
+require('@antv/f2/lib/geom/point')
 
 function Card(props) {
   const { bizData, globalTheme } = props
@@ -42,9 +52,6 @@ function Card(props) {
   })
   // 用来做loading完成后的淡出效果
   const [loadingOpacity, setLoadingOpacity] = useState(1)
-  // 图表实例
-  const consumeRateChart = useRef(null);
-
 
   // 适配全局主题，判断是否需要登陆
   useDidShow(() => {
@@ -274,35 +281,6 @@ function Card(props) {
       return
     }
 
-    // 绘制月日均消费图表
-    const { months, monthsDaily } = basicAnalyzedData
-    consumeRateChart.current.refresh({
-      tooltip: {
-        trigger: 'axis'
-      },
-      xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: months
-      },
-      yAxis: {},
-      series: [{
-        name: '日均消费',
-        data: monthsDaily,
-        type: 'line',
-        lineStyle: {
-          color: themeC[`color-brand-${globalTheme}`]
-        },
-        itemStyle: {
-          color: themeC[`color-brand-dark-${globalTheme}`]
-        },
-        areaStyle: {
-          color: themeC[`color-brand-dark-${globalTheme}`],
-          opacity: 0.2
-        },
-        borderWidth: 4,
-      }]
-    })
   }, [recordDataList, basicAnalyzedData, globalTheme])
 
 
@@ -326,6 +304,57 @@ function Card(props) {
         }
       }
     })
+  }
+
+  // 绘制图表
+  const chartOnInit = (config) => {
+    const { months, monthsDaily } = basicAnalyzedData
+
+    const data = months.map((month, mIndex) => ({
+      month,
+      value: parseFloat(monthsDaily[mIndex]),
+    }))
+
+    const chart = new F2.Chart(config);
+
+    chart.source(data, {
+      value: {
+        tickCount: 5,
+        min: 0
+      },
+      month: {
+        range: [0, 1]
+      }
+    });
+    chart.tooltip({
+      showCrosshairs: true,
+      showItemMarker: false,
+      triggerOn: ['click', 'touchstart', 'touchmove'],
+      onShow: function onShow(ev) {
+        const items = ev.items;
+        items[0].name = null;
+        items[0].value = '¥ ' + items[0].value;
+      }
+    });
+    chart.axis('month', {
+      label: function label(_text, index, total) {
+        const textCfg = { textAlign: 'center' };
+        if (index === 0) {
+          textCfg.textAlign = 'left';
+        } else if (index === total - 1) {
+          textCfg.textAlign = 'right';
+        }
+        return textCfg;
+      }
+    });
+    chart.line().position('month*value');
+    chart.point().position('month*value').style({
+      stroke: '#fff',
+      lineWidth: 1
+    });
+    chart.render()
+
+    return chart // required
   }
 
 
@@ -445,7 +474,10 @@ function Card(props) {
 
       <View className='cardMain-footer'>
         <View className='cardMain-footer-title'>每月日均消费</View>
-        <EChart ref={consumeRateChart} canvasId='bar-canvas' />
+        <F2Canvas
+          className='cardMain-footer-chart'
+          onInit={chartOnInit}
+        />
       </View>
 
     </View>

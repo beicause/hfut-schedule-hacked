@@ -82,29 +82,23 @@ function Home() {
       redPoint: (examCount !== 0) && (<AtBadge value={examCount}></AtBadge>),
     },
     {
-      name: '成绩查询',
-      icon: 'jixiaopinggu',
-      onClick: () => Taro.navigateTo({ url: '/package-grade/pages/main/index' }),
-      redPoint: '',
-    },
-    {
       name: '第二课堂',
-      icon: 'gongpai',
+      icon: 'jixiaopinggu',
       onClick: () => Taro.navigateToMiniProgram({
         appId: 'wx1e3feaf804330562',
         path: 'pages/my/my',
       }),
       redPoint: '',
     },
+    {
+      name: '校园卡',
+      icon: 'gongpai',
+      onClick: () => Taro.navigateTo({ url: '/package-card/pages/card/index' }),
+      redPoint: '',
+    },
   ]
 
   const toolsData = [
-    {
-      name: '校园卡年度账单',
-      icon: 'qupiao',
-      onClick: () => Taro.navigateTo({ url: '/package-card/pages/card/index' }),
-      redPoint: true,
-    },
     {
       name: '全校课表',
       icon: 'rili',

@@ -5,7 +5,7 @@ import { View, Image, Text } from '@tarojs/components'
 import dayjs from 'dayjs';
 
 import IconFont from '../../../../components/iconfont'
-import img from '../../../../assets/img/examArrange.svg'
+import img from '../../../../assets/img/empty.svg'
 import themeC from '../../../../style/theme'
 import './index.scss'
 
