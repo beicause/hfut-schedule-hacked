@@ -5,6 +5,7 @@ import Taro, { usePullDownRefresh } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { AtActivityIndicator } from 'taro-ui'
 import _ from 'lodash'
+import F2 from '@antv/f2'
 
 import * as actions from '../../actions/score'
 import formatScore from './utils/formatScore'
@@ -14,19 +15,6 @@ import F2Canvas from '../../components/F2Canvas/index'
 import themeC from '../../style/theme'
 import './index.scss'
 
-// 引入F2
-// const F2 = require('@antv/f2/lib/core')
-// const Tooltip = require('@antv/f2/lib/plugin/tooltip');
-// const Animation = require('@antv/f2/lib/animation/detail');
-// const Legend = require('@antv/f2/lib/plugin/legend');
-
-// F2.Chart.plugins.register(Tooltip);
-// F2.Chart.plugins.register(Animation);
-// F2.Chart.plugins.register(Legend);
-// require('@antv/f2/lib/geom/line')
-// require('@antv/f2/lib/geom/point')
-// require('@antv/f2/lib/geom/area');
-// require('@antv/f2/lib/geom/');
 
 function Grade(props) {
   const {
@@ -227,17 +215,17 @@ function Grade(props) {
       </View>
 
       <View className='score-chartTitle'>
-        <Text className='score-title_small'>分数走势图</Text>
+        <Text className='score-title_normal'>分数走势图</Text>
       </View>
 
       <View className='score-chartPlace'>
-        {/* {
-          showChart &&
+        {
+          (showChart && termRanks && termRanks.legend !== 0) &&
           <F2Canvas
             className='score-chartPlace-chart'
             onInit={chartOnInit}
           />
-        } */}
+        }
       </View>
 
       <View className='score-footer'>

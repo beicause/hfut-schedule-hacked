@@ -15,8 +15,22 @@ import './index.scss'
 
 function CardRanking(props) {
   const { globalTheme } = props
-  const courseCode = props.tid.split('?')[1].split('&')[0].split('=')[1]
-  const term = props.tid.split('?')[1].split('&')[1].split('=')[1]
+  // 获取url中的两个参数
+  let courseCode = ''
+  let term = ''
+  props.tid.split('?')[1].split('&').forEach(param => {
+    switch (param.split('=')[0]) {
+      case 'courseCode':
+        courseCode = param.split('=')[1]
+        break;
+      case 'term':
+        term = param.split('=')[1]
+        break;
+      default:
+        break;
+    }
+  });
+  console.log(props.tid)
   const [scoreData, setScoreData] = useState(null)
   const [selectedTag, setSelectedTag] = useState(0)
 
@@ -31,10 +45,17 @@ function CardRanking(props) {
       const localUserData = Taro.getStorageSync('me')
       const { userInfo: { username } } = localUserData
       // 请求数据
+      console.log(`/score/byDetail/${username}/${courseCode}/${term}`)
       GET(`/score/byDetail/${username}/${courseCode}/${term}`)
         .then(res => {
           if (res.success) {
             setScoreData(res.data)
+          } else {
+            Taro.showToast({
+              title: '出现问题',
+              icon: "none",
+              duration: 2000
+            })
           }
           Taro.hideLoading()
         })
@@ -70,8 +91,6 @@ function CardRanking(props) {
     chart.coord('polar');
     chart.source(data, {
       score: {
-        // min: 0,
-        // max: 100,
         nice: true,
         tickCount: 5
       }
@@ -242,7 +261,8 @@ function CardRanking(props) {
         </View>
 
         <View className='oneCS-content-title'>
-          <Text className='oneCS-title_small'>成绩明细</Text>
+          <Text className='oneCS-content-title-text'>成绩明细</Text>
+          <Text className='oneCS-content-title-comment'>（提示：点击图表查看详细分数）</Text>
         </View>
 
       </View>
