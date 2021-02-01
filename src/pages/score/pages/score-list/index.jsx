@@ -3,21 +3,22 @@ import { connect } from 'react-redux'
 import Taro, { useDidShow } from '@tarojs/taro'
 import { View, Swiper, SwiperItem, Image, Text } from '@tarojs/components'
 
-import ScoreDetailFL from '../../components/ScoreDetailFL'
+// import ScoreDetailFL from '../../components/ScoreDetailFL'
 import IconFont from '../../../../components/iconfont'
 import * as actions from '../../../../actions/score'
 import EmptyImg from '../../../../assets/img/empty.svg'
 import themeC from '../../../../style/theme'
 import formatScore from '../../utils/formatScore'
+import termZhToTerm from '../../utils/termZhToTerm'
 import './index.scss'
 
 
 function ScoreDetail(props) {
   const { scorelist, termRanks, scoreDigits, globalTheme, showFuckedGrade, enterScorelist } = props
-  const [scoreDetailFLData, setScoreDetailFLData] = useState({
-    isOpened: false,
-    info: null,
-  })
+  // const [scoreDetailFLData, setScoreDetailFLData] = useState({
+  //   isOpened: false,
+  //   info: null,
+  // })
 
   // 适配全局主题
   useDidShow(() => Taro.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: themeC[`color-brand-dark-${globalTheme}`] }))
@@ -25,6 +26,10 @@ function ScoreDetail(props) {
   useEffect(() => {
     enterScorelist({ force: true })
   }, [enterScorelist])
+
+  const handleClickCourse = (courseCode, term) => {
+    Taro.navigateTo({ url: `/pages/score/pages/one-course-score/index?courseCode=${courseCode}&term=${term}` })
+  }
 
   // 没有成绩
   if (scorelist.length === 0) {
@@ -111,7 +116,7 @@ function ScoreDetail(props) {
                         }
 
                         return (
-                          <View className='scorelist-swiper-item-elem' key={elemData.lessonCode} onClick={() => setScoreDetailFLData({ isOpened: true, info: elemData })}>
+                          <View className='scorelist-swiper-item-elem' key={elemData.lessonCode} onClick={() => handleClickCourse(elemData.lessonCode, termZhToTerm(scoreData.semesterName))}>
                             <View className={`scorelist-swiper-item-elem-deco scorelist-swiper-item-elem-deco_${decoColor}`}></View>
                             <View className='scorelist-swiper-item-elem-left'>
                               <View className='scorelist-swiper-item-elem-left_title'>{elemData.lessonName.length <= 13 ? elemData.lessonName : (elemData.lessonName.slice(0, 12) + "...")}</View>
@@ -133,7 +138,7 @@ function ScoreDetail(props) {
         <View className='scorelist-content-shadow'></View>
       </View>
 
-      <ScoreDetailFL scoreDetailFLData={scoreDetailFLData} onClose={() => setScoreDetailFLData({ ...scoreDetailFLData, isOpened: false })} />
+      {/* <ScoreDetailFL scoreDetailFLData={scoreDetailFLData} onClose={() => setScoreDetailFLData({ ...scoreDetailFLData, isOpened: false })} /> */}
     </View>
   )
 }

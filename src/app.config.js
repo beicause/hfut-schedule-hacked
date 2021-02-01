@@ -2,7 +2,7 @@ import { useGlobalIconFont } from './components/iconfont/helper';
 
 export default {
   pages: [
-    // 'pages/score/index',
+    // 'pages/score/pages/score-list/index',
 
     'pages/event/index',
     'pages/schedule/index',
@@ -15,7 +15,7 @@ export default {
     'pages/schedule/pages/class-list/index',
 
     'pages/score/pages/score-list/index',
-    // 'pages/score/pages/one-course-score/index',
+    'pages/score/pages/one-course-score/index',
     // 'pages/score/pages/pub-credit/index',
     // 'pages/score/pages/pub-fail-rate/index',
     // 'pages/score/pages/score-else-data/index',

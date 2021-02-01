@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import Taro, { usePullDownRefresh } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
+import { AtActivityIndicator } from 'taro-ui'
 import _ from 'lodash'
 
 import * as actions from '../../actions/score'
@@ -14,21 +15,24 @@ import themeC from '../../style/theme'
 import './index.scss'
 
 // 引入F2
-const F2 = require('@antv/f2/lib/core')
-const Tooltip = require('@antv/f2/lib/plugin/tooltip');
-const GroupAnimation = require('@antv/f2/lib/animation/detail');
-const Legend = require('@antv/f2/lib/plugin/legend');
+// const F2 = require('@antv/f2/lib/core')
+// const Tooltip = require('@antv/f2/lib/plugin/tooltip');
+// const Animation = require('@antv/f2/lib/animation/detail');
+// const Legend = require('@antv/f2/lib/plugin/legend');
 
-F2.Chart.plugins.register(Tooltip);
-F2.Chart.plugins.register(GroupAnimation);
-F2.Chart.plugins.register(Legend);
-require('@antv/f2/lib/geom/line')
-require('@antv/f2/lib/geom/point')
-require('@antv/f2/lib/geom/area');
+// F2.Chart.plugins.register(Tooltip);
+// F2.Chart.plugins.register(Animation);
+// F2.Chart.plugins.register(Legend);
+// require('@antv/f2/lib/geom/line')
+// require('@antv/f2/lib/geom/point')
+// require('@antv/f2/lib/geom/area');
 // require('@antv/f2/lib/geom/');
 
 function Grade(props) {
-  const { bizData: { allRank, termRanks }, uiData: { crawing }, globalTheme, hasPub, rankType, scoreDigits, enter } = props
+  const {
+    bizData: { allRank, termRanks },
+    uiData: { crawing, loading },
+    globalTheme, hasPub, rankType, scoreDigits, enter } = props
   const [statusBarHeight, setStatusBarHeight] = useState(28)
   const [showSetting, setShowSetting] = useState(false)
   const [showChart, setShowChart] = useState(true)
@@ -40,17 +44,17 @@ function Grade(props) {
       onClick: () => Taro.navigateTo({ url: '/pages/score/pages/score-list/index' }),
     },
     {
-      name: '公选学分',
-      icon: 'tishi',
-      onClick: () => Taro.navigateTo({ url: '/pages/score/pages/pub-credit/index' }),
-    },
-    {
       name: '其他数据',
       icon: 'shuju',
       onClick: () => Taro.navigateTo({ url: '/pages/score/pages/score-else-data/index' }),
     },
     {
-      name: '公选挂科率',
+      name: '我的公选',
+      icon: 'tishi',
+      onClick: () => Taro.navigateTo({ url: '/pages/score/pages/pub-credit/index' }),
+    },
+    {
+      name: '全校公选',
       icon: 'sousuo',
       onClick: () => Taro.navigateTo({ url: '/pages/score/pages/pub-fail-rate/index' }),
     },
@@ -63,24 +67,29 @@ function Grade(props) {
         setStatusBarHeight(res.statusBarHeight)
       }
     })
-  }, [])
+    // 登陆后的自动爬虫尚未完成
+    if (crawing) {
+      Taro.showLoading({ title: '首次加载中...' })
+    } else {
+      Taro.hideLoading()
+    }
+  }, [crawing])
 
   // 下拉刷新
   usePullDownRefresh(async () => {
-    await enter('main')
+    enter('main')
   })
 
   // 设置改变后的effect
   useEffect(() => {
     if (rankType && !crawing) {
-      Taro.showLoading({ title: '加载中' })
       enter('main')
     }
   }, [crawing, enter, hasPub, rankType])
 
   // 重新渲染图表的effect
   useEffect(() => {
-    console.log('准备重新渲染图表')
+    // console.log('准备重新渲染图表')
     if (termRanks.legend !== 0) {
       setShowChart(false)
       setTimeout(() => {
@@ -88,12 +97,6 @@ function Grade(props) {
       });
     }
   }, [termRanks])
-
-  // 登陆后的自动爬虫尚未完成
-  if (crawing) {
-    Taro.showLoading({ title: '首次加载中...' })
-    return <View></View>
-  }
 
   // 绘制图表
   const chartOnInit = (config) => {
@@ -170,7 +173,11 @@ function Grade(props) {
 
   return (
     <View className='score'>
-      <View className='score-title' style={{ top: statusBarHeight + 8 }}></View>
+      <View className='score-title' style={{ top: statusBarHeight + 8 }}>
+        {
+          loading && <AtActivityIndicator content='加载中...'></AtActivityIndicator>
+        }
+      </View>
       <View className='score-shadow' style={{ backgroundColor: themeC[`color-brand-${globalTheme}`] }}></View>
 
       <View className='score-card'>
@@ -224,13 +231,13 @@ function Grade(props) {
       </View>
 
       <View className='score-chartPlace'>
-        {
+        {/* {
           showChart &&
           <F2Canvas
             className='score-chartPlace-chart'
             onInit={chartOnInit}
           />
-        }
+        } */}
       </View>
 
       <View className='score-footer'>

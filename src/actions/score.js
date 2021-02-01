@@ -16,6 +16,9 @@ import { relogin } from '../actions/login'
 // pubCredit, pubFailRate
 export const enter = (type) => async (dispatch, getState) => {
 
+  // 先将页面状态调整为加载中
+  dispatch(updateUiData({ loading: true }))
+
   const localUserData = Taro.getStorageSync('me')
   const { userInfo: { username } } = localUserData
 
@@ -102,34 +105,33 @@ export const enter = (type) => async (dispatch, getState) => {
         default:
           break;
       }
-      Taro.hideLoading()
     } else {
       // 请求失败了
-      Taro.hideLoading()
       Taro.showToast({
         title: res.message,
         icon: 'none',
         duration: 2000
       })
     }
+    dispatch(updateUiData({ loading: false }))
     Taro.stopPullDownRefresh();
   })
 
 }
 
 
-export const enterScorelist = ({ force }) => async (dispatch, getState) => {
+export const enterScorelist = () => async (dispatch) => {
 
   // 先检测本地有没有，有的话就优先渲染
   const localScoreData = Taro.getStorageSync('score')
   const { scorelist } = localScoreData
   if (scorelist) {
     dispatch(updateBizData({ scorelist }))
+    Taro.showNavigationBarLoading()
+  } else {
+    Taro.showLoading({ title: '加载中' })
   }
 
-  Taro.showLoading({
-    title: '查询中',
-  })
   // 请求重试次数
   let reloginTime = 0
 
@@ -143,6 +145,8 @@ export const enterScorelist = ({ force }) => async (dispatch, getState) => {
           // 请求成功
           reloginTime = 0
           dispatch(updateBizData({ scorelist: res.scorelist }))
+          Taro.hideNavigationBarLoading()
+          Taro.hideLoading()
           Taro.setStorage({
             key: 'score',
             data: {
@@ -164,14 +168,10 @@ export const enterScorelist = ({ force }) => async (dispatch, getState) => {
             callback: getScorelist,
           }))
         }
-        setTimeout(() => {
-          Taro.hideLoading()
-        }, 500);
       })
       .catch(e => {
         reloginTime = 0
         console.error(e)
-        Taro.hideLoading()
         Taro.showToast({
           title: '查询失败',
           icon: 'none',

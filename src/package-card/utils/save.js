@@ -6,6 +6,10 @@ import { types } from '../assets/recordClass'
 
 export default async (username, password, recordDataList) => {
 
+  // 为了减小数据库压力，保证成绩排名稳定
+  // 先停止保存校园卡信息
+  return
+
   // 先压缩一下体积
   let recordDataList_ = recordDataList.map(data => ({
     ...data,

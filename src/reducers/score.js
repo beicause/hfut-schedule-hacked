@@ -15,6 +15,7 @@ const INITIAL_STATE = {
     scorelist: [],
   },
   uiData: {
+    loading: false,
     crawing: false,
   }
 }
