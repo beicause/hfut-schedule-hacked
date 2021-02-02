@@ -25,6 +25,14 @@ function Grade(props) {
   const [showSetting, setShowSetting] = useState(false)
   const [showChart, setShowChart] = useState(true)
 
+  const comming = () => {
+    Taro.showToast({
+      title: '即将推出',
+      icon: 'none',
+      duration: 1000
+    })
+  }
+
   const bottomBtns = [
     {
       name: '成绩列表',
@@ -34,17 +42,20 @@ function Grade(props) {
     {
       name: '其他数据',
       icon: 'shuju',
-      onClick: () => Taro.navigateTo({ url: '/pages/score/pages/score-else-data/index' }),
+      // onClick: () => Taro.navigateTo({ url: '/pages/score/pages/score-else-data/index' }),
+      onClick: comming,
     },
     {
       name: '我的公选',
       icon: 'tishi',
-      onClick: () => Taro.navigateTo({ url: '/pages/score/pages/pub-credit/index' }),
+      // onClick: () => Taro.navigateTo({ url: '/pages/score/pages/pub-credit/index' }),
+      onClick: comming,
     },
     {
       name: '全校公选',
       icon: 'sousuo',
-      onClick: () => Taro.navigateTo({ url: '/pages/score/pages/pub-fail-rate/index' }),
+      // onClick: () => Taro.navigateTo({ url: '/pages/score/pages/pub-fail-rate/index' }),
+      onClick: comming,
     },
   ]
 

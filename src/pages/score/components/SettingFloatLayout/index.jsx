@@ -10,8 +10,9 @@ import themeC from '../../../../style/theme'
 
 
 function SettingFloatLayout(props) {
-  const { isOpened, onClose, userConfig } = props
-  const { hasPub, rankType, scoreDigits, globalTheme } = userConfig
+  const { isOpened, onClose, userConfig, autoConfig } = props
+  const { hasPub, rankType, scoreDigits, showFuckedGrade, globalTheme } = userConfig
+  const { fineModel } = autoConfig
 
   const rankTypeRange = [
     { name: '均分', value: 'Avg' },
@@ -103,6 +104,18 @@ function SettingFloatLayout(props) {
           </View>
         </Picker>
 
+        {/* 开发者选项 */}
+        {
+          fineModel &&
+          <>
+            <View className='settingFloatLayout-line'></View>
+            <View className='settingFloatLayout-content-item'>
+              <Text>隐藏挂科的科目</Text>
+              <Switch checked={!showFuckedGrade} onChange={e => updateUserConfig({ showFuckedGrade: !e.detail.value })} color={themeC[`color-brand-${globalTheme}`]} />
+            </View>
+          </>
+        }
+
         <View className='settingFloatLayout-footer'></View>
 
       </View>
@@ -113,6 +126,7 @@ function SettingFloatLayout(props) {
 function mapStateToProps(state) {
   return {
     userConfig: state.schedule.bizData.userConfig,
+    autoConfig: state.schedule.bizData.autoConfig,
   };
 }
 

@@ -7,6 +7,7 @@ import {
 } from '../constants/score'
 import { GET } from '../utils/request'
 import { relogin } from '../actions/login'
+import aesEncrypt from '../pages/score/utils/encrypt'
 
 
 // 1.检测本地缓存，有数据优先渲染
@@ -27,10 +28,10 @@ export const enter = (type) => async (dispatch, getState) => {
   switch (type) {
     case 'main':  // 主页请求
       const { hasPub, rankType } = getState().schedule.bizData.userConfig
-      reqUrl = `/score/${rankType === 'Gpa' ? 'byGpa' : 'byAvgScore'}/${username}/${hasPub}`
+      reqUrl = `/score/${rankType === 'Gpa' ? 'byGpa' : 'byAvgScore'}/${aesEncrypt(username)}/${hasPub}`
       break;
     case 'pubCredit':  // 个人公选数据请求
-      reqUrl = `/score/publicClass/${username}`
+      reqUrl = `/score/publicClass/${aesEncrypt(username)}`
       break;
     case 'pubFailRate':  // 公选挂科排名请求
       reqUrl = `/score/publicClass/rank`

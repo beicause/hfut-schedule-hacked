@@ -32,8 +32,8 @@ export default ({ onClose }) => {
     <View className='updateNotice'>
 
       <View className='updateNotice-content'>
-        {/* <View className='updateNotice-content-title'>{`${version}更新公告`}</View> */}
-        <View className='updateNotice-content-title'>关于成绩排名📚</View>
+        <View className='updateNotice-content-title'>{`${version}更新公告`}</View>
+        {/* <View className='updateNotice-content-title'>关于成绩排名📚</View> */}
         <View className='updateNotice-content-close' onClick={onClose}>
           <IconFont name='shibai' size={48} color='#60646b' />
         </View>

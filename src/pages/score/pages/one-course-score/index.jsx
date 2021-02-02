@@ -10,6 +10,7 @@ import F2Canvas from '../../../../components/F2Canvas'
 import IconFont from '../../../../components/iconfont'
 import themeC from '../../../../style/theme'
 import { GET } from '../../../../utils/request'
+import aesEncrypt from '../../utils/encrypt'
 import './index.scss'
 
 
@@ -45,8 +46,7 @@ function CardRanking(props) {
       const localUserData = Taro.getStorageSync('me')
       const { userInfo: { username } } = localUserData
       // 请求数据
-      console.log(`/score/byDetail/${username}/${courseCode}/${term}`)
-      GET(`/score/byDetail/${username}/${courseCode}/${term}`)
+      GET(`/score/byDetail/${aesEncrypt(username)}/${courseCode}/${term}`)
         .then(res => {
           if (res.success) {
             setScoreData(res.data)
