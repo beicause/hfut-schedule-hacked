@@ -71,17 +71,17 @@ function CardRanking(props) {
     let data = []
     scoreData.courseScoreDetailVOList.forEach(detailData => {
       data.push({
-        item: `${detailData.scoreItem}：${detailData.rank}/${detailData.sum}`,
+        item: detailData.scoreItem,
         user: '我的',
         score: detailData.score,
       })
       data.push({
-        item: `${detailData.scoreItem}：${detailData.rank}/${detailData.sum}`,
+        item: detailData.scoreItem,
         user: '平均',
         score: detailData.avgScore.toFixed(2),
       })
       data.push({
-        item: `${detailData.scoreItem}：${detailData.rank}/${detailData.sum}`,
+        item: detailData.scoreItem,
         user: '最高',
         score: detailData.maxScore,
       })
@@ -262,7 +262,34 @@ function CardRanking(props) {
 
         <View className='oneCS-content-title'>
           <Text className='oneCS-content-title-text'>成绩明细</Text>
-          <Text className='oneCS-content-title-comment'>（提示：点击图表查看详细分数）</Text>
+          {/* <Text className='oneCS-content-title-comment'>（提示：点击图表查看详细分数）</Text> */}
+        </View>
+
+        <View className='oneCS-content-grid'>
+          <View className='oneCS-content-grid-col'>
+            <View className='oneCS-content-grid-col-title'>项目</View>
+            {
+              scoreData.courseScoreDetailVOList.map(data => (
+                <View className='oneCS-content-grid-col-item' key={data.scoreItem}>{data.scoreItem}</View>
+              ))
+            }
+          </View>
+          <View className='oneCS-content-grid-col'>
+            <View className='oneCS-content-grid-col-title'>得分</View>
+            {
+              scoreData.courseScoreDetailVOList.map(data => (
+                <View className='oneCS-content-grid-col-item' key={data.scoreItem}>{data.score}</View>
+              ))
+            }
+          </View>
+          <View className='oneCS-content-grid-col'>
+            <View className='oneCS-content-grid-col-title'>排名</View>
+            {
+              scoreData.courseScoreDetailVOList.map(data => (
+                <View className='oneCS-content-grid-col-item' key={data.scoreItem}>{data.rank}/{data.sum}</View>
+              ))
+            }
+          </View>
         </View>
 
       </View>
