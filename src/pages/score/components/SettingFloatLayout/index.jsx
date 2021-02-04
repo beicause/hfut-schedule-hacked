@@ -6,7 +6,10 @@ import { AtFloatLayout } from 'taro-ui'
 
 import * as scheduleActions from '../../../../actions/schedule'
 import IconFont from '../../../../components/iconfont'
+import CustomButton from '../../../../components/CustomButton'
 import themeC from '../../../../style/theme'
+import { POST } from '../../../../utils/request'
+import myEncrypt from '../../utils/encrypt'
 
 
 function SettingFloatLayout(props) {
@@ -56,6 +59,47 @@ function SettingFloatLayout(props) {
 
   const handleScoreDigitsChange = async (e) => {
     await updateUserConfig({ scoreDigits: scoreDigitsRange[parseInt(e.detail.value)].value })
+  }
+
+  // 用户手动刷新数据
+  const handleRefresh = () => {
+    const scoreRefreshTime = Taro.getStorageSync('scoreRefreshTime')
+    if (!scoreRefreshTime || (Date.now() - scoreRefreshTime > 300000)) {
+      Taro.setStorage({
+        key: 'scoreRefreshTime',
+        data: Date.now()
+      })
+      Taro.showLoading({
+        title: '加载中',
+        mask: true,
+      })
+      const localUserData = Taro.getStorageSync('me')
+      const { userInfo: { username } } = localUserData
+      POST(`/score/reCraw/${myEncrypt(username)}`)
+        .then(res => {
+          Taro.hideLoading()
+          if (res.success) {
+            Taro.showToast({
+              title: '完成',
+              icon: 'success',
+              duration: 2000
+            })
+          } else {
+            Taro.showToast({
+              title: res.message,
+              icon: 'none',
+              duration: 2000
+            })
+          }
+        })
+
+    } else {
+      Taro.showToast({
+        title: `请${300 - parseInt((Date.now() - scoreRefreshTime) / 1000)}秒后再操作`,
+        icon: 'none',
+        duration: 2000
+      })
+    }
   }
 
   return (
@@ -116,8 +160,12 @@ function SettingFloatLayout(props) {
           </>
         }
 
-        <View className='settingFloatLayout-footer'></View>
+      </View>
 
+      <View className='settingFloatLayout-footer'>
+        <View className='settingFloatLayout-footer-btnBox'>
+          <CustomButton value='刷新数据' type='default' onSubmit={handleRefresh} />
+        </View>
       </View>
 
     </AtFloatLayout >

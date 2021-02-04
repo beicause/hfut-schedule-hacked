@@ -9,9 +9,12 @@ import F2 from '@antv/f2'
 
 import * as actions from '../../actions/score'
 import formatScore from './utils/formatScore'
+import termToGrade from './utils/termToGrade'
 import IconFont from '../../components/iconfont'
 import SettingFloatLayout from './components/SettingFloatLayout'
 import F2Canvas from '../../components/F2Canvas/index'
+import HelpNotice from '../../components/HelpNotice'
+import { scoreHelpInfo } from '../../assets/data/helpInfo'
 import themeC from '../../style/theme'
 import './index.scss'
 
@@ -24,12 +27,13 @@ function Grade(props) {
   const [statusBarHeight, setStatusBarHeight] = useState(28)
   const [showSetting, setShowSetting] = useState(false)
   const [showChart, setShowChart] = useState(true)
+  const [showHelpNotice, setShowHelpNotice] = useState(false)
 
   const comming = () => {
     Taro.showToast({
       title: '即将推出',
       icon: 'none',
-      duration: 1000
+      duration: 500
     })
   }
 
@@ -89,29 +93,32 @@ function Grade(props) {
   // 重新渲染图表的effect
   useEffect(() => {
     // console.log('准备重新渲染图表')
-    if (termRanks.legend !== 0) {
+    if (termRanks.length !== 0) {
       setShowChart(false)
       setTimeout(() => {
         setShowChart(true)
-      });
+      }, 100);
     }
   }, [termRanks])
 
   // 绘制图表
   const chartOnInit = (config) => {
+    // 拿学号是为了将20181转换为大一上
+    const localUserData = Taro.getStorageSync('me')
+    const { userInfo: { username } } = localUserData
     let data = []
     data = data.concat(termRanks.map((termData) => ({
-      term: termData.term,
+      term: termToGrade(username, termData.term),
       type: '我的',
       value: parseFloat(formatScore(termData.score, scoreDigits)),
     })))
     data = data.concat(termRanks.map((termData) => ({
-      term: termData.term,
+      term: termToGrade(username, termData.term),
       type: '平均',
       value: parseFloat(formatScore(termData.avgScore, scoreDigits)),
     })))
     data = data.concat(termRanks.map((termData) => ({
-      term: termData.term,
+      term: termToGrade(username, termData.term),
       type: '最高',
       value: parseFloat(formatScore(termData.maxScore, scoreDigits)),
     })))
@@ -178,13 +185,22 @@ function Grade(props) {
         }
       </View>
       <View className='score-shadow' style={{ backgroundColor: themeC[`color-brand-${globalTheme}`] }}></View>
+      { showHelpNotice &&
+        <View className='score-help'>
+          <HelpNotice onClose={() => setShowHelpNotice(false)} helpInfo={scoreHelpInfo} />
+        </View>}
 
       <View className='score-card'>
         <View className='score-header-top'>
 
           <View className='score-header-top-left'>
             <Text className='score-title_small'>{`专业排名 - ${rankType === 'Gpa' ? '绩点' : '均分'}`}</Text>
-            <Text className='score-title_huge'>{`${allRank.rank}/${allRank.sum}`}</Text>
+            <View className='score-header-top-left-score' onClick={() => setShowHelpNotice(true)}>
+              <Text className='score-title_huge'>{`${allRank.rank}/${allRank.sum}`}</Text>
+              <View className='score-header-top-left-score-help'>
+                <IconFont name='help' size={36} color='#aaaaaa' />
+              </View>
+            </View>
           </View>
 
           <View

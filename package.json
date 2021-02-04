@@ -46,6 +46,7 @@
     "@tarojs/runtime": "3.0.8",
     "@tarojs/taro": "3.0.8",
     "cheerio": "^1.0.0-rc.5",
+    "crypto-js": "^4.0.0",
     "dayjs": "^1.9.6",
     "lodash": "^4.17.20",
     "lyc-taro3-f2": "^1.1.0",

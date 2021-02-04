@@ -1,18 +1,44 @@
-// eslint-disable-next-line import/no-commonjs
-var crypto = require('crypto'); 
 
-function aesEncrypt(data) {
-  let secretKey = 'XhblzW66'
-  let iv = '1111111111111111'
-  secretKey = new Buffer(secretKey, "utf8");
-  secretKey = crypto.createHash("md5").update(secretKey).digest("hex");
-  secretKey = new Buffer(secretKey, "hex");
-  var cipher = crypto.createCipheriv("aes-128-cbc", secretKey, iv), coder = [];
-  coder.push(cipher.update(data, "utf8", "hex"));
-  coder.push(cipher.final("hex"));
-  return coder.join("");
- }
+const alphaList = 'abcdefghijklmnopqrstuvwxyz'.split('')
 
-// console.log(cbcEncrypt('2018214008'))
+const myEncrypt = (code) => {
+  const str1 = code.slice(0, 3).split('')
+  const str2 = code.slice(3, 6).split('')
+  const str3 = code.slice(6, 9).split('')
+  const str4 = code.slice(9, 10).split('')
 
-export default aesEncrypt
+  let secret = ''
+
+  const K = (c, p) => alphaList[parseInt(c) + p]
+
+  // 头部三个随机
+  for (let i = 0; i < 3; i++) {
+    secret += alphaList[parseInt(Math.random() * alphaList.length)]
+  }
+
+  str1.forEach(c => {
+    secret += K(c, 0)
+  });
+
+  str2.forEach(c => {
+    secret += K(c, 3)
+  });
+
+  str3.forEach(c => {
+    secret += K(c, 7)
+  });
+
+  str4.forEach(c => {
+    secret += K(c, 1)
+  });
+
+  // 尾部随机
+  for (let i = 0; i < parseInt(Math.random() * alphaList.length); i++) {
+    secret += alphaList[parseInt(Math.random() * alphaList.length)]
+  }
+
+  return secret
+}
+
+// console.log(myEncrypt('2019217721'))
+export default myEncrypt

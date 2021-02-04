@@ -72,6 +72,9 @@ export default class F2Canvas extends React.Component {
         node: true,
         size: true
       }).exec(res => {
+        if (!res[0]) {
+          return
+        }
         let { node, width, height } = res[0]
         const context = node.getContext('2d')
         const pixelRatio = Taro.getSystemInfoSync().pixelRatio

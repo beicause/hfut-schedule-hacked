@@ -1,11 +1,11 @@
 import React from 'react'
 import { View } from '@tarojs/components'
 
-import { helpInfo } from '../../assets/data/helpInfo'
+// import { helpInfo } from '../../assets/data/helpInfo'
 import IconFont from '../../components/iconfont'
 import './index.scss'
 
-export default ({ onClose }) => {
+export default ({ onClose, helpInfo }) => {
 
   return (
     <View className='helpNotice'>

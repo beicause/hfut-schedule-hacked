@@ -8,6 +8,7 @@ import dayjs from 'dayjs';
 import IconFont from '../../components/iconfont'
 import StandardFloatLayout from '../../components/StandardFloatLayout'
 import HelpNotice from '../../components/HelpNotice'
+import { homeHelpInfo } from '../../assets/data/helpInfo'
 import UpdateNotice from '../../components/UpdateNotice'
 import SettingFloatLayout from './components/SettingFloatLayout'
 import GlobalThemePicker from './components/GlobalThemePicker'
@@ -275,7 +276,7 @@ function Home() {
       />
 
       { showUpdateNotice && <UpdateNotice onClose={() => setShowUpdateNotice(false)} />}
-      { showHelpNotice && <HelpNotice onClose={() => setShowHelpNotice(false)} />}
+      { showHelpNotice && <HelpNotice onClose={() => setShowHelpNotice(false)} helpInfo={homeHelpInfo} />}
 
       <SettingFloatLayout
         isOpened={showSetting}

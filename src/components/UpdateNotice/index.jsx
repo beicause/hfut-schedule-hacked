@@ -56,7 +56,7 @@ export default ({ onClose }) => {
                 </View>
               ))
             }
-            {/* <View className='updateNotice-content-line'></View> */}
+            <View className='updateNotice-content-line'></View>
           </>
         }
 
@@ -73,7 +73,7 @@ export default ({ onClose }) => {
                   <View className='updateNotice-content-item-info'>{feature.info}</View>
                   {
                     feature.comment &&
-                    <View className='updateNotice-content-item-comment'>{feature.comment}</View>
+                    feature.comment.map((text, texti) => (<View className='updateNotice-content-item-comment' key={texti}>{text}</View>))
                   }
                 </View>
               ))
@@ -84,7 +84,7 @@ export default ({ onClose }) => {
         {
           bugs.length !== 0 &&
           <>
-          {/* 只有bug更新的时候注释掉 */}
+            {/* 只有bug更新的时候注释掉 */}
             <View className='updateNotice-content-line'></View>
 
             <View className='updateNotice-content-subTitle'>
@@ -106,7 +106,7 @@ export default ({ onClose }) => {
         }
 
         {
-          btn.show && 
+          btn.show &&
           <View className='updateNotice-content-btnBox'>
             <View className='updateNotice-content-btnBox-btn' onClick={handleClickBtn}>{btn.text}</View>
           </View>

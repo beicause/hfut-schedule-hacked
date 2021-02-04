@@ -10,7 +10,8 @@ import F2Canvas from '../../../../components/F2Canvas'
 import IconFont from '../../../../components/iconfont'
 import themeC from '../../../../style/theme'
 import { GET } from '../../../../utils/request'
-import aesEncrypt from '../../utils/encrypt'
+import myEncrypt from '../../utils/encrypt'
+import levelScoreToLevel from '../../utils/levelScoreToLevel'
 import './index.scss'
 
 
@@ -46,9 +47,9 @@ function CardRanking(props) {
       const localUserData = Taro.getStorageSync('me')
       const { userInfo: { username } } = localUserData
       // 请求数据
-      GET(`/score/byDetail/${aesEncrypt(username)}/${courseCode}/${term}`)
+      GET(`/score/byDetail/${myEncrypt(username)}/${courseCode}/${term}`)
         .then(res => {
-          if (res.success) {
+          if (res.success && res.data) {
             setScoreData(res.data)
           } else {
             Taro.showToast({
@@ -175,6 +176,17 @@ function CardRanking(props) {
     )
   }
 
+  // 有多种类型的成绩
+  let score = ''
+  if (!scoreData.courseItem.commented) {
+    score = '未评教'
+  }
+  else if (scoreData.courseItem.levelScore) {
+    score = levelScoreToLevel(scoreData.courseItem.courseScore)
+  } else {
+    score = scoreData.courseItem.courseScore
+  }
+
   return (
     <View className='oneCS'>
       <View className='oneCS-shadow'></View>
@@ -185,13 +197,7 @@ function CardRanking(props) {
           <Text className='oneCS-header-left-title'>{scoreData.courseItem.courseName}</Text>
           <Text className='oneCS-header-left-comment'>{scoreData.courseItem.courseCode}</Text>
         </View>
-        <View className='oneCS-header-right' style={{ backgroundColor: themeC[`color-brand-${globalTheme}`] }}>
-          {
-            scoreData.courseItem.commented ?
-              scoreData.courseItem.courseScore :
-              '未评教'
-          }
-        </View>
+        <View className='oneCS-header-right' style={{ backgroundColor: themeC[`color-brand-${globalTheme}`] }}>{score}</View>
       </View>
 
       <View className='oneCS-content'>
@@ -225,7 +231,7 @@ function CardRanking(props) {
             <View className='oneCS-content-3tag-bottom-box'>
               <IconFont name='Customermanagement' size={48} color={themeC['color-grey']} />
               <View className='oneCS-content-3tag-bottom-box-right'>
-                <Text className='oneCS-title_small'>专业平均</Text>
+                <Text className='oneCS-title_small'>{selectedTagToZh(selectedTag)}平均</Text>
                 <Text className='oneCS-content-3tag-bottom-box-right-number'>
                   {
                     selectedTag === 0 && scoreData.majorStatistic.avgScore.toFixed(2)
@@ -243,7 +249,7 @@ function CardRanking(props) {
             <View className='oneCS-content-3tag-bottom-box'>
               <IconFont name='hot' size={48} color={themeC['color-grey']} />
               <View className='oneCS-content-3tag-bottom-box-right'>
-                <Text className='oneCS-title_small'>专业最高</Text>
+                <Text className='oneCS-title_small'>{selectedTagToZh(selectedTag)}最高</Text>
                 <Text className='oneCS-content-3tag-bottom-box-right-number'>
                   {
                     selectedTag === 0 && scoreData.majorStatistic.maxScore
@@ -307,7 +313,24 @@ function CardRanking(props) {
     </View>
   )
 
+}
 
+const selectedTagToZh = (selectedTag) => {
+  let Zh = ''
+  switch (selectedTag) {
+    case 0:
+      Zh = '专业'
+      break;
+    case 1:
+      Zh = '班级'
+      break;
+    case 2:
+      Zh = '课程'
+      break;
+    default:
+      break;
+  }
+  return Zh
 }
 
 function mapStateToProps(state) {

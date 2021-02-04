@@ -10,7 +10,7 @@ import { logout as allScheduleLogout } from './allSchedule'
 import { logout as eventLogout } from './event'
 import { logout as scoreLogout, updateUiData as updateScoreUiData } from './score'
 import { config } from '../config/config.default'
-import aesEncrypt from '../pages/score/utils/encrypt'
+import myEncrypt from '../pages/score/utils/encrypt'
 
 export const login = ({ username, password, userType, campus }) => async (dispatch) => {
   Taro.showLoading({
@@ -78,7 +78,7 @@ export const login = ({ username, password, userType, campus }) => async (dispat
 
   // 请求爬取成绩数据
   dispatch(updateScoreUiData({ crawing: true }))
-  POST(`/score/reCraw/${aesEncrypt(username)}`)
+  POST(`/score/reCraw/${myEncrypt(username)}`)
   .then(() => {
     console.log('爬虫完成')
     dispatch(updateScoreUiData({ crawing: false }))
