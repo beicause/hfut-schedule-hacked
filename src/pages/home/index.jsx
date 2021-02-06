@@ -16,7 +16,7 @@ import themeC from '../../style/theme'
 import * as scheduleActions from '../../actions/schedule'
 import './index.scss'
 
-let avatarClick = 0
+
 
 function Home() {
   const examData = useSelector(state => state.event.bizData.examData)
@@ -131,13 +131,18 @@ function Home() {
   }
 
   // 连续点击5次头像，除非美好模式
+  let avatarClick = 0
+  let timeoutid
   const handleClickAvatar = () => {
     avatarClick += 1
-    setTimeout(() => {
-      avatarClick -= 1
-    }, 4000);
+    clearTimeout(timeoutid)
+    timeoutid=setTimeout(() => {
+      avatarClick = 0
+    }, 800);
 
     if (avatarClick === 5) {
+      avatarClick=0
+
       const localConfig = Taro.getStorageSync('config')
 
       dispatch(scheduleActions.updateBizData({
